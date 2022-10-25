@@ -1,7 +1,7 @@
 package com.github.kota.premierNavi.di
 
 import com.github.kota.premierNavi.data.api.LatestGameApi
-import com.github.kota.premierNavi.data.api.NextGameApi
+//import com.github.kota.premierNavi.data.api.NextGameApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

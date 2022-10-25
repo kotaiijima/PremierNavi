@@ -19,16 +19,16 @@ class HomeViewModel @Inject constructor(
 	val latestGame: StateFlow<Team?>
 		get() = _latestGame.asStateFlow()
 
-	private val _nextGame = MutableStateFlow<Team?>(null)
-	val nextGame: StateFlow<Team?>
-		get() = _nextGame.asStateFlow()
+//	private val _nextGame = MutableStateFlow<Team?>(null)
+//	val nextGame: StateFlow<Team?>
+//		get() = _nextGame.asStateFlow()
 
 	init {
 		viewModelScope.launch {
 			val latestGame = footballDataRepository.getLatestGame(57)
 			_latestGame.value = latestGame
-			val nextGame = footballDataRepository.getNextGame(57)
-			_nextGame.value = nextGame
+//			val nextGame = footballDataRepository.getNextGame(57)
+//			_nextGame.value = nextGame
 		}
 	}
 }

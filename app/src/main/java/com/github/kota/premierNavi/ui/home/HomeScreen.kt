@@ -18,11 +18,11 @@ import com.github.kota.premierNavi.data.api.model.latestGameModel.Team
 fun HomeScreen(){
 	val homeViewModel = viewModel(modelClass = HomeViewModel::class.java)
 	val latestGame by homeViewModel.latestGame.collectAsState()
-	val nextGame by homeViewModel.latestGame.collectAsState()
+//	val nextGame by homeViewModel.latestGame.collectAsState()
 
 	Row() {
 		HomeLatestGame(team = latestGame)
-		HomeNextGame(team = nextGame)
+//		HomeNextGame(team = nextGame)
 	}
 }
 

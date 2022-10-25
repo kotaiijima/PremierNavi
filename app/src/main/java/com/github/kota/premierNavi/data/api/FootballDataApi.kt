@@ -13,10 +13,10 @@ interface LatestGameApi {
 		): Team
 }
 
-interface NextGameApi {
-	@Headers("X-Auth-Token: d7c5b36a10114765b9615d549dab8b5c")
-	@GET("/v4/teams/{teamNumber}/matches?status=SCHEDULED&limit=1")
-	suspend fun getNextGame(
-		@Path("teamNumber") teamNumber: Int
-	): Team
-}
+//interface NextGameApi {
+//	@Headers("X-Auth-Token: d7c5b36a10114765b9615d549dab8b5c")
+//	@GET("/v4/teams/{teamNumber}/matches?status=SCHEDULED&limit=1")
+//	suspend fun getNextGame(
+//		@Path("teamNumber") teamNumber: Int
+//	): Team
+//}
