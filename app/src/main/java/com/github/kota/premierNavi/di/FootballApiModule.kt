@@ -1,7 +1,6 @@
 package com.github.kota.premierNavi.di
 
-import com.github.kota.premierNavi.data.api.LatestGameApi
-//import com.github.kota.premierNavi.data.api.NextGameApi
+import com.github.kota.premierNavi.data.api.MatchApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,19 +15,11 @@ object FootballApiModule {
 
 	@Provides
 	@Singleton
-	fun provideLatestGameApi(builder:Retrofit.Builder): LatestGameApi{
+	fun provideLatestGameApi(builder:Retrofit.Builder): MatchApi{
 		return builder
 			.build()
-			.create(LatestGameApi::class.java)
+			.create(MatchApi::class.java)
 	}
-
-//	@Provides
-//	@Singleton
-//	fun provideNextGameApi(builder:Retrofit.Builder): NextGameApi{
-//		return builder
-//			.build()
-//			.create(NextGameApi::class.java)
-//	}
 
 	@Provides
 	@Singleton

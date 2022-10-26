@@ -28,7 +28,7 @@ private val LightColorPalette = lightColors(
 )
 
 @Composable
-fun TestRetrofitTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
+fun PremierNaviTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
 	val colors = if (darkTheme) {
 		DarkColorPalette
 	} else {
