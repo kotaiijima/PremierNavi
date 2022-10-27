@@ -1,11 +1,11 @@
-package com.github.kota.premierNavi.data.api.model.matchModel
+package com.github.kota.premierNavi.data.api.model.statsModel
 
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class Team(
+data class Stats(
     @Json(name = "filters")
     val filters: Filters,
     @Json(name = "matches")

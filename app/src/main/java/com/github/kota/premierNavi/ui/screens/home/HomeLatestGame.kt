@@ -8,15 +8,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
-import com.github.kota.premierNavi.data.api.model.matchModel.Team
+import com.github.kota.premierNavi.data.api.model.matchModel.Match
 
 @Composable
-fun HomeLatestGame(team: Team?){
-	val homeTeam = rememberImagePainter(data = team?.matches?.get(0)?.homeTeam?.crest)
-	val awayTeam = rememberImagePainter(data = team?.matches?.get(0)?.awayTeam?.crest)
+fun HomeLatestGame(match: Match?){
+	val homeTeam = rememberImagePainter(data = match?.matches?.get(0)?.homeTeam?.crest)
+	val awayTeam = rememberImagePainter(data = match?.matches?.get(0)?.awayTeam?.crest)
 
-	val section = "第${team?.matches?.get(0)?.season?.currentMatchday}節"
-	val matchResult = "${team?.matches?.get(0)?.score?.fullTime?.home} - ${team?.matches?.get(0)?.score?.fullTime?.away}"
+	val section = "第${match?.matches?.get(0)?.season?.currentMatchday}節"
+	val matchResult = "${match?.matches?.get(0)?.score?.fullTime?.home} - ${match?.matches?.get(0)?.score?.fullTime?.away}"
 	Column() {
 		Text(text = section)
 		Row() {

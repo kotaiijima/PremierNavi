@@ -10,12 +10,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
-import com.github.kota.premierNavi.data.api.model.matchModel.Team
+import com.github.kota.premierNavi.data.api.model.matchModel.Match
 
 @Composable
-fun HomeNextGame(team: Team?){
-	val homeTeam = rememberImagePainter(data = team?.matches?.get(0)?.homeTeam?.crest)
-	val awayTeam = rememberImagePainter(data = team?.matches?.get(0)?.awayTeam?.crest)
+fun HomeNextGame(match: Match?){
+	val homeTeam = rememberImagePainter(data = match?.matches?.get(0)?.homeTeam?.crest)
+	val awayTeam = rememberImagePainter(data = match?.matches?.get(0)?.awayTeam?.crest)
 	
 	Column() {
 		Text(text = "次の試合:")

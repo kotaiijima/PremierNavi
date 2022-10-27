@@ -13,13 +13,13 @@
 		android:label="@string/app_name"
 		android:roundIcon="@mipmap/ic_launcher_round"
 		android:supportsRtl="true"
-		android:theme="@style/Theme.TestRetrofit"
+		android:theme="@style/Theme.PremierNavi"
 		tools:targetApi="31">
 		<activity
 			android:name="com.github.kota.premierNavi.MainActivity"
 			android:exported="true"
 			android:label="@string/app_name"
-			android:theme="@style/Theme.TestRetrofit">
+			android:theme="@style/Theme.PremierNavi">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 

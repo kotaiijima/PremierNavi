@@ -12,11 +12,13 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import com.github.kota.premierNavi.R
 
-@RequiresApi(Build.VERSION_CODES.N)
 @Composable
-fun BottomBar(){
+fun BottomBar(
+	navController: NavController
+){
 	val bottomMenuItemList = prepareBottomMenu()
 
 	val selectedItem by remember {
@@ -29,7 +31,7 @@ fun BottomBar(){
 			BottomNavigationItem(
 				selected = (selectedItem == menuItem.label),
 				onClick = {
-
+						  navController.navigate(menuItem.label)
 				},
 				icon = {
 					Icon(
@@ -38,26 +40,18 @@ fun BottomBar(){
 				})
 		}
 	}
-
 }
 
 @Composable
 private fun prepareBottomMenu(): List<BottomMenuItem> {
 	val bottomMenuItemsList = arrayListOf<BottomMenuItem>()
 
-	bottomMenuItemsList.add(BottomMenuItem(label = "Home", icon = painterResource(id = R.drawable.home)))
-	bottomMenuItemsList.add(BottomMenuItem(label = "Results", icon = painterResource(id = R.drawable.sports_soccer)))
-	bottomMenuItemsList.add(BottomMenuItem(label = "Stats", icon = painterResource(id = R.drawable.rank)))
-	bottomMenuItemsList.add(BottomMenuItem(label = "Players", icon = painterResource(id = R.drawable.players)))
+	bottomMenuItemsList.add(BottomMenuItem(label = "home", icon = painterResource(id = R.drawable.home)))
+	bottomMenuItemsList.add(BottomMenuItem(label = "stats", icon = painterResource(id = R.drawable.sports_soccer)))
+	bottomMenuItemsList.add(BottomMenuItem(label = "rank", icon = painterResource(id = R.drawable.rank)))
+	bottomMenuItemsList.add(BottomMenuItem(label = "players", icon = painterResource(id = R.drawable.players)))
 
 	return bottomMenuItemsList
 }
 
 data class BottomMenuItem(val label: String, val icon: Painter)
-
-@RequiresApi(Build.VERSION_CODES.N)
-@Composable
-@Preview
-fun BottomBarPreview(){
-	BottomBar()
-}

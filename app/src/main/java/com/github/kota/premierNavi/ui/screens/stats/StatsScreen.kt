@@ -1,10 +1,7 @@
-package com.github.kota.premierNavi.ui.screens.players
+package com.github.kota.premierNavi.ui.screens.stats
 
-import android.os.Build
-import androidx.annotation.RequiresApi
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -12,19 +9,23 @@ import androidx.compose.runtime.getValue
 import androidx.navigation.NavController
 import com.github.kota.premierNavi.ui.screens.BottomBar
 import com.github.kota.premierNavi.ui.screens.TopBar
+import com.github.kota.premierNavi.ui.screens.rank.RankContent
 import com.github.kota.premierNavi.ui.viewmodel.MainViewModel
 
 @Composable
-fun PlayerScreen(
+fun StatsScreen(
 	navController: NavController,
-	mainViewModel: MainViewModel
+	viewModel: MainViewModel
 ){
-	val team by mainViewModel.team.collectAsState()
+	val stats by viewModel.stats.collectAsState()
+
 	val scaffoldState = rememberScaffoldState()
 	Scaffold(
 		scaffoldState = scaffoldState,
 		content = {
-				  PlayerContent(team = team)
+			Column() {
+				StatsContent(stats = stats)
+			}
 		},
 		topBar = { TopBar(navController = navController) },
 		bottomBar = { BottomBar(navController = navController) }
