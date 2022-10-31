@@ -1,5 +1,7 @@
 package com.github.kota.premierNavi.ui.screens.stats
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,7 +20,10 @@ import coil.compose.rememberImagePainter
 import com.github.kota.premierNavi.component.TeamCrestCard
 import com.github.kota.premierNavi.data.api.model.statsModel.Match
 import com.github.kota.premierNavi.data.api.model.statsModel.Stats
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun StatsContent(
 	stats: Stats?
@@ -31,9 +36,9 @@ fun StatsContent(
 			StatsItem(it)
 		}
 	}
-	Divider()
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 private fun StatsItem(match: Match){
 	val awayTeamCrest = rememberImagePainter(data = match.awayTeam.crest)
@@ -41,19 +46,33 @@ private fun StatsItem(match: Match){
 
 	val awayTeam = match.awayTeam.shortName
 	val homeTeam = match.homeTeam.shortName
+
+	lateinit var scoreOrTime: String
+	lateinit var date: ZonedDateTime
+	if (match.score.fullTime.home == null || match.score.fullTime.away == null){
+		date = ZonedDateTime.parse(match.utcDate).plusHours(9)
+		val dtf = DateTimeFormatter.ofPattern("HH:mm")
+		scoreOrTime = date.format(dtf)
+	}else{
+		scoreOrTime = "${match.score.fullTime.home} - ${match.score.fullTime.away}"
+	}
+
 	Divider()
-	Row {
+	Row (verticalAlignment = Alignment.CenterVertically){
+
 		Row(
 			modifier = Modifier
 				.wrapContentWidth(Alignment.Start)
 				.weight(1f)
-				.padding(start = 30.dp)
+				.padding(start = 20.dp),
+			verticalAlignment = Alignment.CenterVertically
 		) {
 			Image(
 				painter = homeTeamCrest ,
 				contentDescription = "home team crest",
 				modifier = Modifier
-					.size(40.dp),
+					.size(40.dp)
+					.padding(5.dp),
 				contentScale = ContentScale.Fit
 			)
 			Text(
@@ -63,12 +82,13 @@ private fun StatsItem(match: Match){
 				fontSize = MaterialTheme.typography.subtitle2.fontSize
 			)
 		}
-		Text(text = "${match.score.fullTime.home} - ${match.score.fullTime.away}")
+		Text(text = scoreOrTime)
 		Row(
 			modifier = Modifier
 				.wrapContentWidth(Alignment.End)
 				.weight(1f)
-				.padding(end = 30.dp)
+				.padding(end = 20.dp),
+			verticalAlignment = Alignment.CenterVertically
 		) {
 			Text(
 				modifier = Modifier.padding(end = 5.dp),
@@ -80,7 +100,8 @@ private fun StatsItem(match: Match){
 				painter = awayTeamCrest ,
 				contentDescription = "home team crest",
 				modifier = Modifier
-					.size(40.dp),
+					.size(40.dp)
+					.padding(5.dp),
 				contentScale = ContentScale.Fit
 			)
 		}

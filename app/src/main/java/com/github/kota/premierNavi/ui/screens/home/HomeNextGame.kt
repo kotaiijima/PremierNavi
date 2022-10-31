@@ -40,12 +40,14 @@ fun HomeNextGame(match: Match?){
 
 	val homeTeam = match?.matches?.get(0)?.homeTeam?.shortName
 	val awayTeam = match?.matches?.get(0)?.awayTeam?.shortName
+
 	lateinit var date:  ZonedDateTime
 	lateinit var dateToString:  String
+
 	val utcDate = match?.matches?.get(0)?.utcDate
 	if (utcDate != null){
 		date = ZonedDateTime.parse(utcDate).plusHours(9)
-		val dtf = DateTimeFormatter.ofPattern("MM月dd日\nHH:mm")
+		val dtf = DateTimeFormatter.ofPattern("MM/dd\nHH:mm")
 		dateToString = date.format(dtf)
 	} else{
 		dateToString = "null"
@@ -62,7 +64,8 @@ fun HomeNextGame(match: Match?){
 			fontWeight = FontWeight.Bold,
 			text = "次の試合:")
 		Row(
-			modifier = Modifier.padding(top = 20.dp)
+			modifier = Modifier.padding(10.dp),
+			verticalAlignment = Alignment.CenterVertically
 		) {
 			TeamCrestCard(
 				crest = homeTeamCrest,
@@ -70,8 +73,10 @@ fun HomeNextGame(match: Match?){
 				modifier = Modifier
 					.wrapContentWidth(Alignment.Start)
 					.weight(1f)
-					.padding(start = 30.dp)
-				)
+					.padding(start = 20.dp)
+					.width(IntrinsicSize.Max),
+
+			)
 			Text(
 				fontSize = MaterialTheme.typography.h5.fontSize,
 				fontWeight = FontWeight.Bold,
@@ -84,7 +89,8 @@ fun HomeNextGame(match: Match?){
 				modifier = Modifier
 					.wrapContentWidth(Alignment.End)
 					.weight(1f)
-					.padding(end = 30.dp)
+					.padding(end = 20.dp)
+					.width(IntrinsicSize.Max)
 				)
 		}
 	}

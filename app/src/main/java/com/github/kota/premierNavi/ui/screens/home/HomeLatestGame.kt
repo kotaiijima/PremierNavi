@@ -45,7 +45,8 @@ fun HomeLatestGame(match: Match?){
 
 	Column() {
 		Text(
-			modifier = Modifier.padding(20.dp),
+			modifier = Modifier
+				.padding(20.dp),
 			fontWeight = FontWeight.Normal,
 			fontSize = MaterialTheme.typography.h5.fontSize ,
 			text = "-- 直近の成績 --")
@@ -64,7 +65,8 @@ fun HomeLatestGame(match: Match?){
 		}
 		Row(
 			modifier = Modifier
-				.padding(top = 30.dp)
+				.padding(top = 30.dp),
+			verticalAlignment = Alignment.CenterVertically
 		) {
 			TeamCrestCard(
 				crest = homeTeamCrest,
