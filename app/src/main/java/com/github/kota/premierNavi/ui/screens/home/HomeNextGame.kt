@@ -1,40 +1,91 @@
 package com.github.kota.premierNavi.ui.screens.home
 
+import android.icu.text.MessageFormat.format
+import android.os.Build
+import android.text.format.DateFormat.format
+import android.text.format.DateFormat.getBestDateTimePattern
+import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
+import com.github.kota.premierNavi.component.TeamCrestCard
 import com.github.kota.premierNavi.data.api.model.matchModel.Match
+import com.github.kota.premierNavi.ui.theme.LARGE_PADDING
+import java.lang.String.format
+import java.text.DateFormat
+import java.text.MessageFormat.format
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun HomeNextGame(match: Match?){
-	val homeTeam = rememberImagePainter(data = match?.matches?.get(0)?.homeTeam?.crest)
-	val awayTeam = rememberImagePainter(data = match?.matches?.get(0)?.awayTeam?.crest)
-	
-	Column() {
-		Text(text = "次の試合:")
-		Row() {
-			Image(
-				painter = homeTeam ,
-				contentDescription = "home team icon",
+	val homeTeamCrest = rememberImagePainter(data = match?.matches?.get(0)?.homeTeam?.crest)
+	val awayTeamCrest = rememberImagePainter(data = match?.matches?.get(0)?.awayTeam?.crest)
+
+	val homeTeam = match?.matches?.get(0)?.homeTeam?.shortName
+	val awayTeam = match?.matches?.get(0)?.awayTeam?.shortName
+	lateinit var date:  ZonedDateTime
+	lateinit var dateToString:  String
+	val utcDate = match?.matches?.get(0)?.utcDate
+	if (utcDate != null){
+		date = ZonedDateTime.parse(utcDate).plusHours(9)
+		val dtf = DateTimeFormatter.ofPattern("MM月dd日\nHH:mm")
+		dateToString = date.format(dtf)
+	} else{
+		dateToString = "null"
+	}
+
+	Column(
+		modifier = Modifier
+			.fillMaxWidth()
+			.background(MaterialTheme.colors.background)
+			.padding(top = 30.dp)
+	) {
+		Text(
+			fontSize = MaterialTheme.typography.h5.fontSize,
+			fontWeight = FontWeight.Bold,
+			text = "次の試合:")
+		Row(
+			modifier = Modifier.padding(top = 20.dp)
+		) {
+			TeamCrestCard(
+				crest = homeTeamCrest,
+				name = homeTeam,
 				modifier = Modifier
-					.size(200.dp),
-				contentScale = ContentScale.Fit
+					.wrapContentWidth(Alignment.Start)
+					.weight(1f)
+					.padding(start = 30.dp)
+				)
+			Text(
+				fontSize = MaterialTheme.typography.h5.fontSize,
+				fontWeight = FontWeight.Bold,
+				textAlign = TextAlign.Center,
+				text = (dateToString)
 			)
-			Text(text = "-")
-			Image(
-				painter = awayTeam ,
-				contentDescription = "away team icon",
+			TeamCrestCard(
+				crest = awayTeamCrest,
+				name = awayTeam,
 				modifier = Modifier
-					.size(200.dp),
-				contentScale = ContentScale.Fit
-			)
+					.wrapContentWidth(Alignment.End)
+					.weight(1f)
+					.padding(end = 30.dp)
+				)
 		}
 	}
 }

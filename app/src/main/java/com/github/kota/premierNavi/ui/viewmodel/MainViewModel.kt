@@ -40,9 +40,9 @@ class MainViewModel @Inject constructor(
 
 	init {
 		viewModelScope.launch {
-			val latestGame = footballDataRepository.getLatestGame(57, "FINISHED")
+			val latestGame = footballDataRepository.getMatch(57, "FINISHED")
 			_latestGame.value = latestGame
-			val nextGame = footballDataRepository.getLatestGame(57, "SCHEDULED")
+			val nextGame = footballDataRepository.getMatch(57, "SCHEDULED")
 			_nextGame.value = nextGame
 			val team = footballDataRepository.getTeam(57)
 			_team.value = team

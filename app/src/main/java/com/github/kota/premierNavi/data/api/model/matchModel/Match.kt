@@ -9,7 +9,7 @@ data class Match(
     @Json(name = "filters")
     val filters: Filters,
     @Json(name = "matches")
-    val matches: List<Matche>,
+    val matches: List<Matches>,
     @Json(name = "resultSet")
     val resultSet: ResultSet
 )

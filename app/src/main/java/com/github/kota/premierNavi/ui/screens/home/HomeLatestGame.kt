@@ -1,39 +1,93 @@
 package com.github.kota.premierNavi.ui.screens.home
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
+import com.github.kota.premierNavi.component.TeamCrestCard
 import com.github.kota.premierNavi.data.api.model.matchModel.Match
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun HomeLatestGame(match: Match?){
-	val homeTeam = rememberImagePainter(data = match?.matches?.get(0)?.homeTeam?.crest)
-	val awayTeam = rememberImagePainter(data = match?.matches?.get(0)?.awayTeam?.crest)
+	val homeTeamCrest = rememberImagePainter(data = match?.matches?.get(0)?.homeTeam?.crest)
+	val awayTeamCrest = rememberImagePainter(data = match?.matches?.get(0)?.awayTeam?.crest)
 
 	val section = "第${match?.matches?.get(0)?.season?.currentMatchday}節"
 	val matchResult = "${match?.matches?.get(0)?.score?.fullTime?.home} - ${match?.matches?.get(0)?.score?.fullTime?.away}"
+
+	val homeTeam = match?.matches?.get(0)?.homeTeam?.shortName
+	val awayTeam = match?.matches?.get(0)?.awayTeam?.shortName
+
+	lateinit var date: ZonedDateTime
+	lateinit var dateToString:  String
+	val utcDate = match?.matches?.get(0)?.utcDate
+	if (utcDate != null){
+		date = ZonedDateTime.parse(utcDate).plusHours(9)
+		val dtf = DateTimeFormatter.ofPattern("MM月dd日 HH:mm")
+		dateToString = date.format(dtf)
+	} else{
+		dateToString = "null"
+	}
+
 	Column() {
-		Text(text = section)
-		Row() {
-			Image(
-				painter = homeTeam ,
-				contentDescription = "home team icon",
+		Text(
+			modifier = Modifier.padding(20.dp),
+			fontWeight = FontWeight.Normal,
+			fontSize = MaterialTheme.typography.h5.fontSize ,
+			text = "-- 直近の成績 --")
+		Row(modifier = Modifier
+			.fillMaxWidth()
+			.padding(10.dp)) {
+			Text(
+				modifier = Modifier.padding(end = 5.dp),
+				fontWeight = FontWeight.Bold,
+				fontSize = MaterialTheme.typography.h5.fontSize ,
+				text = "$section: ")
+			Text(
+				fontWeight = FontWeight.Bold,
+				fontSize = MaterialTheme.typography.h5.fontSize ,
+				text = dateToString)
+		}
+		Row(
+			modifier = Modifier
+				.padding(top = 30.dp)
+		) {
+			TeamCrestCard(
+				crest = homeTeamCrest,
+				name = homeTeam,
 				modifier = Modifier
-					.size(200.dp),
-				contentScale = ContentScale.Fit
+					.wrapContentWidth(Alignment.Start)
+					.weight(1f)
+					.padding(start = 30.dp)
 			)
-			Text(text = matchResult)
-			Image(
-				painter = awayTeam ,
-				contentDescription = "away team icon",
+			Text(
+				modifier = Modifier.padding(top = 20.dp),
+				text = matchResult,
+				fontWeight = FontWeight.Bold,
+				fontSize = MaterialTheme.typography.h4.fontSize,
+				textAlign = TextAlign.Center
+				)
+			TeamCrestCard(
+				crest = awayTeamCrest,
+				name = awayTeam,
 				modifier = Modifier
-					.size(200.dp),
-				contentScale = ContentScale.Fit
+					.wrapContentWidth(Alignment.End)
+					.weight(1f)
+					.padding(end = 30.dp)
 			)
 		}
 	}

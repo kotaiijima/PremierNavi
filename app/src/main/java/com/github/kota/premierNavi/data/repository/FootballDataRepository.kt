@@ -16,7 +16,7 @@ class FootballDataRepository @Inject constructor(
 	private val rankApi: RankApi,
 	private val statsApi: StatsApi
 ){
-	suspend fun getLatestGame(teamNumber: Int, matchStatus: String): Match{
+	suspend fun getMatch(teamNumber: Int, matchStatus: String): Match{
 		return matchApi.getMatch(teamNumber, matchStatus)
 	}
 

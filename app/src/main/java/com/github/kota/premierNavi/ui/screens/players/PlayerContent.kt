@@ -1,13 +1,16 @@
 package com.github.kota.premierNavi.ui.screens.players
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.github.kota.premierNavi.R
 import com.github.kota.premierNavi.data.api.model.teamModel.Squad
@@ -27,10 +30,24 @@ fun PlayerItem(
 	squad: Squad
 ){
 	Row() {
-		Image(painter = painterResource(id = R.drawable.players), contentDescription = "player icon")
-		Column() {
-			Text(text = squad.name)
-			Text(text = squad.position)
+		Image(
+			modifier = Modifier.size(150.dp),
+			painter = painterResource(id = R.drawable.players),
+			contentDescription = "player icon"
+		)
+		Column(
+			modifier = Modifier.fillMaxWidth()
+		) {
+			Text(
+				modifier = Modifier.padding(),
+				fontSize = MaterialTheme.typography.h5.fontSize,
+				fontWeight = FontWeight.Bold,
+				text = squad.name)
+			Text(
+				modifier = Modifier.padding(),
+				fontSize = MaterialTheme.typography.h5.fontSize,
+				fontWeight = FontWeight.Bold,
+				text = squad.position)
 		}
 	}
 }

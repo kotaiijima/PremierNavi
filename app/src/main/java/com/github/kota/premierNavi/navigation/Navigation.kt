@@ -1,9 +1,6 @@
 package com.github.kota.premierNavi.navigation
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -13,9 +10,10 @@ import com.github.kota.premierNavi.ui.screens.rank.RankScreen
 import com.github.kota.premierNavi.ui.screens.stats.StatsScreen
 import com.github.kota.premierNavi.ui.viewmodel.MainViewModel
 import com.github.kota.premierNavi.utils.Constants.HOME_SCREEN
+import com.github.kota.premierNavi.utils.Constants.PLAYER_SCREEN
+import com.github.kota.premierNavi.utils.Constants.RANK_SCREEN
+import com.github.kota.premierNavi.utils.Constants.STATS_SCREEN
 
-
-@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun SetupNavigation(
 	navController: NavHostController,
@@ -26,15 +24,15 @@ fun SetupNavigation(
 				navController = navController,
 				mainViewModel = viewModel
 			) }
-			composable("players"){ PlayerScreen(
+			composable(PLAYER_SCREEN){ PlayerScreen(
 				navController = navController,
 				mainViewModel = viewModel
 			) }
-			composable("rank"){ RankScreen(
+			composable(RANK_SCREEN){ RankScreen(
 				navController = navController,
 				viewModel = viewModel)}
 
-			composable("stats"){ StatsScreen(
+			composable(STATS_SCREEN){ StatsScreen(
 				navController = navController,
 				viewModel = viewModel)}
 	}

@@ -14,6 +14,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import com.github.kota.premierNavi.R
+import com.github.kota.premierNavi.utils.Constants.HOME_SCREEN
+import com.github.kota.premierNavi.utils.Constants.PLAYER_SCREEN
+import com.github.kota.premierNavi.utils.Constants.RANK_SCREEN
+import com.github.kota.premierNavi.utils.Constants.STATS_SCREEN
 
 @Composable
 fun BottomBar(
@@ -22,7 +26,7 @@ fun BottomBar(
 	val bottomMenuItemList = prepareBottomMenu()
 
 	val selectedItem by remember {
-		mutableStateOf("Home")
+		mutableStateOf(HOME_SCREEN)
 	}
 
 	BottomNavigation {
@@ -46,10 +50,10 @@ fun BottomBar(
 private fun prepareBottomMenu(): List<BottomMenuItem> {
 	val bottomMenuItemsList = arrayListOf<BottomMenuItem>()
 
-	bottomMenuItemsList.add(BottomMenuItem(label = "home", icon = painterResource(id = R.drawable.home)))
-	bottomMenuItemsList.add(BottomMenuItem(label = "stats", icon = painterResource(id = R.drawable.sports_soccer)))
-	bottomMenuItemsList.add(BottomMenuItem(label = "rank", icon = painterResource(id = R.drawable.rank)))
-	bottomMenuItemsList.add(BottomMenuItem(label = "players", icon = painterResource(id = R.drawable.players)))
+	bottomMenuItemsList.add(BottomMenuItem(label = HOME_SCREEN, icon = painterResource(id = R.drawable.home)))
+	bottomMenuItemsList.add(BottomMenuItem(label = STATS_SCREEN, icon = painterResource(id = R.drawable.sports_soccer)))
+	bottomMenuItemsList.add(BottomMenuItem(label = RANK_SCREEN, icon = painterResource(id = R.drawable.rank)))
+	bottomMenuItemsList.add(BottomMenuItem(label = PLAYER_SCREEN, icon = painterResource(id = R.drawable.players)))
 
 	return bottomMenuItemsList
 }

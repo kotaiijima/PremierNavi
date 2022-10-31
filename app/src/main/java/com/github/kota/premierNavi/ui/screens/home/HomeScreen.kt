@@ -7,11 +7,13 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.github.kota.premierNavi.ui.screens.BottomBar
 import com.github.kota.premierNavi.ui.screens.TopBar
 import com.github.kota.premierNavi.ui.viewmodel.MainViewModel
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun HomeScreen(
 	navController: NavController,
@@ -26,7 +28,8 @@ fun HomeScreen(
 		content = {
 			Column() {
 				HomeLatestGame(match = latestGame)
-				HomeNextGame(match = nextGame)
+				HomeNextGame(
+					match = nextGame)
 			}
 		},
 		topBar = {TopBar(navController = navController) },

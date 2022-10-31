@@ -6,10 +6,10 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class Stats(
-    @Json(name = "filters")
+	@Json(name = "filters")
     val filters: Filters,
-    @Json(name = "matches")
-    val matches: List<Matche>,
-    @Json(name = "resultSet")
+	@Json(name = "matches")
+    val matches: List<Match>,
+	@Json(name = "resultSet")
     val resultSet: ResultSet
 )

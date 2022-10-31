@@ -2,6 +2,7 @@ package com.github.kota.premierNavi.ui.screens
 
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -20,7 +21,7 @@ fun TopBar(
 			Text(text = "PremierNavi")
 		},
 		navigationIcon = {
-			val icon = Icons.Filled.Settings
+			val icon = Icons.Filled.Menu
 			val onClick: () -> Unit = {}
 
 			icon.let {

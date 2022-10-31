@@ -1,11 +1,11 @@
-package com.github.kota.premierNavi.data.api.model.matchModel
+package com.github.kota.premierNavi.data.api.model.statsModel
 
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class Matche(
+data class Match(
     @Json(name = "area")
     val area: Area,
     @Json(name = "awayTeam")

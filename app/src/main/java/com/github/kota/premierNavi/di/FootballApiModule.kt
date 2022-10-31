@@ -19,7 +19,7 @@ object FootballApiModule {
 
 	@Provides
 	@Singleton
-	fun provideLatestGameApi(builder:Retrofit.Builder): MatchApi{
+	fun provideMatchApi(builder:Retrofit.Builder): MatchApi{
 		return builder
 			.build()
 			.create(MatchApi::class.java)

@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
-import com.github.kota.premierNavi.data.api.model.statsModel.Matche
+import com.github.kota.premierNavi.data.api.model.statsModel.Match
 import com.github.kota.premierNavi.data.api.model.statsModel.Stats
 
 @Composable
@@ -26,9 +26,9 @@ fun StatsContent(
 }
 
 @Composable
-private fun StatsItem(matche: Matche){
-	val awayTeamCrest = rememberImagePainter(data = matche.awayTeam.crest)
-	val homeTeamCrest = rememberImagePainter(data = matche.homeTeam.crest)
+private fun StatsItem(match: Match){
+	val awayTeamCrest = rememberImagePainter(data = match.awayTeam.crest)
+	val homeTeamCrest = rememberImagePainter(data = match.homeTeam.crest)
 
 	Row() {
 		Image(
@@ -38,7 +38,7 @@ private fun StatsItem(matche: Matche){
 				.size(40.dp),
 			contentScale = ContentScale.Fit
 		)
-		 Text(text = "${matche.score.fullTime.home} - ${matche.score.fullTime.away}")
+		 Text(text = "${match.score.fullTime.home} - ${match.score.fullTime.away}")
 		Image(
 			painter = awayTeamCrest ,
 			contentDescription = "away team crest",
