@@ -1,6 +1,7 @@
 package com.github.kota.premierNavi.ui.screens.stats
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material.Divider
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
@@ -23,9 +24,7 @@ fun StatsScreen(
 	Scaffold(
 		scaffoldState = scaffoldState,
 		content = {
-			Column() {
-				StatsContent(stats = stats)
-			}
+			StatsContent(stats = stats)
 		},
 		topBar = { TopBar(navController = navController) },
 		bottomBar = { BottomBar(navController = navController) }

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,6 +24,7 @@ fun RankContent(
 			RankItem(it)
 		}
 	}
+	Divider()
 }
 
 @Composable
@@ -30,7 +32,8 @@ private fun RankItem(
 	table: Table
 ){
 	val clubCrest = rememberImagePainter(data = table.team.crest)
-	Row() {
+	Divider()
+	Row {
 		Text(text = "${table.position}")
 		Image(
 			painter = clubCrest ,
