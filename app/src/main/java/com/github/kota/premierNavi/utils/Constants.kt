@@ -5,4 +5,5 @@ object Constants {
 	const val RANK_SCREEN = "rank"
 	const val STATS_SCREEN = "stats"
 	const val PLAYER_SCREEN = "players"
+	const val SPLASH_SCREEN = "splash"
 }

@@ -60,9 +60,10 @@ fun HomeNextGame(match: Match?){
 			.padding(top = 30.dp)
 	) {
 		Text(
+			modifier = Modifier.padding(10.dp),
 			fontSize = MaterialTheme.typography.h5.fontSize,
 			fontWeight = FontWeight.Bold,
-			text = "次の試合:")
+			text = "次の試合")
 		Row(
 			modifier = Modifier.padding(10.dp),
 			verticalAlignment = Alignment.CenterVertically

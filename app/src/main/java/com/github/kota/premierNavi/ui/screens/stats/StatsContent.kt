@@ -12,12 +12,10 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
-import com.github.kota.premierNavi.component.TeamCrestCard
 import com.github.kota.premierNavi.data.api.model.statsModel.Match
 import com.github.kota.premierNavi.data.api.model.statsModel.Stats
 import java.time.ZonedDateTime
@@ -46,64 +44,83 @@ private fun StatsItem(match: Match){
 
 	val awayTeam = match.awayTeam.shortName
 	val homeTeam = match.homeTeam.shortName
+	val utcDate = ZonedDateTime.parse(match.utcDate).plusHours(9)
+	val dateFormat = DateTimeFormatter.ofPattern("MM/dd")
+	val dateToJapan = utcDate.format(dateFormat)
+	val matchday = "第${match.matchday}節"
 
-	lateinit var scoreOrTime: String
-	lateinit var date: ZonedDateTime
-	if (match.score.fullTime.home == null || match.score.fullTime.away == null){
-		date = ZonedDateTime.parse(match.utcDate).plusHours(9)
-		val dtf = DateTimeFormatter.ofPattern("HH:mm")
-		scoreOrTime = date.format(dtf)
+	val scoreOrTime = if (match.score.fullTime.home == null || match.score.fullTime.away == null){
+		val timeFormat = DateTimeFormatter.ofPattern("HH:mm")
+		utcDate.format(timeFormat)
 	}else{
-		scoreOrTime = "${match.score.fullTime.home} - ${match.score.fullTime.away}"
+		"${match.score.fullTime.home} - ${match.score.fullTime.away}"
 	}
 
 	Divider()
-	Row (verticalAlignment = Alignment.CenterVertically){
-
-		Row(
-			modifier = Modifier
-				.wrapContentWidth(Alignment.Start)
-				.weight(1f)
-				.padding(start = 20.dp),
-			verticalAlignment = Alignment.CenterVertically
-		) {
-			Image(
-				painter = homeTeamCrest ,
-				contentDescription = "home team crest",
-				modifier = Modifier
-					.size(40.dp)
-					.padding(5.dp),
-				contentScale = ContentScale.Fit
+	Column(
+		modifier = Modifier.padding(10.dp)
+	) {
+		Row{
+			Text(
+				fontSize = MaterialTheme.typography.subtitle2.fontSize,
+				fontWeight = FontWeight.Bold,
+				text = dateToJapan
 			)
 			Text(
-				modifier = Modifier.padding(start = 5.dp),
-				text = homeTeam,
+				modifier = Modifier.padding(start = 10.dp),
+				fontSize = MaterialTheme.typography.subtitle2.fontSize,
 				fontWeight = FontWeight.Normal,
-				fontSize = MaterialTheme.typography.subtitle2.fontSize
-			)
+				text = matchday)
 		}
-		Text(text = scoreOrTime)
-		Row(
-			modifier = Modifier
-				.wrapContentWidth(Alignment.End)
-				.weight(1f)
-				.padding(end = 20.dp),
-			verticalAlignment = Alignment.CenterVertically
-		) {
-			Text(
-				modifier = Modifier.padding(end = 5.dp),
-				text = awayTeam,
-				fontWeight = FontWeight.Normal,
-				fontSize = MaterialTheme.typography.subtitle2.fontSize
-			)
-			Image(
-				painter = awayTeamCrest ,
-				contentDescription = "home team crest",
+		Row (
+			verticalAlignment = Alignment.CenterVertically,
+			modifier = Modifier.height(IntrinsicSize.Max)
+		){
+			Row(
 				modifier = Modifier
-					.size(40.dp)
-					.padding(5.dp),
-				contentScale = ContentScale.Fit
-			)
+					.wrapContentWidth(Alignment.Start)
+					.weight(1f)
+					.padding(top = 5.dp),
+				verticalAlignment = Alignment.CenterVertically
+			) {
+				Image(
+					painter = homeTeamCrest,
+					contentDescription = "home team crest",
+					modifier = Modifier
+						.size(40.dp)
+						.padding(5.dp),
+					contentScale = ContentScale.Fit
+				)
+				Text(
+					modifier = Modifier.padding(start = 5.dp),
+					text = homeTeam,
+					fontWeight = FontWeight.Normal,
+					fontSize = MaterialTheme.typography.subtitle2.fontSize
+				)
+			}
+			Text(text = scoreOrTime)
+			Row(
+				modifier = Modifier
+					.wrapContentWidth(Alignment.End)
+					.weight(1f)
+					.padding(end = 20.dp),
+				verticalAlignment = Alignment.CenterVertically
+			) {
+				Text(
+					modifier = Modifier.padding(end = 5.dp),
+					text = awayTeam,
+					fontWeight = FontWeight.Normal,
+					fontSize = MaterialTheme.typography.subtitle2.fontSize
+				)
+				Image(
+					painter = awayTeamCrest,
+					contentDescription = "home team crest",
+					modifier = Modifier
+						.size(40.dp)
+						.padding(5.dp),
+					contentScale = ContentScale.Fit
+				)
+			}
 		}
 	}
 }

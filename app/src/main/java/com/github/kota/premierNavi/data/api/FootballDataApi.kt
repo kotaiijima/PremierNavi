@@ -4,6 +4,10 @@ import com.github.kota.premierNavi.data.api.model.matchModel.Match
 import com.github.kota.premierNavi.data.api.model.rankingModel.Rank
 import com.github.kota.premierNavi.data.api.model.statsModel.Stats
 import com.github.kota.premierNavi.data.api.model.teamModel.Team
+import com.github.kota.premierNavi.di.FootballApiModule
+import com.github.kota.premierNavi.utils.ApiResult
+import com.github.kota.premierNavi.utils.handleApi
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
@@ -15,7 +19,7 @@ interface MatchApi {
 		suspend fun getMatch(
 			@Path("teamNumber") teamNumber: Int,
 			@Query("status") status: String
-		): Match
+		): Response<Match>
 }
 
 interface TeamApi {

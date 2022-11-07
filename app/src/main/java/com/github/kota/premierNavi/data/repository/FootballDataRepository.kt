@@ -8,6 +8,9 @@ import com.github.kota.premierNavi.data.api.model.matchModel.Match
 import com.github.kota.premierNavi.data.api.model.rankingModel.Rank
 import com.github.kota.premierNavi.data.api.model.statsModel.Stats
 import com.github.kota.premierNavi.data.api.model.teamModel.Team
+import com.github.kota.premierNavi.utils.ApiResult
+import com.github.kota.premierNavi.utils.handleApi
+import retrofit2.Response
 import javax.inject.Inject
 
 class FootballDataRepository @Inject constructor(
@@ -15,9 +18,8 @@ class FootballDataRepository @Inject constructor(
 	private val teamApi: TeamApi,
 	private val rankApi: RankApi,
 	private val statsApi: StatsApi
-){
-	suspend fun getMatch(teamNumber: Int, matchStatus: String): Match{
-		return matchApi.getMatch(teamNumber, matchStatus)
+){ suspend fun getMatch(teamNumber: Int, matchStatus: String): ApiResult<Match>{
+		return handleApi { matchApi.getMatch(teamNumber, matchStatus) }
 	}
 
 	suspend fun getTeam(teamNumber: Int): Team{

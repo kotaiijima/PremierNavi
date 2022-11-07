@@ -37,7 +37,7 @@ fun HomeLatestGame(match: Match?){
 	val utcDate = match?.matches?.get(0)?.utcDate
 	if (utcDate != null){
 		date = ZonedDateTime.parse(utcDate).plusHours(9)
-		val dtf = DateTimeFormatter.ofPattern("MM月dd日 HH:mm")
+		val dtf = DateTimeFormatter.ofPattern("MM/dd HH:mm")
 		dateToString = date.format(dtf)
 	} else{
 		dateToString = "null"
