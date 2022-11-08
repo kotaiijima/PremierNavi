@@ -1,6 +1,8 @@
 package com.github.kota.premierNavi.ui.screens.rank
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -21,95 +23,107 @@ import coil.decode.SvgDecoder
 import com.github.kota.premierNavi.data.api.model.rankingModel.Rank
 import com.github.kota.premierNavi.data.api.model.rankingModel.Table
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun RankContent(
-	rank: Rank?
+	rank: Rank
 ){
-	LazyColumn(){
-		items(rank?.standings?.get(0)?.table!!){
-			RankItem(it)
+	LazyColumn {
+		stickyHeader {
+			RankItem(
+			modifier = Modifier
+				.background(color = Color.White)
+				.height(IntrinsicSize.Min)
+			)
+			Divider()
+		}
+		items(rank.standings[0].table){
+			RankItem(
+				position = it.position.toString(),
+				crest = it.team.crest,
+				teamName = it.team.shortName,
+				points = it.points.toString(),
+				playedGame = it.playedGames.toString(),
+				won = it.won.toString(),
+				draw = it.draw.toString(),
+				lost = it.lost.toString(),
+				goalDifference = it.goalDifference.toString(),
+				modifier = Modifier.height(IntrinsicSize.Min)
+			)
 		}
 	}
-	Divider()
 }
 
 @Composable
 private fun RankItem(
-	table: Table
-){
-	val clubCrest = rememberImagePainter(data = table.team.crest, builder = {
-		decoder(SvgDecoder(LocalContext.current))
-	})
-	Divider()
+	position: String = "順位",
+	crest: String = "",
+	teamName: String = "チーム",
+	points: String = "勝点",
+	playedGame: String = "試合",
+	won: String = "勝",
+	draw: String = "引",
+	lost: String = "敗",
+	goalDifference: String = "得失",
+	modifier: Modifier
+) {
 	Row (
-		modifier = Modifier.height(IntrinsicSize.Min),
+		modifier = modifier,
 		verticalAlignment = Alignment.CenterVertically,
 		horizontalArrangement = Arrangement.Center
 			){
-		Text(
-			modifier = Modifier.weight(1f),
-			textAlign = TextAlign.Center,
-			text = "${table.position}"
-		)
-		Divider(
-			modifier = Modifier.fillMaxHeight().width(1.dp)
-		)
-		Image(
-			painter = clubCrest ,
-			contentDescription = "club crest",
-			modifier = Modifier
-				.size(40.dp)
-				.padding(5.dp),
-			contentScale = ContentScale.Fit
-		)
-		Divider(
-			modifier = Modifier.fillMaxHeight().width(1.dp)
-		)
-		Text(
-			textAlign = TextAlign.Center,
-			modifier = Modifier.weight(4f),
-			text = table.team.shortName)
-		Divider(
-			modifier = Modifier.fillMaxHeight().width(1.dp)
-		)
-		Text(
-			textAlign = TextAlign.Center,
-			modifier = Modifier.weight(1f),
-			text = "${table.points}")
-		Divider(
-			modifier = Modifier.fillMaxHeight().width(1.dp)
-		)
-		Text(
-			textAlign = TextAlign.Center,
-			modifier = Modifier.weight(1f),
-			text = "${table.playedGames}")
-		Divider(
-			modifier = Modifier.fillMaxHeight().width(1.dp)
-		)
-		Text(
-			textAlign = TextAlign.Center,
-			modifier = Modifier.weight(1f),
-			text = "${table.won}")
-		Divider(
-			modifier = Modifier.fillMaxHeight().width(1.dp)
-		)
-		Text(
-			textAlign = TextAlign.Center,
-			modifier = Modifier.weight(1f),
-			text = "${table.draw}")
-		Divider(
-			modifier = Modifier.fillMaxHeight().width(1.dp)
-		)
-		Text(
-			textAlign = TextAlign.Center,
-			modifier = Modifier.weight(1f),
-			text = "${table.lost}")
-		Divider(
-			modifier = Modifier.fillMaxHeight().width(1.dp)
-		)
-		Text(
-			textAlign = TextAlign.Center,
-			modifier = Modifier.weight(1f),
-			text = "${table.goalDifference}")
+		RankItemText(text = position, modifier = Modifier.weight(1f))
+		if (crest != ""){
+			RankItemImage(image = crest, modifier = Modifier
+				.requiredSize(50.dp)
+				.padding(10.dp)
+				.weight(2f))
+			RankItemText(text = teamName, modifier = Modifier.weight(4f))
+		}else{
+			RankItemText(text = teamName, modifier = Modifier.weight(6f))
+		}
+		RankItemText(text = points, modifier = Modifier.weight(1f))
+		RankItemText(text = playedGame, modifier = Modifier.weight(1f))
+		RankItemText(text = won, modifier = Modifier.weight(1f))
+		RankItemText(text = draw, modifier = Modifier.weight(1f))
+		RankItemText(text =lost, modifier = Modifier.weight(1f))
+		RankItemText(text = goalDifference, modifier = Modifier.weight(1f))
 	}
+}
+
+@Composable
+fun RankItemText(
+	text: String,
+	modifier: Modifier
+){
+	Divider(
+		modifier = Modifier
+			.fillMaxHeight()
+			.width(1.dp)
+	)
+	Text(
+		textAlign = TextAlign.Center,
+		modifier = modifier,
+		text = text)
+}
+
+@Composable
+fun RankItemImage(
+	image: String,
+	modifier: Modifier
+){
+	val clubCrest = rememberImagePainter(data = image, builder = {
+		decoder(SvgDecoder(LocalContext.current))
+	})
+	Divider(
+		modifier = Modifier
+			.fillMaxHeight()
+			.width(1.dp)
+	)
+	Image(
+		painter = clubCrest ,
+		contentDescription = "club crest",
+		modifier = modifier,
+		contentScale = ContentScale.Fit
+	)
 }

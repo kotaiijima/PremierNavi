@@ -11,10 +11,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
+import coil.decode.SvgDecoder
 import com.github.kota.premierNavi.component.TeamCrestCard
 import com.github.kota.premierNavi.data.api.model.matchModel.Match
 import com.github.kota.premierNavi.utils.ApiResult
@@ -24,9 +26,12 @@ import java.time.format.DateTimeFormatter
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun HomeLatestGame(match: Match){
-
-	val homeTeamCrest = rememberImagePainter(data = match.matches[0].homeTeam.crest)
-	val awayTeamCrest = rememberImagePainter(data = match.matches[0].awayTeam.crest)
+	val awayTeamCrest = rememberImagePainter(data = match.matches[0].awayTeam.crest, builder = {
+		decoder(SvgDecoder(LocalContext.current))
+	})
+	val homeTeamCrest = rememberImagePainter(data = match.matches[0].homeTeam.crest, builder = {
+		decoder(SvgDecoder(LocalContext.current))
+	})
 
 	val section = "第${match.matches[0].season.currentMatchday}節"
 	val matchResult = "${match.matches[0].score.fullTime?.home} - ${match.matches[0].score.fullTime?.away}"

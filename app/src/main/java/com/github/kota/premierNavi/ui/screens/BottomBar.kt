@@ -4,6 +4,7 @@ import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
@@ -23,7 +24,7 @@ fun BottomBar(
 		mutableStateOf(HOME_SCREEN)
 	}
 
-	BottomNavigation {
+	BottomNavigation (){
 		bottomMenuItemList.forEach { menuItem ->
 
 			BottomNavigationItem(

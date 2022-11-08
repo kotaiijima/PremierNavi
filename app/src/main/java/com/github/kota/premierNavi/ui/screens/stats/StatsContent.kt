@@ -13,9 +13,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
+import coil.decode.SvgDecoder
 import com.github.kota.premierNavi.data.api.model.statsModel.Match
 import com.github.kota.premierNavi.data.api.model.statsModel.Stats
 import java.time.ZonedDateTime
@@ -39,8 +41,12 @@ fun StatsContent(
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 private fun StatsItem(match: Match){
-	val awayTeamCrest = rememberImagePainter(data = match.awayTeam.crest)
-	val homeTeamCrest = rememberImagePainter(data = match.homeTeam.crest)
+	val awayTeamCrest = rememberImagePainter(data = match.awayTeam.crest, builder = {
+		decoder(SvgDecoder(LocalContext.current))
+	})
+	val homeTeamCrest = rememberImagePainter(data = match.homeTeam.crest, builder = {
+		decoder(SvgDecoder(LocalContext.current))
+	})
 
 	val awayTeam = match.awayTeam.shortName
 	val homeTeam = match.homeTeam.shortName

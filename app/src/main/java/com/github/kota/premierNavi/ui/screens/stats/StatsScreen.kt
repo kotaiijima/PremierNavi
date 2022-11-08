@@ -38,6 +38,6 @@ fun StatsScreen(
 				LoadingAnimationView()
 		},
 		topBar = { TopBar(navController = navController) },
-		bottomBar = { BottomBar(navController = navController) }
+		bottomBar = { BottomBar(navController = navController)}
 	)
 }
