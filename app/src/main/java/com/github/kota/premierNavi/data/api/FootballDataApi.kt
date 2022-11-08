@@ -4,9 +4,6 @@ import com.github.kota.premierNavi.data.api.model.matchModel.Match
 import com.github.kota.premierNavi.data.api.model.rankingModel.Rank
 import com.github.kota.premierNavi.data.api.model.statsModel.Stats
 import com.github.kota.premierNavi.data.api.model.teamModel.Team
-import com.github.kota.premierNavi.di.FootballApiModule
-import com.github.kota.premierNavi.utils.ApiResult
-import com.github.kota.premierNavi.utils.handleApi
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -27,14 +24,14 @@ interface TeamApi {
 	@GET("/v4/teams/{teamNumber}/")
 	suspend fun getTeam(
 		@Path("teamNumber") teamNumber: Int
-	): Team
+	): Response<Team>
 }
 
 interface RankApi {
 	@Headers("X-Auth-Token: d7c5b36a10114765b9615d549dab8b5c")
 	@GET("/v4/competitions/PL/standings/")
 	suspend fun getRank(
-	): Rank
+	): Response<Rank>
 }
 
 interface StatsApi {
@@ -42,5 +39,5 @@ interface StatsApi {
 	@GET("/v4/teams/{teamNumber}/matches")
 	suspend fun getStats(
 		@Path("teamNumber") teamNumber: Int
-	): Stats
+	): Response<Stats>
 }

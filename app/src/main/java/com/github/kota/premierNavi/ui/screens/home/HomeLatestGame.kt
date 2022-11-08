@@ -17,31 +17,29 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.github.kota.premierNavi.component.TeamCrestCard
 import com.github.kota.premierNavi.data.api.model.matchModel.Match
+import com.github.kota.premierNavi.utils.ApiResult
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun HomeLatestGame(match: Match?){
-	val homeTeamCrest = rememberImagePainter(data = match?.matches?.get(0)?.homeTeam?.crest)
-	val awayTeamCrest = rememberImagePainter(data = match?.matches?.get(0)?.awayTeam?.crest)
+fun HomeLatestGame(match: Match){
 
-	val section = "第${match?.matches?.get(0)?.season?.currentMatchday}節"
-	val matchResult = "${match?.matches?.get(0)?.score?.fullTime?.home} - ${match?.matches?.get(0)?.score?.fullTime?.away}"
+	val homeTeamCrest = rememberImagePainter(data = match.matches[0].homeTeam.crest)
+	val awayTeamCrest = rememberImagePainter(data = match.matches[0].awayTeam.crest)
 
-	val homeTeam = match?.matches?.get(0)?.homeTeam?.shortName
-	val awayTeam = match?.matches?.get(0)?.awayTeam?.shortName
+	val section = "第${match.matches[0].season.currentMatchday}節"
+	val matchResult = "${match.matches[0].score.fullTime?.home} - ${match.matches[0].score.fullTime?.away}"
+
+	val homeTeam = match.matches[0].homeTeam.shortName
+	val awayTeam = match.matches[0].awayTeam.shortName
 
 	lateinit var date: ZonedDateTime
 	lateinit var dateToString:  String
-	val utcDate = match?.matches?.get(0)?.utcDate
-	if (utcDate != null){
-		date = ZonedDateTime.parse(utcDate).plusHours(9)
-		val dtf = DateTimeFormatter.ofPattern("MM/dd HH:mm")
-		dateToString = date.format(dtf)
-	} else{
-		dateToString = "null"
-	}
+	val utcDate = match.matches[0].utcDate
+	date = ZonedDateTime.parse(utcDate).plusHours(9)
+	val dtf = DateTimeFormatter.ofPattern("MM/dd HH:mm")
+	dateToString = date.format(dtf)
 
 	Column() {
 		Text(

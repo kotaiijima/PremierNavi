@@ -1,17 +1,11 @@
 package com.github.kota.premierNavi.ui.screens
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import com.github.kota.premierNavi.R
 import com.github.kota.premierNavi.utils.Constants.HOME_SCREEN

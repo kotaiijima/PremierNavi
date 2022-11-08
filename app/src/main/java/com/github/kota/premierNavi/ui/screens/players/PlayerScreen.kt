@@ -10,9 +10,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavController
+import com.github.kota.premierNavi.data.api.model.teamModel.Team
 import com.github.kota.premierNavi.ui.screens.BottomBar
 import com.github.kota.premierNavi.ui.screens.TopBar
+import com.github.kota.premierNavi.ui.screens.animation.LoadingAnimationView
 import com.github.kota.premierNavi.ui.viewmodel.MainViewModel
+import com.github.kota.premierNavi.utils.ApiResult
 
 @Composable
 fun PlayerScreen(
@@ -24,7 +27,10 @@ fun PlayerScreen(
 	Scaffold(
 		scaffoldState = scaffoldState,
 		content = {
-				  PlayerContent(team = team)
+			if (team is ApiResult.ApiSuccess)
+				  PlayerContent(team = (team as ApiResult.ApiSuccess<Team>).data)
+			else
+				LoadingAnimationView()
 		},
 		topBar = { TopBar(navController = navController) },
 		bottomBar = { BottomBar(navController = navController) }

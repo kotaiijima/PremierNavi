@@ -18,7 +18,7 @@ import com.github.kota.premierNavi.data.api.model.teamModel.Squad
 import com.github.kota.premierNavi.data.api.model.teamModel.Team
 
 @Composable
-fun PlayerContent (team: Team?){
+fun PlayerContent (team: Team){
 	LazyColumn(){
 			items(team?.squad!!){
 				PlayerItem(it)

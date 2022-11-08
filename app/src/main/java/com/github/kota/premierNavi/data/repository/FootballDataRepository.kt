@@ -18,19 +18,20 @@ class FootballDataRepository @Inject constructor(
 	private val teamApi: TeamApi,
 	private val rankApi: RankApi,
 	private val statsApi: StatsApi
-){ suspend fun getMatch(teamNumber: Int, matchStatus: String): ApiResult<Match>{
+){
+	suspend fun getMatch(teamNumber: Int, matchStatus: String): ApiResult<Match>{
 		return handleApi { matchApi.getMatch(teamNumber, matchStatus) }
 	}
 
-	suspend fun getTeam(teamNumber: Int): Team{
-		return teamApi.getTeam(teamNumber)
+	suspend fun getTeam(teamNumber: Int): ApiResult<Team>{
+		return handleApi { teamApi.getTeam(teamNumber)}
 	}
 
-	suspend fun getRank(): Rank {
-		return rankApi.getRank()
+	suspend fun getRank(): ApiResult<Rank> {
+		return handleApi {  rankApi.getRank() }
 	}
 
-	suspend fun getStats(teamNumber: Int): Stats{
-		return statsApi.getStats(teamNumber)
+	suspend fun getStats(teamNumber: Int): ApiResult<Stats>{
+		return handleApi { statsApi.getStats(teamNumber)}
 	}
 }

@@ -1,8 +1,9 @@
 package com.github.kota.premierNavi.utils
 
-sealed interface ApiResult<T : Any> {
-	object Loading : ApiResult<Nothing>
-	class ApiSuccess<T : Any>(val data: T) : ApiResult<T>
-	class ApiError<T : Any>(val code: Int, val message: String?) : ApiResult<T>
-	class ApiException<T : Any>(val e: Throwable) : ApiResult<T>
+sealed class ApiResult<out T> {
+	object Idle: ApiResult<Nothing>()
+	object Loading: ApiResult<Nothing>()
+	data class ApiSuccess<T>(val data: T) : ApiResult<T>()
+	data class ApiError<T>(val code: Int, val message: String?) : ApiResult<T>()
+	data class ApiException<T>(val e: Throwable) : ApiResult<T>()
 }

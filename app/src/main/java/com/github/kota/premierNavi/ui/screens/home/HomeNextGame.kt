@@ -34,24 +34,20 @@ import java.util.*
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun HomeNextGame(match: Match?){
-	val homeTeamCrest = rememberImagePainter(data = match?.matches?.get(0)?.homeTeam?.crest)
-	val awayTeamCrest = rememberImagePainter(data = match?.matches?.get(0)?.awayTeam?.crest)
+fun HomeNextGame(match: Match){
+	val homeTeamCrest = rememberImagePainter(data = match.matches[0].homeTeam.crest)
+	val awayTeamCrest = rememberImagePainter(data = match.matches[0].awayTeam.crest)
 
-	val homeTeam = match?.matches?.get(0)?.homeTeam?.shortName
-	val awayTeam = match?.matches?.get(0)?.awayTeam?.shortName
+	val homeTeam = match.matches[0].homeTeam.shortName
+	val awayTeam = match.matches[0].awayTeam.shortName
 
 	lateinit var date:  ZonedDateTime
 	lateinit var dateToString:  String
 
-	val utcDate = match?.matches?.get(0)?.utcDate
-	if (utcDate != null){
-		date = ZonedDateTime.parse(utcDate).plusHours(9)
-		val dtf = DateTimeFormatter.ofPattern("MM/dd\nHH:mm")
-		dateToString = date.format(dtf)
-	} else{
-		dateToString = "null"
-	}
+	val utcDate = match.matches[0].utcDate
+	date = ZonedDateTime.parse(utcDate).plusHours(9)
+	val dtf = DateTimeFormatter.ofPattern("MM/dd\nHH:mm")
+	dateToString = date.format(dtf)
 
 	Column(
 		modifier = Modifier
