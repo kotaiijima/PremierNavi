@@ -1,13 +1,15 @@
 package com.github.kota.premierNavi.ui.screens
 
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
+
+import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.github.kota.premierNavi.R
 import com.github.kota.premierNavi.utils.Constants.HOME_SCREEN
 import com.github.kota.premierNavi.utils.Constants.PLAYER_SCREEN
@@ -18,25 +20,32 @@ import com.github.kota.premierNavi.utils.Constants.STATS_SCREEN
 fun BottomBar(
 	navController: NavController
 ){
+	val navBackStackEntry by navController.currentBackStackEntryAsState()
+	val currentDestination = navBackStackEntry?.destination
 	val bottomMenuItemList = prepareBottomMenu()
 
-	val selectedItem by remember {
-		mutableStateOf(HOME_SCREEN)
-	}
-
-	BottomNavigation (){
+	BottomNavigation (
+		backgroundColor = colorResource(id = R.color.teal_700),
+		contentColor = Color.White,
+			){
 		bottomMenuItemList.forEach { menuItem ->
-
 			BottomNavigationItem(
-				selected = (selectedItem == menuItem.label),
-				onClick = {
-						  navController.navigate(menuItem.label)
-				},
 				icon = {
 					Icon(
 						painter = menuItem.icon,
 						contentDescription = menuItem.label)
-				})
+				},
+				label = { Text(text = menuItem.label) },
+				alwaysShowLabel = false,
+				selectedContentColor = Color.White,
+				unselectedContentColor = Color.White.copy(0.4f),
+				selected = currentDestination?.hierarchy?.any{
+					it.route == menuItem.label
+				} == true,
+				onClick = {
+					navController.navigate(menuItem.label)
+						  },
+			)
 		}
 	}
 }
