@@ -7,3 +7,7 @@ val MEDIUM_PADDING = 8.dp
 val SMALL_PADDING = 6.dp
 
 val bottomNavigationHeight = 56.dp
+
+val LARGE_IMAGE = 140.dp
+val MEDIUM_IMAGE = 100.dp
+val SMALL_IMAGE = 50.dp

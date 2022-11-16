@@ -15,6 +15,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.kota.premierNavi.utils.showCrest
 import com.github.kota.premierNavi.R
+import com.github.kota.premierNavi.ui.theme.LARGE_IMAGE
+import com.github.kota.premierNavi.ui.theme.LARGE_PADDING
+import com.github.kota.premierNavi.ui.theme.MEDIUM_PADDING
+import com.github.kota.premierNavi.ui.theme.SMALL_PADDING
 import org.intellij.lang.annotations.JdkConstants
 
 @Composable
@@ -30,8 +34,8 @@ fun TeamInformation(
 			painter = showCrest(crest = crest),
 			contentDescription = null,
 			modifier = Modifier
-				.size(130.dp)
-				.padding(5.dp)
+				.size(LARGE_IMAGE)
+				.padding(SMALL_PADDING)
 		)
 		Column(
 			horizontalAlignment = Alignment.CenterHorizontally,
@@ -45,7 +49,7 @@ fun TeamInformation(
 				fontWeight = FontWeight.Bold,
 				modifier = Modifier
 					.fillMaxWidth()
-					.padding(top = 10.dp)
+					.padding(top = MEDIUM_PADDING)
 				,
 				textAlign = TextAlign.Center
 			)

@@ -1,12 +1,5 @@
 package com.github.kota.premierNavi.ui.screens.home
 
-import android.icu.text.MessageFormat.format
-import android.os.Build
-import android.text.format.DateFormat.format
-import android.text.format.DateFormat.getBestDateTimePattern
-import android.util.Log
-import androidx.annotation.RequiresApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
@@ -14,23 +7,18 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.github.kota.premierNavi.component.TeamCrestCard
 import com.github.kota.premierNavi.data.api.model.matchModel.Match
 import com.github.kota.premierNavi.ui.theme.LARGE_PADDING
-import java.lang.String.format
-import java.text.DateFormat
-import java.text.MessageFormat.format
-import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.ZoneId
+import com.github.kota.premierNavi.R
+import com.github.kota.premierNavi.ui.theme.MEDIUM_IMAGE
+import com.github.kota.premierNavi.ui.theme.MEDIUM_PADDING
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
-import java.util.*
 
 @Composable
 fun HomeNextGame(match: Match){
@@ -52,15 +40,15 @@ fun HomeNextGame(match: Match){
 		modifier = Modifier
 			.fillMaxWidth()
 			.background(MaterialTheme.colors.background)
-			.padding(top = 30.dp)
+			.padding(top = LARGE_PADDING)
 	) {
 		Text(
-			modifier = Modifier.padding(10.dp),
+			modifier = Modifier.padding(LARGE_PADDING),
 			fontSize = MaterialTheme.typography.h5.fontSize,
 			fontWeight = FontWeight.Bold,
-			text = "次の試合")
+			text = stringResource(id = R.string.nextGame_text))
 		Row(
-			modifier = Modifier.padding(10.dp),
+			modifier = Modifier.padding(MEDIUM_PADDING),
 			verticalAlignment = Alignment.CenterVertically
 		) {
 			TeamCrestCard(
@@ -69,9 +57,9 @@ fun HomeNextGame(match: Match){
 				modifier_column = Modifier
 					.wrapContentWidth(Alignment.End)
 					.weight(1f)
-					.padding(end = 30.dp),
+					.padding(end = LARGE_PADDING),
 				modifier_image = Modifier
-					.requiredSize(100.dp)
+					.requiredSize(MEDIUM_IMAGE)
 			)
 			Text(
 				fontSize = MaterialTheme.typography.h5.fontSize,
@@ -85,9 +73,9 @@ fun HomeNextGame(match: Match){
 				modifier_column = Modifier
 					.wrapContentWidth(Alignment.End)
 					.weight(1f)
-					.padding(end = 30.dp),
+					.padding(end = LARGE_PADDING),
 				modifier_image = Modifier
-					.requiredSize(100.dp)
+					.requiredSize(MEDIUM_IMAGE)
 				)
 		}
 	}

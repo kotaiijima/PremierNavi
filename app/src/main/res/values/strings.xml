@@ -1,3 +1,10 @@
 <resources>
 	<string name="app_name">Premier Navi</string>
+	<string name="nextGame_text">次の試合</string>
+	<string name="latestGame_text">前回の試合結果</string>
+	<string name="initial_text">お気に入りのチームを選択してください！</string>
+	<string name="club_crest">club crest</string>
+	<string name="homeTeam_crest">home team crest</string>
+	<string name="awayTeam_crest">away team crest</string>
+
 </resources>

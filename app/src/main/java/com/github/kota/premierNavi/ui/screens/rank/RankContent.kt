@@ -16,13 +16,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import coil.decode.SvgDecoder
 import com.github.kota.premierNavi.data.api.model.rankingModel.Rank
 import com.github.kota.premierNavi.data.api.model.rankingModel.Table
+import com.github.kota.premierNavi.ui.theme.MEDIUM_PADDING
+import com.github.kota.premierNavi.ui.theme.SMALL_IMAGE
 import com.github.kota.premierNavi.utils.showCrest
+import com.github.kota.premierNavi.R
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -76,8 +80,8 @@ private fun RankItem(
 		RankItemText(text = position, modifier = Modifier.weight(1f))
 		if (crest != ""){
 			RankItemImage(image = crest, modifier = Modifier
-				.requiredSize(50.dp)
-				.padding(10.dp)
+				.requiredSize(SMALL_IMAGE)
+				.padding(MEDIUM_PADDING)
 				.weight(2f))
 			RankItemText(text = teamName, modifier = Modifier.weight(4f))
 		}else{
@@ -120,7 +124,7 @@ fun RankItemImage(
 	)
 	Image(
 		painter = showCrest(crest = image) ,
-		contentDescription = "club crest",
+		contentDescription = stringResource(id = R.string.club_crest),
 		modifier = modifier,
 		contentScale = ContentScale.Fit
 	)

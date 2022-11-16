@@ -1,9 +1,6 @@
 package com.github.kota.premierNavi.ui.screens.home
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.animation.*
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -11,11 +8,16 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.github.kota.premierNavi.component.TeamCrestCard
 import com.github.kota.premierNavi.data.api.model.matchModel.Match
+import com.github.kota.premierNavi.R
+import com.github.kota.premierNavi.ui.theme.LARGE_PADDING
+import com.github.kota.premierNavi.ui.theme.MEDIUM_PADDING
+import com.github.kota.premierNavi.ui.theme.SMALL_PADDING
 import com.github.kota.premierNavi.utils.showCrest
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -35,7 +37,7 @@ fun HomeLatestGame(match: Match){
 	val dtf = DateTimeFormatter.ofPattern("MM/dd HH:mm")
 	dateToString = date.format(dtf)
 
-	var visible by remember { mutableStateOf(true) }
+	val visible by remember { mutableStateOf(true) }
 	val density = LocalDensity.current
 
 	Column {
@@ -58,14 +60,14 @@ fun HomeLatestGame(match: Match){
 					.padding(20.dp),
 				fontWeight = FontWeight.Normal,
 				fontSize = MaterialTheme.typography.h5.fontSize ,
-				text = "前回の試合結果"
+				text = stringResource(id = R.string.latestGame_text)
 			)
 		}
 		Row(modifier = Modifier
 			.fillMaxWidth()
-			.padding(10.dp)) {
+			.padding(MEDIUM_PADDING)) {
 			Text(
-				modifier = Modifier.padding(end = 5.dp),
+				modifier = Modifier.padding(end = SMALL_PADDING),
 				fontWeight = FontWeight.Bold,
 				fontSize = MaterialTheme.typography.h5.fontSize ,
 				text = "$section: ")
@@ -76,7 +78,7 @@ fun HomeLatestGame(match: Match){
 		}
 		Row(
 			modifier = Modifier
-				.padding(top = 30.dp),
+				.padding(top = LARGE_PADDING),
 			verticalAlignment = Alignment.CenterVertically
 		) {
 			TeamCrestCard(
@@ -85,12 +87,12 @@ fun HomeLatestGame(match: Match){
 				modifier_column = Modifier
 					.wrapContentWidth(Alignment.Start)
 					.weight(1f)
-					.padding(start = 30.dp),
+					.padding(start = LARGE_PADDING),
 				modifier_image = Modifier
-					.requiredSize(100.dp)
+					.requiredSize(MEDIUM_PADDING)
 			)
 			Text(
-				modifier = Modifier.padding(top = 20.dp),
+				modifier = Modifier.padding(top = LARGE_PADDING),
 				text = matchResult,
 				fontWeight = FontWeight.Bold,
 				fontSize = MaterialTheme.typography.h4.fontSize,
@@ -102,9 +104,9 @@ fun HomeLatestGame(match: Match){
 				modifier_column = Modifier
 					.wrapContentWidth(Alignment.End)
 					.weight(1f)
-					.padding(end = 30.dp),
+					.padding(end = LARGE_PADDING),
 				modifier_image = Modifier
-					.requiredSize(100.dp)
+					.requiredSize(MEDIUM_PADDING)
 			)
 		}
 	}

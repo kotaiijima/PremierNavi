@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.kota.premierNavi.R
@@ -40,7 +41,9 @@ fun TeamCrestCard(
 					.padding(top = 5.dp),
 				text = it,
 				fontWeight = FontWeight.Normal,
-				fontSize = MaterialTheme.typography.h6.fontSize
+				fontSize = MaterialTheme.typography.h6.fontSize,
+				maxLines = 1,
+				overflow = TextOverflow.Ellipsis
 			)
 		}
 	}

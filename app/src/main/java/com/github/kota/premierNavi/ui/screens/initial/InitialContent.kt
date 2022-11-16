@@ -14,6 +14,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.github.kota.premierNavi.component.TeamCrestCard
 import com.github.kota.premierNavi.data.api.model.rankingModel.Rank
+import com.github.kota.premierNavi.ui.theme.MEDIUM_IMAGE
+import com.github.kota.premierNavi.ui.theme.MEDIUM_PADDING
 import com.github.kota.premierNavi.utils.showCrest
 
 @Composable
@@ -36,7 +38,7 @@ fun InitialItem(
 	TeamCrestCard(
 		crest = showCrest(crest = crest),
 		name = teamName,
-		modifier_column = Modifier.padding(10.dp),
-		modifier_image = Modifier.requiredSize(100.dp)
+		modifier_column = Modifier.padding(MEDIUM_PADDING),
+		modifier_image = Modifier.requiredSize(MEDIUM_IMAGE)
 	)
 }

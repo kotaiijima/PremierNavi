@@ -19,6 +19,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.kota.premierNavi.data.api.model.teamModel.Team
+import com.github.kota.premierNavi.ui.theme.MEDIUM_IMAGE
+import com.github.kota.premierNavi.ui.theme.MEDIUM_PADDING
 import com.github.kota.premierNavi.utils.calcAge
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -30,7 +32,10 @@ fun PlayerContent (team: Team){
 	val playersPositionGroup = team.squad.groupBy { it.position }
 
 	LazyColumn(
-		modifier = Modifier.padding(start = 10.dp,end = 10.dp, top = 10.dp),
+		modifier = Modifier.padding(
+			start = MEDIUM_PADDING,
+			end = MEDIUM_PADDING,
+			top = MEDIUM_PADDING),
 		state = listState){
 		stickyHeader {
 			Text(
@@ -85,7 +90,7 @@ fun PlayerItem(
 			){
 		Text(
 			modifier = Modifier
-				.padding(10.dp)
+				.padding(MEDIUM_PADDING)
 				.weight(4f),
 			fontSize = MaterialTheme.typography.subtitle1.fontSize,
 			fontWeight = FontWeight.Normal,
@@ -100,7 +105,7 @@ fun PlayerItem(
 		)
 		Text(
 			modifier = Modifier
-				.padding(10.dp)
+				.padding(MEDIUM_PADDING)
 				.weight(3f),
 			fontSize = MaterialTheme.typography.subtitle1.fontSize,
 			fontWeight = FontWeight.Normal,
@@ -115,7 +120,7 @@ fun PlayerItem(
 		)
 		Text(
 			modifier = Modifier
-				.padding(10.dp)
+				.padding(MEDIUM_PADDING)
 				.weight(1f),
 			fontSize = MaterialTheme.typography.subtitle1.fontSize,
 			fontWeight = FontWeight.Normal,
