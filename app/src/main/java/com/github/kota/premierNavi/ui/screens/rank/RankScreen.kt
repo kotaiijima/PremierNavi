@@ -39,7 +39,7 @@ fun RankScreen(
 					LoadingAnimationView()
 			}
 		},
-		topBar = { TopBar(navController = navController) },
+		topBar = { TopBar(navController = navController, viewModel = viewModel) },
 		bottomBar = { BottomBar(navController = navController) }
 	)
 }
