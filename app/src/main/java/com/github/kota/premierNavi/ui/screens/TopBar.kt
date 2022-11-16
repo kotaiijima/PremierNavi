@@ -34,8 +34,8 @@ fun TopBar(
 	)
 }
 
-@Composable
-@Preview
-fun TopBarPreview(){
-	TopBar(navController = rememberNavController())
-}
+//@Composable
+//@Preview
+//fun TopBarPreview(){
+//	TopBar(navController = rememberNavController())
+//}

@@ -32,7 +32,6 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun HomeNextGame(match: Match){
 	val homeTeamCrest = rememberImagePainter(data = match.matches[0].homeTeam.crest)
@@ -67,12 +66,12 @@ fun HomeNextGame(match: Match){
 			TeamCrestCard(
 				crest = homeTeamCrest,
 				name = homeTeam,
-				modifier = Modifier
-					.wrapContentWidth(Alignment.Start)
+				modifier_column = Modifier
+					.wrapContentWidth(Alignment.End)
 					.weight(1f)
-					.padding(start = 20.dp)
-					.width(IntrinsicSize.Max),
-
+					.padding(end = 30.dp),
+				modifier_image = Modifier
+					.requiredSize(100.dp)
 			)
 			Text(
 				fontSize = MaterialTheme.typography.h5.fontSize,
@@ -83,11 +82,12 @@ fun HomeNextGame(match: Match){
 			TeamCrestCard(
 				crest = awayTeamCrest,
 				name = awayTeam,
-				modifier = Modifier
+				modifier_column = Modifier
 					.wrapContentWidth(Alignment.End)
 					.weight(1f)
-					.padding(end = 20.dp)
-					.width(IntrinsicSize.Max)
+					.padding(end = 30.dp),
+				modifier_image = Modifier
+					.requiredSize(100.dp)
 				)
 		}
 	}

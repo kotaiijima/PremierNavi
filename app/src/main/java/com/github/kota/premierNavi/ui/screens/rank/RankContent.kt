@@ -22,6 +22,7 @@ import coil.compose.rememberImagePainter
 import coil.decode.SvgDecoder
 import com.github.kota.premierNavi.data.api.model.rankingModel.Rank
 import com.github.kota.premierNavi.data.api.model.rankingModel.Table
+import com.github.kota.premierNavi.utils.showCrest
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -112,16 +113,13 @@ fun RankItemImage(
 	image: String,
 	modifier: Modifier
 ){
-	val clubCrest = rememberImagePainter(data = image, builder = {
-		decoder(SvgDecoder(LocalContext.current))
-	})
 	Divider(
 		modifier = Modifier
 			.fillMaxHeight()
 			.width(1.dp)
 	)
 	Image(
-		painter = clubCrest ,
+		painter = showCrest(crest = image) ,
 		contentDescription = "club crest",
 		modifier = modifier,
 		contentScale = ContentScale.Fit

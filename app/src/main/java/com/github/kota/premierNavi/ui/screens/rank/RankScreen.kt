@@ -1,11 +1,13 @@
 package com.github.kota.premierNavi.ui.screens.rank
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.github.kota.premierNavi.data.api.model.rankingModel.Rank
 import com.github.kota.premierNavi.data.api.model.teamModel.Team
@@ -13,6 +15,7 @@ import com.github.kota.premierNavi.ui.screens.BottomBar
 import com.github.kota.premierNavi.ui.screens.TopBar
 import com.github.kota.premierNavi.ui.screens.animation.LoadingAnimationView
 import com.github.kota.premierNavi.ui.screens.players.PlayerContent
+import com.github.kota.premierNavi.ui.theme.bottomNavigationHeight
 import com.github.kota.premierNavi.ui.viewmodel.MainViewModel
 import com.github.kota.premierNavi.utils.ApiResult
 
@@ -27,7 +30,9 @@ fun RankScreen(
 	Scaffold(
 		scaffoldState = scaffoldState,
 		content = {
-			Column() {
+			Column(
+				modifier = Modifier.padding(bottom = bottomNavigationHeight)
+				) {
 				if (rank is ApiResult.ApiSuccess)
 					RankContent(rank = (rank as ApiResult.ApiSuccess<Rank>).data)
 				else

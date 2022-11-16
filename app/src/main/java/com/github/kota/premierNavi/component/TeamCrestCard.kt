@@ -20,18 +20,18 @@ import com.github.kota.premierNavi.R
 fun TeamCrestCard(
 	crest: Painter,
 	name: String?,
-	modifier: Modifier = Modifier
+	modifier_column: Modifier,
+	modifier_image: Modifier
 ){
 	Column(
-		modifier = modifier,
+		modifier = modifier_column,
 		verticalArrangement = Arrangement.Center,
 		horizontalAlignment = Alignment.CenterHorizontally
 	) {
 		Image(
 			painter = crest ,
 			contentDescription = "home team icon",
-			modifier = Modifier
-				.size(100.dp),
+			modifier = modifier_image,
 			contentScale = ContentScale.Fit
 		)
 		name?.let {
@@ -46,8 +46,8 @@ fun TeamCrestCard(
 	}
 }
 
-@Composable
-@Preview
-fun TeamCrestCardPreview(){
-	TeamCrestCard(crest = painterResource(id = R.drawable.players), name = "Arsenal")
-}
+//@Composable
+//@Preview
+//fun TeamCrestCardPreview(){
+//	TeamCrestCard(crest = painterResource(id = R.drawable.players), name = "Arsenal")
+//}

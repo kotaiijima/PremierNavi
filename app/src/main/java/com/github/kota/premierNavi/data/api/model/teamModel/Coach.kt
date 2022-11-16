@@ -17,7 +17,7 @@ data class Coach(
     @Json(name = "lastName")
     val lastName: String?,
     @Json(name = "name")
-    val name: String?,
+    val name: String,
     @Json(name = "nationality")
     val nationality: String
 )

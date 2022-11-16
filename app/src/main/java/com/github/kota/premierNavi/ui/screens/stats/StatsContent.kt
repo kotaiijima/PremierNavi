@@ -20,10 +20,10 @@ import coil.compose.rememberImagePainter
 import coil.decode.SvgDecoder
 import com.github.kota.premierNavi.data.api.model.statsModel.Match
 import com.github.kota.premierNavi.data.api.model.statsModel.Stats
+import com.github.kota.premierNavi.utils.showCrest
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun StatsContent(
 	stats: Stats?
@@ -38,16 +38,8 @@ fun StatsContent(
 	}
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 private fun StatsItem(match: Match){
-	val awayTeamCrest = rememberImagePainter(data = match.awayTeam.crest, builder = {
-		decoder(SvgDecoder(LocalContext.current))
-	})
-	val homeTeamCrest = rememberImagePainter(data = match.homeTeam.crest, builder = {
-		decoder(SvgDecoder(LocalContext.current))
-	})
-
 	val awayTeam = match.awayTeam.shortName
 	val homeTeam = match.homeTeam.shortName
 	val utcDate = ZonedDateTime.parse(match.utcDate).plusHours(9)
@@ -90,7 +82,7 @@ private fun StatsItem(match: Match){
 				verticalAlignment = Alignment.CenterVertically
 			) {
 				Image(
-					painter = homeTeamCrest,
+					painter = showCrest(crest = match.homeTeam.crest),
 					contentDescription = "home team crest",
 					modifier = Modifier
 						.size(40.dp)
@@ -119,7 +111,7 @@ private fun StatsItem(match: Match){
 					fontSize = MaterialTheme.typography.subtitle2.fontSize
 				)
 				Image(
-					painter = awayTeamCrest,
+					painter = showCrest(crest = match.awayTeam.crest),
 					contentDescription = "home team crest",
 					modifier = Modifier
 						.size(40.dp)
