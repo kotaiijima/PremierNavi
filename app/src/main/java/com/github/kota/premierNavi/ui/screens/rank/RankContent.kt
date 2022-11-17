@@ -27,6 +27,7 @@ import com.github.kota.premierNavi.ui.theme.MEDIUM_PADDING
 import com.github.kota.premierNavi.ui.theme.SMALL_IMAGE
 import com.github.kota.premierNavi.utils.showCrest
 import com.github.kota.premierNavi.R
+import com.github.kota.premierNavi.utils.translationToJapanese
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -109,7 +110,7 @@ fun RankItemText(
 	Text(
 		textAlign = TextAlign.Center,
 		modifier = modifier,
-		text = text)
+		text = translationToJapanese(EngTeamName = text))
 }
 
 @Composable

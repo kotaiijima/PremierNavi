@@ -27,3 +27,30 @@ fun showCrest(crest: String): Painter {
 		rememberImagePainter(data = crest)
 	}
 }
+
+@Composable
+fun translationToJapanese(EngTeamName: String): String{
+	return when(EngTeamName){
+		"Arsenal" -> "アーセナル"
+		"Tottenham" -> "トッテナム"
+		"Man City" -> "マンチェスター・シティ"
+		"Newcastle" -> "ニューカッスル"
+		"Man United" -> "マンチェスター・ユナイテッド"
+		"Liverpool" -> "リヴァプール"
+		"Brighton Hove" -> "ブライトン"
+		"Chelsea" -> "チェルシー"
+		"Fulham" -> "フラム"
+		"Brentford" -> "ブレントフォード"
+		"Crystal Palace" -> "クリスタル・パレス"
+		"Aston Villa" -> "アストンヴィラ"
+		"Leicester City" -> "レスター・シティ"
+		"Bournemouth" -> "ボーンマス"
+		"Leeds United" -> "リーズ・ユナイテッド"
+		"West Ham" -> "ウェストハム"
+		"Everton" -> "エヴァートン"
+		"Nottingham" -> "ノッティンガム"
+		"Southampton" -> "サウサンプトン"
+		"Wolverhampton" -> "ウォルヴァーハンプトン"
+		else -> EngTeamName
+	}
+}

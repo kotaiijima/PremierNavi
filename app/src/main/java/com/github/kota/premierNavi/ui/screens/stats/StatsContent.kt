@@ -30,6 +30,7 @@ import java.time.format.DateTimeFormatter
 import com.github.kota.premierNavi.R
 import com.github.kota.premierNavi.ui.theme.LARGE_PADDING
 import com.github.kota.premierNavi.ui.theme.SMALL_IMAGE
+import com.github.kota.premierNavi.utils.translationToJapanese
 
 @Composable
 fun StatsContent(
@@ -103,7 +104,7 @@ private fun StatsItem(match: Match){
 				)
 				Text(
 					modifier = Modifier.padding(start = SMALL_PADDING),
-					text = homeTeam,
+					text = translationToJapanese(EngTeamName = homeTeam),
 					fontWeight = FontWeight.Normal,
 					fontSize = MaterialTheme.typography.subtitle2.fontSize
 				)
@@ -119,7 +120,7 @@ private fun StatsItem(match: Match){
 			) {
 				Text(
 					modifier = Modifier.padding(end = SMALL_PADDING),
-					text = awayTeam,
+					text = translationToJapanese(EngTeamName = awayTeam),
 					fontWeight = FontWeight.Normal,
 					fontSize = MaterialTheme.typography.subtitle2.fontSize
 				)

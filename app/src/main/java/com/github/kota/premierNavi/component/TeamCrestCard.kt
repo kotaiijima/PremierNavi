@@ -19,6 +19,7 @@ import com.github.kota.premierNavi.R
 import com.github.kota.premierNavi.ui.theme.IMAGE_PADDING
 import com.github.kota.premierNavi.ui.theme.MEDIUM_IMAGE
 import com.github.kota.premierNavi.ui.theme.SMALL_IMAGE
+import com.github.kota.premierNavi.utils.translationToJapanese
 
 
 @Composable
@@ -44,7 +45,7 @@ fun TeamCrestCard(
 				modifier = Modifier
 					.padding(top = 5.dp)
 					.fillMaxWidth(),
-				text = it,
+				text = translationToJapanese(EngTeamName = it),
 				fontWeight = FontWeight.Normal,
 				fontSize = MaterialTheme.typography.h6.fontSize,
 				maxLines = 1,

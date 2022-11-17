@@ -18,6 +18,7 @@ import com.github.kota.premierNavi.data.api.model.rankingModel.Rank
 import com.github.kota.premierNavi.ui.theme.SMALL_IMAGE
 import com.github.kota.premierNavi.utils.showCrest
 import com.github.kota.premierNavi.R
+import com.github.kota.premierNavi.ui.theme.IMAGE_PADDING
 import com.github.kota.premierNavi.ui.theme.MEDIUM_PADDING
 import com.github.kota.premierNavi.ui.viewmodel.ViewModel
 import com.github.kota.premierNavi.utils.Constants.HOME_SCREEN
@@ -64,6 +65,7 @@ fun SettingItem(
 			modifier = Modifier
 				.requiredSize(SMALL_IMAGE)
 				.padding(MEDIUM_PADDING)
+				.padding(start = MEDIUM_PADDING)
 		)
 		Text(
 			modifier = Modifier.fillMaxWidth(),

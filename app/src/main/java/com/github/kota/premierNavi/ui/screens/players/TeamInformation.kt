@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,11 +27,13 @@ fun TeamInformation(
 	teamName: String
 ){
 	Row (
-		modifier = Modifier.fillMaxWidth()
+		modifier = Modifier.fillMaxWidth(),
+		horizontalArrangement = Arrangement.Center,
+		verticalAlignment = Alignment.CenterVertically
 			){
 		Image(
 			painter = showCrest(crest = crest),
-			contentDescription = null,
+			contentDescription = stringResource(id = R.string.club_crest),
 			modifier = Modifier
 				.size(LARGE_IMAGE)
 				.padding(LARGE_PADDING)
@@ -53,7 +56,9 @@ fun TeamInformation(
 			)
 			Text(text = stadium,
 				fontSize = MaterialTheme.typography.h6.fontSize,
-				modifier = Modifier.fillMaxWidth().padding(MEDIUM_PADDING),
+				modifier = Modifier
+					.fillMaxWidth()
+					.padding(MEDIUM_PADDING),
 				textAlign = TextAlign.Center
 			)
 		}
