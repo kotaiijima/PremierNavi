@@ -2,6 +2,7 @@ package com.github.kota.premierNavi.ui.screens.players
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -15,10 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.kota.premierNavi.utils.showCrest
 import com.github.kota.premierNavi.R
-import com.github.kota.premierNavi.ui.theme.LARGE_IMAGE
-import com.github.kota.premierNavi.ui.theme.LARGE_PADDING
-import com.github.kota.premierNavi.ui.theme.MEDIUM_PADDING
-import com.github.kota.premierNavi.ui.theme.SMALL_PADDING
+import com.github.kota.premierNavi.ui.theme.*
 import org.intellij.lang.annotations.JdkConstants
 
 @Composable
@@ -35,7 +33,7 @@ fun TeamInformation(
 			contentDescription = null,
 			modifier = Modifier
 				.size(LARGE_IMAGE)
-				.padding(SMALL_PADDING)
+				.padding(LARGE_PADDING)
 		)
 		Column(
 			horizontalAlignment = Alignment.CenterHorizontally,
@@ -49,18 +47,18 @@ fun TeamInformation(
 				fontWeight = FontWeight.Bold,
 				modifier = Modifier
 					.fillMaxWidth()
-					.padding(top = MEDIUM_PADDING)
+					.padding(top = IMAGE_PADDING)
 				,
 				textAlign = TextAlign.Center
 			)
 			Text(text = stadium,
-				fontSize = MaterialTheme.typography.h5.fontSize,
-				modifier = Modifier.fillMaxWidth(),
+				fontSize = MaterialTheme.typography.h6.fontSize,
+				modifier = Modifier.fillMaxWidth().padding(MEDIUM_PADDING),
 				textAlign = TextAlign.Center
-
 			)
 		}
 	}
+	Divider(thickness = 2.dp)
 }
 
 //@Composable

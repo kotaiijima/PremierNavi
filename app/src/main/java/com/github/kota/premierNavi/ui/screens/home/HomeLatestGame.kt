@@ -15,9 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.github.kota.premierNavi.component.TeamCrestCard
 import com.github.kota.premierNavi.data.api.model.matchModel.Match
 import com.github.kota.premierNavi.R
-import com.github.kota.premierNavi.ui.theme.LARGE_PADDING
-import com.github.kota.premierNavi.ui.theme.MEDIUM_PADDING
-import com.github.kota.premierNavi.ui.theme.SMALL_PADDING
+import com.github.kota.premierNavi.ui.theme.*
 import com.github.kota.premierNavi.utils.showCrest
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -30,12 +28,9 @@ fun HomeLatestGame(match: Match){
 	val homeTeam = match.matches[0].homeTeam.shortName
 	val awayTeam = match.matches[0].awayTeam.shortName
 
-	lateinit var date: ZonedDateTime
-	lateinit var dateToString:  String
-	val utcDate = match.matches[0].utcDate
-	date = ZonedDateTime.parse(utcDate).plusHours(9)
+	val date = ZonedDateTime.parse(match.matches[0].utcDate).plusHours(9)
 	val dtf = DateTimeFormatter.ofPattern("MM/dd HH:mm")
-	dateToString = date.format(dtf)
+	val dateToString = date.format(dtf)
 
 	val visible by remember { mutableStateOf(true) }
 	val density = LocalDensity.current
@@ -57,7 +52,7 @@ fun HomeLatestGame(match: Match){
 		) {
 			Text(
 				modifier = Modifier
-					.padding(20.dp),
+					.padding(LARGE_PADDING),
 				fontWeight = FontWeight.Normal,
 				fontSize = MaterialTheme.typography.h5.fontSize ,
 				text = stringResource(id = R.string.latestGame_text)
@@ -87,9 +82,9 @@ fun HomeLatestGame(match: Match){
 				modifier_column = Modifier
 					.wrapContentWidth(Alignment.Start)
 					.weight(1f)
-					.padding(start = LARGE_PADDING),
+					.width(MEDIUM_IMAGE + IMAGE_PADDING + IMAGE_PADDING),
 				modifier_image = Modifier
-					.requiredSize(MEDIUM_PADDING)
+					.requiredSize(MEDIUM_IMAGE)
 			)
 			Text(
 				modifier = Modifier.padding(top = LARGE_PADDING),
@@ -104,9 +99,9 @@ fun HomeLatestGame(match: Match){
 				modifier_column = Modifier
 					.wrapContentWidth(Alignment.End)
 					.weight(1f)
-					.padding(end = LARGE_PADDING),
+					.width(MEDIUM_IMAGE + IMAGE_PADDING + IMAGE_PADDING),
 				modifier_image = Modifier
-					.requiredSize(MEDIUM_PADDING)
+					.requiredSize(MEDIUM_IMAGE)
 			)
 		}
 	}

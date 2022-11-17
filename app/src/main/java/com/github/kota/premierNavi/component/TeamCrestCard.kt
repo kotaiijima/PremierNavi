@@ -11,10 +11,14 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.kota.premierNavi.R
+import com.github.kota.premierNavi.ui.theme.IMAGE_PADDING
+import com.github.kota.premierNavi.ui.theme.MEDIUM_IMAGE
+import com.github.kota.premierNavi.ui.theme.SMALL_IMAGE
 
 
 @Composable
@@ -38,19 +42,27 @@ fun TeamCrestCard(
 		name?.let {
 			Text(
 				modifier = Modifier
-					.padding(top = 5.dp),
+					.padding(top = 5.dp)
+					.fillMaxWidth(),
 				text = it,
 				fontWeight = FontWeight.Normal,
 				fontSize = MaterialTheme.typography.h6.fontSize,
 				maxLines = 1,
-				overflow = TextOverflow.Ellipsis
+				overflow = TextOverflow.Ellipsis,
+				textAlign = TextAlign.Center
 			)
 		}
 	}
 }
 
-//@Composable
-//@Preview
-//fun TeamCrestCardPreview(){
-//	TeamCrestCard(crest = painterResource(id = R.drawable.players), name = "Arsenal")
-//}
+@Composable
+@Preview
+fun TeamCrestCardPreview(){
+	TeamCrestCard(crest = painterResource(id = R.drawable.players),
+		name = "Arsenal",
+		modifier_column = Modifier
+			.wrapContentWidth(Alignment.Start)
+			.width(SMALL_IMAGE + IMAGE_PADDING + IMAGE_PADDING),
+		modifier_image = Modifier
+			.requiredSize(MEDIUM_IMAGE))
+}

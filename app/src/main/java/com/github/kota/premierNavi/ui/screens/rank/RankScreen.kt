@@ -10,19 +10,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.github.kota.premierNavi.data.api.model.rankingModel.Rank
-import com.github.kota.premierNavi.data.api.model.teamModel.Team
 import com.github.kota.premierNavi.ui.screens.BottomBar
 import com.github.kota.premierNavi.ui.screens.TopBar
 import com.github.kota.premierNavi.ui.screens.animation.LoadingAnimationView
-import com.github.kota.premierNavi.ui.screens.players.PlayerContent
 import com.github.kota.premierNavi.ui.theme.bottomNavigationHeight
-import com.github.kota.premierNavi.ui.viewmodel.MainViewModel
+import com.github.kota.premierNavi.ui.viewmodel.ViewModel
 import com.github.kota.premierNavi.utils.ApiResult
 
 @Composable
 fun RankScreen(
 	navController: NavController,
-	viewModel: MainViewModel
+	viewModel: ViewModel
 ){
 	val rank by viewModel.rank.collectAsState()
 

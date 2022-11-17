@@ -8,20 +8,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.github.kota.premierNavi.data.api.model.matchModel.Match
-import com.github.kota.premierNavi.data.model.TeamId
 import com.github.kota.premierNavi.ui.screens.BottomBar
 import com.github.kota.premierNavi.ui.screens.TopBar
 import com.github.kota.premierNavi.ui.screens.animation.SplashAnimationView
-import com.github.kota.premierNavi.ui.screens.initial.InitialScreen
 import com.github.kota.premierNavi.ui.theme.bottomNavigationHeight
-import com.github.kota.premierNavi.ui.viewmodel.MainViewModel
+import com.github.kota.premierNavi.ui.viewmodel.ViewModel
 import com.github.kota.premierNavi.utils.ApiResult
-import com.github.kota.premierNavi.utils.RequestState
 
 @Composable
 fun HomeScreen(
 	navController: NavController,
-	viewModel: MainViewModel
+	viewModel: ViewModel
 ){
 	val latestGame by viewModel.latestGame.collectAsState()
 	val nextGame by viewModel.nextGame.collectAsState()

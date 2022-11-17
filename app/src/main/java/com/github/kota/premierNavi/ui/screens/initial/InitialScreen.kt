@@ -1,7 +1,6 @@
 package com.github.kota.premierNavi.ui.screens.initial
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -13,9 +12,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavController
 import com.github.kota.premierNavi.data.api.model.rankingModel.Rank
 import com.github.kota.premierNavi.ui.screens.animation.LoadingAnimationView
-import com.github.kota.premierNavi.ui.screens.rank.RankContent
-import com.github.kota.premierNavi.ui.theme.bottomNavigationHeight
-import com.github.kota.premierNavi.ui.viewmodel.MainViewModel
+import com.github.kota.premierNavi.ui.viewmodel.ViewModel
 import com.github.kota.premierNavi.utils.ApiResult
 import com.github.kota.premierNavi.R
 
@@ -23,7 +20,7 @@ import com.github.kota.premierNavi.R
 @Composable
 fun InitialScreen(
 	navController: NavController,
-	viewModel: MainViewModel
+	viewModel: ViewModel
 ){
 	val rank by viewModel.rank.collectAsState()
 

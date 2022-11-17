@@ -20,7 +20,7 @@ import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class ViewModel @Inject constructor(
 	private val footballDataRepository: FootballDataRepository
 ): ViewModel(){
 
@@ -95,6 +95,7 @@ class MainViewModel @Inject constructor(
 			val teamId = TeamId(id = 1, teamId = newTeamId)
 			footballDataRepository.updateTeamId(teamId)
 //			getTeamId()
+			getAllData(newTeamId)
 		}
 	}
 }

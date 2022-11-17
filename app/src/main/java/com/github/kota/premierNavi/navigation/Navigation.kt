@@ -11,7 +11,7 @@ import com.github.kota.premierNavi.ui.screens.players.PlayerScreen
 import com.github.kota.premierNavi.ui.screens.rank.RankScreen
 import com.github.kota.premierNavi.ui.screens.setting.SettingScreen
 import com.github.kota.premierNavi.ui.screens.stats.StatsScreen
-import com.github.kota.premierNavi.ui.viewmodel.MainViewModel
+import com.github.kota.premierNavi.ui.viewmodel.ViewModel
 import com.github.kota.premierNavi.utils.Constants.HOME_SCREEN
 import com.github.kota.premierNavi.utils.Constants.PLAYER_SCREEN
 import com.github.kota.premierNavi.utils.Constants.RANK_SCREEN
@@ -22,7 +22,7 @@ import com.github.kota.premierNavi.utils.Constants.STATS_SCREEN
 @Composable
 fun SetupNavigation(
 	navController: NavHostController,
-	viewModel: MainViewModel
+	viewModel: ViewModel
 ) {
 		NavHost(
 			navController = navController,

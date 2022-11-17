@@ -49,21 +49,22 @@ fun StatsContent(
 private fun StatsItem(match: Match){
 	val awayTeam = match.awayTeam.shortName
 	val homeTeam = match.homeTeam.shortName
-	val utcDate = ZonedDateTime.parse(match.utcDate).plusHours(9)
+
+	val jstDate = ZonedDateTime.parse(match.utcDate).plusHours(9)
 	val dateFormat = DateTimeFormatter.ofPattern("MM/dd")
-	val dateToJapan = utcDate.format(dateFormat)
+	val dateToJapan = jstDate.format(dateFormat)
 	val matchday = "第${match.matchday}節"
 
 	val scoreOrTime = if (match.score.fullTime.home == null || match.score.fullTime.away == null){
 		val timeFormat = DateTimeFormatter.ofPattern("HH:mm")
-		utcDate.format(timeFormat)
+		jstDate.format(timeFormat)
 	}else{
 		"${match.score.fullTime.home} - ${match.score.fullTime.away}"
 	}
 
 	Divider()
 	Column(
-		modifier = Modifier.padding(10.dp)
+		modifier = Modifier.padding(top = MEDIUM_PADDING, start = MEDIUM_PADDING)
 	) {
 		Row{
 			Text(
@@ -88,7 +89,8 @@ private fun StatsItem(match: Match){
 				modifier = Modifier
 					.wrapContentWidth(Alignment.Start)
 					.weight(1f)
-					.padding(top = SMALL_PADDING),
+					.padding(start = SMALL_PADDING),
+				horizontalArrangement = Arrangement.Center,
 				verticalAlignment = Alignment.CenterVertically
 			) {
 				Image(
@@ -111,7 +113,8 @@ private fun StatsItem(match: Match){
 				modifier = Modifier
 					.wrapContentWidth(Alignment.End)
 					.weight(1f)
-					.padding(end = LARGE_PADDING),
+					.padding(end = SMALL_PADDING),
+				horizontalArrangement = Arrangement.Center,
 				verticalAlignment = Alignment.CenterVertically
 			) {
 				Text(

@@ -13,10 +13,8 @@ import androidx.compose.ui.text.style.TextAlign
 import coil.compose.rememberImagePainter
 import com.github.kota.premierNavi.component.TeamCrestCard
 import com.github.kota.premierNavi.data.api.model.matchModel.Match
-import com.github.kota.premierNavi.ui.theme.LARGE_PADDING
 import com.github.kota.premierNavi.R
-import com.github.kota.premierNavi.ui.theme.MEDIUM_IMAGE
-import com.github.kota.premierNavi.ui.theme.MEDIUM_PADDING
+import com.github.kota.premierNavi.ui.theme.*
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
@@ -48,16 +46,15 @@ fun HomeNextGame(match: Match){
 			fontWeight = FontWeight.Bold,
 			text = stringResource(id = R.string.nextGame_text))
 		Row(
-			modifier = Modifier.padding(MEDIUM_PADDING),
 			verticalAlignment = Alignment.CenterVertically
 		) {
 			TeamCrestCard(
 				crest = homeTeamCrest,
 				name = homeTeam,
 				modifier_column = Modifier
-					.wrapContentWidth(Alignment.End)
+					.wrapContentWidth(Alignment.Start)
 					.weight(1f)
-					.padding(end = LARGE_PADDING),
+					.width(MEDIUM_IMAGE + IMAGE_PADDING + IMAGE_PADDING),
 				modifier_image = Modifier
 					.requiredSize(MEDIUM_IMAGE)
 			)
@@ -73,7 +70,7 @@ fun HomeNextGame(match: Match){
 				modifier_column = Modifier
 					.wrapContentWidth(Alignment.End)
 					.weight(1f)
-					.padding(end = LARGE_PADDING),
+					.width(MEDIUM_IMAGE + IMAGE_PADDING + IMAGE_PADDING),
 				modifier_image = Modifier
 					.requiredSize(MEDIUM_IMAGE)
 				)

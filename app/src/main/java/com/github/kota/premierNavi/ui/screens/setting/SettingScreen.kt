@@ -11,20 +11,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.github.kota.premierNavi.data.api.model.rankingModel.Rank
-import com.github.kota.premierNavi.data.api.model.teamModel.Team
 import com.github.kota.premierNavi.ui.screens.BottomBar
 import com.github.kota.premierNavi.ui.screens.TopBar
 import com.github.kota.premierNavi.ui.screens.animation.LoadingAnimationView
-import com.github.kota.premierNavi.ui.screens.players.PlayerContent
-import com.github.kota.premierNavi.ui.screens.players.TeamInformation
 import com.github.kota.premierNavi.ui.theme.bottomNavigationHeight
-import com.github.kota.premierNavi.ui.viewmodel.MainViewModel
+import com.github.kota.premierNavi.ui.viewmodel.ViewModel
 import com.github.kota.premierNavi.utils.ApiResult
 
 @Composable
 fun SettingScreen(
 	navController: NavController,
-	viewModel: MainViewModel
+	viewModel: ViewModel
 ){
 	val rank by viewModel.rank.collectAsState()
 
@@ -35,7 +32,11 @@ fun SettingScreen(
 			Box(modifier = Modifier.padding(bottom = bottomNavigationHeight)){
 				if (rank is ApiResult.ApiSuccess){
 					Column {
-						InitialContent(rank = (rank as ApiResult.ApiSuccess<Rank>).data)
+						SettingContent(
+							rank = (rank as ApiResult.ApiSuccess<Rank>).data,
+							navController = navController,
+							viewModel = viewModel
+						)
 					}
 				}
 				else

@@ -3,19 +3,19 @@ package com.github.kota.premierNavi.ui.screens
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.github.kota.premierNavi.R
-import com.github.kota.premierNavi.ui.viewmodel.MainViewModel
+import com.github.kota.premierNavi.ui.viewmodel.ViewModel
+import com.github.kota.premierNavi.utils.Constants.SETTING_SCREEN
 
 @Composable
 fun TopBar(
 	navController: NavController,
-	viewModel: MainViewModel
+	viewModel: ViewModel
 ){
 	TopAppBar(
 		backgroundColor = colorResource(id = R.color.teal_700),
@@ -23,17 +23,31 @@ fun TopBar(
 		title = {
 			Text(text = "PremierNavi")
 		},
-		navigationIcon = {
-			val icon = Icons.Filled.Menu
-			val onClick: () -> Unit = {}
-
-			icon.let {
-				IconButton(onClick = onClick) {
-					Icon(imageVector = it, contentDescription = null)
-				}
-			}
+		actions = {
+			SettingMenu(navController = navController)
 		}
 	)
+}
+
+@Composable
+fun SettingMenu(
+	navController: NavController
+){
+	var expanded by remember { mutableStateOf(false) }
+	IconButton(onClick = { expanded = true }) {
+		Icon(imageVector = Icons.Filled.Menu, contentDescription = stringResource(id = R.string.menu_description))
+		DropdownMenu(
+			expanded = expanded,
+			onDismissRequest = { expanded = false }
+		) {
+			DropdownMenuItem(onClick = {
+				expanded = false
+				navController.navigate(SETTING_SCREEN)
+			}){
+				Text(text = stringResource(id = R.string.setting_dropdown))
+			}
+		}
+	}
 }
 
 //@Composable
