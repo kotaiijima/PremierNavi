@@ -41,9 +41,9 @@ class FootballDataRepository @Inject constructor(
 		return handleApi { statsApi.getStats(teamNumber)}
 	}
 
-//	fun getTeamId(): Flow<RequestState<List<TeamId>>> {
-//		return preNaviDao.getTeamId()
-//	}
+	fun getTeamId(): Flow<List<TeamId>> {
+		return preNaviDao.getTeamId()
+	}
 
 	suspend fun addTeamId(teamId: TeamId){
 		preNaviDao.addTeamId(teamId)

@@ -30,14 +30,17 @@ fun InitialScreen(
 		Text(
 			text = stringResource(id = R.string.initial_text),
 			modifier = Modifier.fillMaxWidth(),
-			fontSize = MaterialTheme.typography.h2.fontSize,
+			fontSize = MaterialTheme.typography.h4.fontSize,
 			textAlign = TextAlign.Center
 		)
 		Box(
 			modifier = Modifier.fillMaxWidth()
 		) {
 			if (rank is ApiResult.ApiSuccess)
-				InitialContent(rank = (rank as ApiResult.ApiSuccess<Rank>).data)
+				InitialContent(
+					rank = (rank as ApiResult.ApiSuccess<Rank>).data,
+					viewModel = viewModel,
+					navController = navController)
 			else
 				LoadingAnimationView()
 		}

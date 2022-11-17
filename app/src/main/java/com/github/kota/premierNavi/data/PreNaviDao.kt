@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PreNaviDao {
-//	@Query("SELECT * FROM `PreNavi-table`")
-//	fun getTeamId(): Flow<RequestState<List<TeamId>>>
+	@Query("SELECT * FROM `PreNavi-table`")
+	fun getTeamId(): Flow<List<TeamId>>
 
 	@Insert(onConflict = OnConflictStrategy.IGNORE)
 	suspend fun addTeamId(teamId: TeamId)

@@ -1,5 +1,6 @@
 package com.github.kota.premierNavi.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.kota.premierNavi.data.api.model.matchModel.Match
@@ -53,8 +54,8 @@ class ViewModel @Inject constructor(
 		viewModelScope.launch{
 			val rank = footballDataRepository.getRank()
 			if (rank is ApiResult.ApiSuccess) _rank.value = rank
-//			getTeamId()
-			getAllData(57)
+			getTeamId()
+//			getAllData(57)
 		}
 	}
 
@@ -69,19 +70,19 @@ class ViewModel @Inject constructor(
 			if (stats is ApiResult.ApiSuccess) _stats.value = stats
 	}
 
-//	private fun getTeamId(){
-//		viewModelScope.launch {
-//			footballDataRepository.getTeamId().collect{
-////				if (it is RequestState.Success){
-////					_teamId.value = it
-////					if (it.data.teamId != 0){
-////						getAllData(it.data.teamId)
-////					}
-////				}
-////				getAllData(57)
-//			}
-//		}
-//	}
+	private fun getTeamId(){
+		viewModelScope.launch {
+			footballDataRepository.getTeamId().collect{
+				Log.d("RequestState: " , it.toString())
+				if (it.isNotEmpty()){
+					_teamId.value = RequestState.Success(it)
+					if (it[0].teamId != 0){
+						getAllData(it[0].teamId)
+					}
+				}
+			}
+		}
+	}
 
 	fun addTeamId(newTeamId: Int){
 		viewModelScope.launch(Dispatchers.IO) {
