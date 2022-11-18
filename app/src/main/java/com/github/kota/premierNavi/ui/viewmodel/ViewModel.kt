@@ -44,7 +44,6 @@ class ViewModel @Inject constructor(
 	val stats: StateFlow<ApiResult<Stats>>
 		get() = _stats.asStateFlow()
 
-
 	private val _teamId = MutableStateFlow<RequestState<List<TeamId>>>(RequestState.Idle)
 	val teamId: StateFlow<RequestState<List<TeamId>>>
 		get() = _teamId.asStateFlow()
@@ -82,12 +81,13 @@ class ViewModel @Inject constructor(
 	private fun getTeamId(){
 		viewModelScope.launch {
 			footballDataRepository.getTeamId().collect{
-				Log.d("RequestState: " , it.toString())
 				if (it.isNotEmpty()){
 					_teamId.value = RequestState.Success(it)
 					if (it[0].teamId != 0){
 						getAllData(it[0].teamId)
 					}
+				}else{
+					_teamId.value = RequestState.Empty
 				}
 			}
 		}

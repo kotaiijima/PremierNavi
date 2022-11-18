@@ -34,7 +34,7 @@ fun HomeScreen(
 			Column (
 				modifier = Modifier.padding(bottom = bottomNavigationHeight)
 					){
-					if (teamId !is RequestState.Success) {
+					if (teamId is RequestState.Empty) {
 						InitialScreen(
 							viewModel = viewModel
 						)
