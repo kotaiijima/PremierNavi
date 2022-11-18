@@ -15,11 +15,11 @@ import com.github.kota.premierNavi.ui.screens.animation.LoadingAnimationView
 import com.github.kota.premierNavi.ui.viewmodel.ViewModel
 import com.github.kota.premierNavi.utils.ApiResult
 import com.github.kota.premierNavi.R
+import com.github.kota.premierNavi.ui.theme.LARGE_PADDING
 
 
 @Composable
 fun InitialScreen(
-	navController: NavController,
 	viewModel: ViewModel
 ){
 	val rank by viewModel.rank.collectAsState()
@@ -29,7 +29,8 @@ fun InitialScreen(
 	) {
 		Text(
 			text = stringResource(id = R.string.initial_text),
-			modifier = Modifier.fillMaxWidth(),
+			modifier = Modifier
+				.fillMaxWidth().padding(LARGE_PADDING),
 			fontSize = MaterialTheme.typography.h4.fontSize,
 			textAlign = TextAlign.Center
 		)
@@ -40,7 +41,7 @@ fun InitialScreen(
 				InitialContent(
 					rank = (rank as ApiResult.ApiSuccess<Rank>).data,
 					viewModel = viewModel,
-					navController = navController)
+					)
 			else
 				LoadingAnimationView()
 		}

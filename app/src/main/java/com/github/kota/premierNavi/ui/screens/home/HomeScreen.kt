@@ -8,7 +8,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.github.kota.premierNavi.data.api.model.matchModel.Match
-import com.github.kota.premierNavi.data.model.TeamId
 import com.github.kota.premierNavi.ui.screens.BottomBar
 import com.github.kota.premierNavi.ui.screens.TopBar
 import com.github.kota.premierNavi.ui.screens.animation.SplashAnimationView
@@ -20,6 +19,7 @@ import com.github.kota.premierNavi.utils.RequestState
 
 @Composable
 fun HomeScreen(
+	navigateToTeamDetail:(Int) -> Unit,
 	navController: NavController,
 	viewModel: ViewModel
 ){
@@ -36,20 +36,25 @@ fun HomeScreen(
 					){
 					if (teamId !is RequestState.Success) {
 						InitialScreen(
-							navController = navController,
 							viewModel = viewModel
 						)
 					} else {
 						if (latestGame is ApiResult.ApiSuccess && nextGame is ApiResult.ApiSuccess) {
-							HomeLatestGame(match = (latestGame as ApiResult.ApiSuccess<Match>).data)
-							HomeNextGame(match = (nextGame as ApiResult.ApiSuccess<Match>).data)
+							HomeLatestGame(
+								match = (latestGame as ApiResult.ApiSuccess<Match>).data,
+								navigateToTeamDetail = navigateToTeamDetail
+							)
+							HomeNextGame(
+								match = (nextGame as ApiResult.ApiSuccess<Match>).data,
+								navigateToTeamDetail = navigateToTeamDetail
+							)
 						} else {
 							SplashAnimationView()
 						}
 					}
 				}
 		},
-		topBar = {TopBar(navController = navController, viewModel = viewModel) },
+		topBar = {TopBar(navController = navController) },
 		bottomBar = { BottomBar(navController = navController) }
 	)
 }

@@ -43,7 +43,7 @@ fun SettingScreen(
 					LoadingAnimationView()
 			}
 		},
-		topBar = { TopBar(navController = navController, viewModel = viewModel) },
+		topBar = { TopBar(navController = navController) },
 		bottomBar = { BottomBar(navController = navController) }
 	)
 }

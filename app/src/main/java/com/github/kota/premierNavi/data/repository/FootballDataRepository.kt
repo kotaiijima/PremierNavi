@@ -11,7 +11,6 @@ import com.github.kota.premierNavi.data.api.model.statsModel.Stats
 import com.github.kota.premierNavi.data.api.model.teamModel.Team
 import com.github.kota.premierNavi.data.model.TeamId
 import com.github.kota.premierNavi.utils.ApiResult
-import com.github.kota.premierNavi.utils.RequestState
 import com.github.kota.premierNavi.utils.handleApi
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow

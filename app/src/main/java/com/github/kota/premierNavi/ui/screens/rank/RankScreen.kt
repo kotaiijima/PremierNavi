@@ -19,6 +19,7 @@ import com.github.kota.premierNavi.utils.ApiResult
 
 @Composable
 fun RankScreen(
+	navigateToTeamDetail:(Int) -> Unit,
 	navController: NavController,
 	viewModel: ViewModel
 ){
@@ -32,12 +33,16 @@ fun RankScreen(
 				modifier = Modifier.padding(bottom = bottomNavigationHeight)
 				) {
 				if (rank is ApiResult.ApiSuccess)
-					RankContent(rank = (rank as ApiResult.ApiSuccess<Rank>).data)
+					RankContent(
+						rank = (
+								rank as ApiResult.ApiSuccess<Rank>).data,
+								navigateToTeamDetail
+					)
 				else
 					LoadingAnimationView()
 			}
 		},
-		topBar = { TopBar(navController = navController, viewModel = viewModel) },
+		topBar = { TopBar(navController = navController) },
 		bottomBar = { BottomBar(navController = navController) }
 	)
 }

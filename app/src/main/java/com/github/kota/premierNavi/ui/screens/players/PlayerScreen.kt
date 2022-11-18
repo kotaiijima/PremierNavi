@@ -20,31 +20,30 @@ import com.github.kota.premierNavi.utils.ApiResult
 
 @Composable
 fun PlayerScreen(
+	selectedTeam: ApiResult<Team>,
 	navController: NavController,
 	viewModel: ViewModel
 ){
-	val team by viewModel.team.collectAsState()
-
 	val scaffoldState = rememberScaffoldState()
 	Scaffold(
 		scaffoldState = scaffoldState,
 		content = {
 				Box(modifier = Modifier.padding(bottom = bottomNavigationHeight)){
-					if (team is ApiResult.ApiSuccess){
+					if (selectedTeam is ApiResult.ApiSuccess){
 						Column {
 							TeamInformation(
-								crest = (team as ApiResult.ApiSuccess<Team>).data.crest,
-								stadium = (team as ApiResult.ApiSuccess<Team>).data.venue,
-								teamName = (team as ApiResult.ApiSuccess<Team>).data.name
+								crest = (selectedTeam as ApiResult.ApiSuccess<Team>).data.crest,
+								stadium = (selectedTeam as ApiResult.ApiSuccess<Team>).data.venue,
+								teamName = (selectedTeam as ApiResult.ApiSuccess<Team>).data.name
 							)
-							PlayerContent(team = (team as ApiResult.ApiSuccess<Team>).data)
+							PlayerContent(team = (selectedTeam as ApiResult.ApiSuccess<Team>).data)
 						}
 					}
 					else
 						LoadingAnimationView()
 			}
 		},
-		topBar = { TopBar(navController = navController, viewModel = viewModel) },
+		topBar = { TopBar(navController = navController) },
 		bottomBar = { BottomBar(navController = navController) }
 	)
 }

@@ -19,6 +19,7 @@ import com.github.kota.premierNavi.utils.ApiResult
 
 @Composable
 fun StatsScreen(
+	navigateToTeamDetail:(Int) -> Unit,
 	navController: NavController,
 	viewModel: ViewModel
 ){
@@ -30,12 +31,15 @@ fun StatsScreen(
 		content = {
 			Box(modifier = Modifier.padding(bottom = bottomNavigationHeight)){
 				if (stats is ApiResult.ApiSuccess)
-					StatsContent(stats = (stats as ApiResult.ApiSuccess<Stats>).data)
+					StatsContent(
+						stats = (stats as ApiResult.ApiSuccess<Stats>).data,
+						navigateToTeamDetail = navigateToTeamDetail
+					)
 				else
 					LoadingAnimationView()
 			}
 		},
-		topBar = { TopBar(navController = navController, viewModel = viewModel) },
+		topBar = { TopBar(navController = navController) },
 		bottomBar = { BottomBar(navController = navController)}
 	)
 }

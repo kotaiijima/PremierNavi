@@ -46,7 +46,7 @@ fun TeamInformation(
 				.height(IntrinsicSize.Max)
 		) {
 			Text(text = teamName,
-				fontSize = MaterialTheme.typography.h3.fontSize,
+				fontSize = MaterialTheme.typography.h4.fontSize,
 				fontWeight = FontWeight.Bold,
 				modifier = Modifier
 					.fillMaxWidth()

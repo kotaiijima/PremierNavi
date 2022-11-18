@@ -1,6 +1,7 @@
 package com.github.kota.premierNavi.ui.screens.home
 
 import androidx.compose.animation.*
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -21,7 +22,10 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
 @Composable
-fun HomeLatestGame(match: Match){
+fun HomeLatestGame(
+	match: Match,
+	navigateToTeamDetail:(Int) -> Unit
+){
 	val section = "第${match.matches[0].season.currentMatchday}節"
 	val matchResult = "${match.matches[0].score.fullTime?.home} - ${match.matches[0].score.fullTime?.away}"
 
@@ -65,11 +69,7 @@ fun HomeLatestGame(match: Match){
 				modifier = Modifier.padding(end = SMALL_PADDING),
 				fontWeight = FontWeight.Bold,
 				fontSize = MaterialTheme.typography.h5.fontSize ,
-				text = "$section: ")
-			Text(
-				fontWeight = FontWeight.Bold,
-				fontSize = MaterialTheme.typography.h5.fontSize ,
-				text = dateToString)
+				text = "$section: $dateToString")
 		}
 		Row(
 			modifier = Modifier
@@ -82,7 +82,9 @@ fun HomeLatestGame(match: Match){
 				modifier_column = Modifier
 					.wrapContentWidth(Alignment.Start)
 					.weight(1f)
-					.width(MEDIUM_IMAGE + IMAGE_PADDING + IMAGE_PADDING),
+					.width(MEDIUM_IMAGE + IMAGE_PADDING + IMAGE_PADDING)
+					.clickable { navigateToTeamDetail(match.matches[0].homeTeam.id) }
+				,
 				modifier_image = Modifier
 					.requiredSize(MEDIUM_IMAGE)
 			)
@@ -99,7 +101,8 @@ fun HomeLatestGame(match: Match){
 				modifier_column = Modifier
 					.wrapContentWidth(Alignment.End)
 					.weight(1f)
-					.width(MEDIUM_IMAGE + IMAGE_PADDING + IMAGE_PADDING),
+					.width(MEDIUM_IMAGE + IMAGE_PADDING + IMAGE_PADDING)
+					.clickable { navigateToTeamDetail(match.matches[0].awayTeam.id) },
 				modifier_image = Modifier
 					.requiredSize(MEDIUM_IMAGE)
 			)

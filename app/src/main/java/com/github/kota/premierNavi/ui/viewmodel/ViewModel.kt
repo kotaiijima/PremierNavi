@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
@@ -50,24 +49,34 @@ class ViewModel @Inject constructor(
 	val teamId: StateFlow<RequestState<List<TeamId>>>
 		get() = _teamId.asStateFlow()
 
+	private val _selectedTeam = MutableStateFlow<ApiResult<Team>>(ApiResult.Idle)
+	val selectedTeam: StateFlow<ApiResult<Team>>
+		get() = _selectedTeam.asStateFlow()
+
 	init {
 		viewModelScope.launch{
 			val rank = footballDataRepository.getRank()
 			if (rank is ApiResult.ApiSuccess) _rank.value = rank
 			getTeamId()
-//			getAllData(57)
 		}
 	}
 
 	private suspend fun getAllData(teamId: Int){
-			val latestGame = footballDataRepository.getMatch(teamId, "FINISHED")
-			if (latestGame is ApiResult.ApiSuccess)  _latestGame.value = latestGame
-			val nextGame = footballDataRepository.getMatch(teamId, "SCHEDULED")
-			if (nextGame is ApiResult.ApiSuccess) _nextGame.value = nextGame
-			val team = footballDataRepository.getTeam(teamId)
-			if (team is ApiResult.ApiSuccess) _team.value = team
-			val stats = footballDataRepository.getStats(teamId)
-			if (stats is ApiResult.ApiSuccess) _stats.value = stats
+		val latestGame = footballDataRepository.getMatch(teamId, "FINISHED")
+		if (latestGame is ApiResult.ApiSuccess)  _latestGame.value = latestGame
+		val nextGame = footballDataRepository.getMatch(teamId, "SCHEDULED")
+		if (nextGame is ApiResult.ApiSuccess) _nextGame.value = nextGame
+		val stats = footballDataRepository.getStats(teamId)
+		if (stats is ApiResult.ApiSuccess) _stats.value = stats
+		val team = footballDataRepository.getTeam(teamId)
+		if (team is ApiResult.ApiSuccess) _team.value = team
+	}
+
+	fun getTeamData(teamId: Int){
+		viewModelScope.launch {
+			val selectedTeam = footballDataRepository.getTeam(teamId)
+			if (selectedTeam is ApiResult.ApiSuccess) _selectedTeam.value = selectedTeam
+		}
 	}
 
 	private fun getTeamId(){
@@ -95,7 +104,6 @@ class ViewModel @Inject constructor(
 		viewModelScope.launch(Dispatchers.IO) {
 			val teamId = TeamId(id = 1, teamId = newTeamId)
 			footballDataRepository.updateTeamId(teamId)
-//			getTeamId()
 			getAllData(newTeamId)
 		}
 	}

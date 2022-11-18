@@ -1,8 +1,7 @@
 package com.github.kota.premierNavi.ui.screens.stats
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -13,13 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.core.text.buildSpannedString
-import coil.compose.rememberImagePainter
-import coil.decode.SvgDecoder
+import androidx.compose.ui.text.style.TextOverflow
 import com.github.kota.premierNavi.data.api.model.statsModel.Match
 import com.github.kota.premierNavi.data.api.model.statsModel.Stats
 import com.github.kota.premierNavi.ui.theme.MEDIUM_PADDING
@@ -28,26 +23,33 @@ import com.github.kota.premierNavi.utils.showCrest
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import com.github.kota.premierNavi.R
-import com.github.kota.premierNavi.ui.theme.LARGE_PADDING
+import com.github.kota.premierNavi.ui.theme.MEDIUM_IMAGE
 import com.github.kota.premierNavi.ui.theme.SMALL_IMAGE
 import com.github.kota.premierNavi.utils.translationToJapanese
 
 @Composable
 fun StatsContent(
-	stats: Stats?
+	stats: Stats,
+	navigateToTeamDetail:(Int) -> Unit
 ){
 	LazyColumn(
 		modifier = Modifier
 			.fillMaxWidth()
 	){
-		items(stats?.matches!!){
-			StatsItem(it)
+		items(stats.matches){ match ->
+			StatsItem(
+				match = match,
+				navigateToTeamDetail =	navigateToTeamDetail
+			)
 		}
 	}
 }
 
 @Composable
-private fun StatsItem(match: Match){
+private fun StatsItem(
+	match: Match,
+	navigateToTeamDetail: (Int) -> Unit
+){
 	val awayTeam = match.awayTeam.shortName
 	val homeTeam = match.homeTeam.shortName
 
@@ -90,7 +92,8 @@ private fun StatsItem(match: Match){
 				modifier = Modifier
 					.wrapContentWidth(Alignment.Start)
 					.weight(1f)
-					.padding(start = SMALL_PADDING),
+					.clickable { navigateToTeamDetail(match.homeTeam.id) }
+				,
 				horizontalArrangement = Arrangement.Center,
 				verticalAlignment = Alignment.CenterVertically
 			) {
@@ -98,15 +101,19 @@ private fun StatsItem(match: Match){
 					painter = showCrest(crest = match.homeTeam.crest),
 					contentDescription = stringResource(id = R.string.homeTeam_crest),
 					modifier = Modifier
-						.size(SMALL_IMAGE)
+						.requiredSize(SMALL_IMAGE)
 						.padding(SMALL_PADDING),
 					contentScale = ContentScale.Fit
 				)
 				Text(
-					modifier = Modifier.padding(start = SMALL_PADDING),
+					modifier = Modifier
+						.padding(start = SMALL_PADDING)
+						.width(MEDIUM_IMAGE),
 					text = translationToJapanese(EngTeamName = homeTeam),
 					fontWeight = FontWeight.Normal,
-					fontSize = MaterialTheme.typography.subtitle2.fontSize
+					fontSize = MaterialTheme.typography.subtitle2.fontSize,
+					maxLines = 2,
+					overflow = TextOverflow.Ellipsis
 				)
 			}
 			Text(text = scoreOrTime)
@@ -114,21 +121,25 @@ private fun StatsItem(match: Match){
 				modifier = Modifier
 					.wrapContentWidth(Alignment.End)
 					.weight(1f)
-					.padding(end = SMALL_PADDING),
+					.clickable { navigateToTeamDetail(match.awayTeam.id) },
 				horizontalArrangement = Arrangement.Center,
 				verticalAlignment = Alignment.CenterVertically
 			) {
 				Text(
-					modifier = Modifier.padding(end = SMALL_PADDING),
+					modifier = Modifier
+						.padding(end = SMALL_PADDING)
+						.width(MEDIUM_IMAGE),
 					text = translationToJapanese(EngTeamName = awayTeam),
 					fontWeight = FontWeight.Normal,
-					fontSize = MaterialTheme.typography.subtitle2.fontSize
+					fontSize = MaterialTheme.typography.subtitle2.fontSize,
+					maxLines = 2,
+					overflow = TextOverflow.Ellipsis
 				)
 				Image(
 					painter = showCrest(crest = match.awayTeam.crest),
 					contentDescription = stringResource(id = R.string.awayTeam_crest),
 					modifier = Modifier
-						.size(SMALL_IMAGE)
+						.requiredSize(SMALL_IMAGE)
 						.padding(SMALL_PADDING),
 					contentScale = ContentScale.Fit
 				)
