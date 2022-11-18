@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.github.kota.premierNavi.data.api.model.teamModel.Team
@@ -15,14 +13,14 @@ import com.github.kota.premierNavi.ui.screens.BottomBar
 import com.github.kota.premierNavi.ui.screens.TopBar
 import com.github.kota.premierNavi.ui.screens.animation.LoadingAnimationView
 import com.github.kota.premierNavi.ui.theme.bottomNavigationHeight
-import com.github.kota.premierNavi.ui.viewmodel.ViewModel
+import com.github.kota.premierNavi.ui.viewmodel.MyViewModel
 import com.github.kota.premierNavi.utils.ApiResult
 
 @Composable
 fun PlayerScreen(
 	selectedTeam: ApiResult<Team>,
 	navController: NavController,
-	viewModel: ViewModel
+	myViewModel: MyViewModel
 ){
 	val scaffoldState = rememberScaffoldState()
 	Scaffold(

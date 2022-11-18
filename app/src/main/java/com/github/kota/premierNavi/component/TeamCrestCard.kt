@@ -7,7 +7,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -19,27 +18,21 @@ import com.github.kota.premierNavi.R
 import com.github.kota.premierNavi.ui.theme.IMAGE_PADDING
 import com.github.kota.premierNavi.ui.theme.MEDIUM_IMAGE
 import com.github.kota.premierNavi.ui.theme.SMALL_IMAGE
+import com.github.kota.premierNavi.utils.showCrest
 import com.github.kota.premierNavi.utils.translationToJapanese
-
 
 @Composable
 fun TeamCrestCard(
-	crest: Painter,
 	name: String?,
-	modifier_column: Modifier,
-	modifier_image: Modifier
-){
+	modifier: Modifier = Modifier,
+	teamCrestCard: @Composable () -> Unit,
+) {
 	Column(
-		modifier = modifier_column,
+		modifier = modifier,
 		verticalArrangement = Arrangement.Center,
 		horizontalAlignment = Alignment.CenterHorizontally
 	) {
-		Image(
-			painter = crest ,
-			contentDescription = "home team icon",
-			modifier = modifier_image,
-			contentScale = ContentScale.Fit
-		)
+		teamCrestCard()
 		name?.let {
 			Text(
 				modifier = Modifier
@@ -59,11 +52,19 @@ fun TeamCrestCard(
 @Composable
 @Preview
 fun TeamCrestCardPreview(){
-	TeamCrestCard(crest = painterResource(id = R.drawable.players),
+	TeamCrestCard(
 		name = "Arsenal",
-		modifier_column = Modifier
+		modifier = Modifier
 			.wrapContentWidth(Alignment.Start)
-			.width(SMALL_IMAGE + IMAGE_PADDING + IMAGE_PADDING),
-		modifier_image = Modifier
-			.requiredSize(MEDIUM_IMAGE))
+			.width(SMALL_IMAGE + IMAGE_PADDING + IMAGE_PADDING)
+			.requiredSize(MEDIUM_IMAGE),
+		teamCrestCard = {
+			Image(
+				painter = showCrest(crest = match.matches[0].homeTeam.crest),
+				contentDescription = "home team icon",
+				modifier = Modifier,
+				contentScale = ContentScale.Fit
+			)
+		}
+	)
 }

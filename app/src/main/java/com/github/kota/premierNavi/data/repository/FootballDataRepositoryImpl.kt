@@ -10,45 +10,49 @@ import com.github.kota.premierNavi.data.api.model.rankingModel.Rank
 import com.github.kota.premierNavi.data.api.model.statsModel.Stats
 import com.github.kota.premierNavi.data.api.model.teamModel.Team
 import com.github.kota.premierNavi.data.model.TeamId
+import com.github.kota.premierNavi.domain.FootballDataRepository
+import com.github.kota.premierNavi.domain.TeamNumberDomainObject
 import com.github.kota.premierNavi.utils.ApiResult
 import com.github.kota.premierNavi.utils.handleApi
-import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-@ViewModelScoped
-class FootballDataRepository @Inject constructor(
+//@ViewModelScoped
+class FootballDataRepositoryImpl @Inject constructor(
 	private val matchApi: MatchApi,
 	private val teamApi: TeamApi,
 	private val rankApi: RankApi,
 	private val statsApi: StatsApi,
 	private val preNaviDao: PreNaviDao
-){
-	suspend fun getMatch(teamNumber: Int, matchStatus: String): ApiResult<Match>{
-		return handleApi { matchApi.getMatch(teamNumber, matchStatus) }
+) : FootballDataRepository {
+	override suspend fun getMatch(
+		teamNumber: TeamNumberDomainObject,
+		matchStatus: String
+	): ApiResult<Match> {
+		return handleApi { matchApi.getMatch(teamNumber.value, matchStatus) }
 	}
 
-	suspend fun getTeam(teamNumber: Int): ApiResult<Team>{
-		return handleApi { teamApi.getTeam(teamNumber)}
+	override suspend fun getTeam(teamNumber: Int): ApiResult<Team> {
+		return handleApi { teamApi.getTeam(teamNumber) }
 	}
 
-	suspend fun getRank(): ApiResult<Rank> {
+	override suspend fun getRank(): ApiResult<Rank> {
 		return handleApi {  rankApi.getRank() }
 	}
 
-	suspend fun getStats(teamNumber: Int): ApiResult<Stats>{
-		return handleApi { statsApi.getStats(teamNumber)}
+	override suspend fun getStats(teamNumber: Int): ApiResult<Stats> {
+		return handleApi { statsApi.getStats(teamNumber) }
 	}
 
-	fun getTeamId(): Flow<List<TeamId>> {
+	override fun getTeamId(): Flow<List<TeamId>> {
 		return preNaviDao.getTeamId()
 	}
 
-	suspend fun addTeamId(teamId: TeamId){
+	override suspend fun addTeamId(teamId: TeamId) {
 		preNaviDao.addTeamId(teamId)
 	}
 
-	suspend fun updateTeamId(teamId: TeamId){
+	override suspend fun updateTeamId(teamId: TeamId) {
 		preNaviDao.updateTeamId(teamId)
 	}
 }

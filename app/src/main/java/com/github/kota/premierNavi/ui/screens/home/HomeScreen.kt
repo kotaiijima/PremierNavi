@@ -8,12 +8,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.github.kota.premierNavi.data.api.model.matchModel.Match
+import com.github.kota.premierNavi.data.model.TeamId
 import com.github.kota.premierNavi.ui.screens.BottomBar
 import com.github.kota.premierNavi.ui.screens.TopBar
 import com.github.kota.premierNavi.ui.screens.animation.SplashAnimationView
 import com.github.kota.premierNavi.ui.screens.initial.InitialScreen
 import com.github.kota.premierNavi.ui.theme.bottomNavigationHeight
-import com.github.kota.premierNavi.ui.viewmodel.ViewModel
+import com.github.kota.premierNavi.ui.viewmodel.MyViewModel
 import com.github.kota.premierNavi.utils.ApiResult
 import com.github.kota.premierNavi.utils.RequestState
 
@@ -21,11 +22,11 @@ import com.github.kota.premierNavi.utils.RequestState
 fun HomeScreen(
 	navigateToTeamDetail:(Int) -> Unit,
 	navController: NavController,
-	viewModel: ViewModel
-){
-	val latestGame by viewModel.latestGame.collectAsState()
-	val nextGame by viewModel.nextGame.collectAsState()
-	val teamId by viewModel.teamId.collectAsState()
+	addTeamId: (Int) -> Unit,
+) {
+	val latestGame by myViewModel.latestGame.collectAsState()
+	val nextGame by myViewModel.nextGame.collectAsState()
+	val teamId by myViewModel.teamId.collectAsState()
 
 	val scaffoldState = rememberScaffoldState()
 	Scaffold(
@@ -33,10 +34,11 @@ fun HomeScreen(
 		content = {
 			Column (
 				modifier = Modifier.padding(bottom = bottomNavigationHeight)
-					){
+			) {
 					if (teamId is RequestState.Empty) {
 						InitialScreen(
-							viewModel = viewModel
+							rank = ,
+							addTeamId = addTeamId
 						)
 					} else {
 						if (latestGame is ApiResult.ApiSuccess && nextGame is ApiResult.ApiSuccess) {

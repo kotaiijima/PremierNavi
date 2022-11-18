@@ -14,16 +14,16 @@ import com.github.kota.premierNavi.ui.screens.BottomBar
 import com.github.kota.premierNavi.ui.screens.TopBar
 import com.github.kota.premierNavi.ui.screens.animation.LoadingAnimationView
 import com.github.kota.premierNavi.ui.theme.bottomNavigationHeight
-import com.github.kota.premierNavi.ui.viewmodel.ViewModel
+import com.github.kota.premierNavi.ui.viewmodel.MyViewModel
 import com.github.kota.premierNavi.utils.ApiResult
 
 @Composable
 fun StatsScreen(
 	navigateToTeamDetail:(Int) -> Unit,
 	navController: NavController,
-	viewModel: ViewModel
+	myViewModel: MyViewModel
 ){
-	val stats by viewModel.stats.collectAsState()
+	val stats by myViewModel.stats.collectAsState()
 
 	val scaffoldState = rememberScaffoldState()
 	Scaffold(

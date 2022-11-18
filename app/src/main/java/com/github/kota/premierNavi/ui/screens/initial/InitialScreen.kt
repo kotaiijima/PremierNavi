@@ -9,21 +9,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.navigation.NavController
 import com.github.kota.premierNavi.data.api.model.rankingModel.Rank
 import com.github.kota.premierNavi.ui.screens.animation.LoadingAnimationView
-import com.github.kota.premierNavi.ui.viewmodel.ViewModel
+import com.github.kota.premierNavi.ui.viewmodel.MyViewModel
 import com.github.kota.premierNavi.utils.ApiResult
 import com.github.kota.premierNavi.R
 import com.github.kota.premierNavi.ui.theme.LARGE_PADDING
 
-
 @Composable
 fun InitialScreen(
-	viewModel: ViewModel
+	rank: ApiResult,
+	addTeamId: (Int) -> Unit,
 ){
-	val rank by viewModel.rank.collectAsState()
-
 	Column(
 		modifier = Modifier.fillMaxSize()
 	) {
@@ -40,10 +37,9 @@ fun InitialScreen(
 			if (rank is ApiResult.ApiSuccess)
 				InitialContent(
 					rank = (rank as ApiResult.ApiSuccess<Rank>).data,
-					viewModel = viewModel,
-					)
-			else
-				LoadingAnimationView()
+					addTeamId = addTeamId,
+				)
+			else LoadingAnimationView()
 		}
 	}
 }

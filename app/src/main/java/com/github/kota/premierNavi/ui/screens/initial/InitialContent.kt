@@ -11,25 +11,25 @@ import com.github.kota.premierNavi.component.TeamCrestCard
 import com.github.kota.premierNavi.data.api.model.rankingModel.Rank
 import com.github.kota.premierNavi.ui.theme.IMAGE_PADDING
 import com.github.kota.premierNavi.ui.theme.LARGE_IMAGE
-import com.github.kota.premierNavi.ui.viewmodel.ViewModel
+import com.github.kota.premierNavi.ui.viewmodel.MyViewModel
 import com.github.kota.premierNavi.utils.showCrest
 
 @Composable
 fun InitialContent(
 	rank: Rank,
-	viewModel: ViewModel
-){
+	addTeamId: (Int) -> Unit,
+) {
 	LazyRow(
 		modifier = Modifier.fillMaxSize(),
 		verticalAlignment = Alignment.CenterVertically,
 		horizontalArrangement = Arrangement.Center
-	){
+	) {
 		items(rank.standings[0].table){
 			InitialItem(
 				teamId = it.team.id,
 				crest = it.team.crest,
 				teamName = it.team.shortName,
-				viewModel = viewModel,
+				addTeamId = addTeamId,
 			)
 		}
 	}
@@ -40,7 +40,7 @@ fun InitialItem(
 	teamId: Int,
 	crest: String,
 	teamName: String,
-	viewModel: ViewModel,
+	addTeamId: (Int) -> Unit,
 ){
 	TeamCrestCard(
 		crest = showCrest(crest = crest),
@@ -48,7 +48,7 @@ fun InitialItem(
 		modifier_column = Modifier
 			.padding(IMAGE_PADDING)
 			.clickable(onClick = {
-				viewModel.addTeamId(teamId)
+				addTeamId(teamId)
 			}
 			),
 		modifier_image = Modifier.requiredSize(LARGE_IMAGE )

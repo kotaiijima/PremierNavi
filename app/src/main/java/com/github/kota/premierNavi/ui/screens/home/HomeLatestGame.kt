@@ -1,6 +1,7 @@
 package com.github.kota.premierNavi.ui.screens.home
 
 import androidx.compose.animation.*
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
@@ -8,6 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -79,14 +81,19 @@ fun HomeLatestGame(
 			TeamCrestCard(
 				crest = showCrest(crest = match.matches[0].homeTeam.crest),
 				name = homeTeam,
-				modifier_column = Modifier
+				modifier = Modifier
 					.wrapContentWidth(Alignment.Start)
 					.weight(1f)
 					.width(MEDIUM_IMAGE + IMAGE_PADDING + IMAGE_PADDING)
-					.clickable { navigateToTeamDetail(match.matches[0].homeTeam.id) }
-				,
-				modifier_image = Modifier
-					.requiredSize(MEDIUM_IMAGE)
+					.clickable { navigateToTeamDetail(match.matches[0].homeTeam.id) },
+				teamCrestCard = {
+					Image(
+						painter = showCrest(crest = match.matches[0].homeTeam.crest),
+						contentDescription = "home team icon",
+						modifier = Modifier,
+						contentScale = ContentScale.Fit
+					)
+				}
 			)
 			Text(
 				modifier = Modifier.padding(top = LARGE_PADDING),

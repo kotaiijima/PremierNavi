@@ -8,14 +8,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.github.kota.premierNavi.navigation.SetupNavigation
 import com.github.kota.premierNavi.ui.theme.PremierNaviTheme
-import com.github.kota.premierNavi.ui.viewmodel.ViewModel
+import com.github.kota.premierNavi.ui.viewmodel.MyViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
 	private lateinit var navController: NavHostController
-	private val viewModel: ViewModel by viewModels()
+	private val myViewModel: MyViewModel by viewModels()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
 				navController = rememberNavController()
 				SetupNavigation(
 					navController = navController,
-					viewModel = viewModel
+					myViewModel = myViewModel
 				)
 			}
 		}
