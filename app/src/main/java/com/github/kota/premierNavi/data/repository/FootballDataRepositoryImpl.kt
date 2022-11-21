@@ -11,13 +11,12 @@ import com.github.kota.premierNavi.data.api.model.statsModel.Stats
 import com.github.kota.premierNavi.data.api.model.teamModel.Team
 import com.github.kota.premierNavi.data.model.TeamId
 import com.github.kota.premierNavi.domain.FootballDataRepository
-import com.github.kota.premierNavi.domain.TeamNumberDomainObject
+import com.github.kota.premierNavi.domain.TeamIdDomainObject
 import com.github.kota.premierNavi.utils.ApiResult
 import com.github.kota.premierNavi.utils.handleApi
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-//@ViewModelScoped
 class FootballDataRepositoryImpl @Inject constructor(
 	private val matchApi: MatchApi,
 	private val teamApi: TeamApi,
@@ -26,29 +25,35 @@ class FootballDataRepositoryImpl @Inject constructor(
 	private val preNaviDao: PreNaviDao
 ) : FootballDataRepository {
 	override suspend fun getMatch(
-		teamNumber: TeamNumberDomainObject,
+		teamId: TeamIdDomainObject,
 		matchStatus: String
 	): ApiResult<Match> {
-		return handleApi { matchApi.getMatch(teamNumber.value, matchStatus) }
+		return handleApi { matchApi.getMatch(teamId.value, matchStatus) }
 	}
 
-	override suspend fun getTeam(teamNumber: Int): ApiResult<Team> {
-		return handleApi { teamApi.getTeam(teamNumber) }
+	override suspend fun getTeam(
+		teamId: TeamIdDomainObject
+	): ApiResult<Team> {
+		return handleApi { teamApi.getTeam(teamId.value) }
 	}
 
 	override suspend fun getRank(): ApiResult<Rank> {
 		return handleApi {  rankApi.getRank() }
 	}
 
-	override suspend fun getStats(teamNumber: Int): ApiResult<Stats> {
-		return handleApi { statsApi.getStats(teamNumber) }
+	override suspend fun getStats(
+		teamId: TeamIdDomainObject
+	): ApiResult<Stats> {
+		return handleApi { statsApi.getStats(teamId.value) }
 	}
 
 	override fun getTeamId(): Flow<List<TeamId>> {
 		return preNaviDao.getTeamId()
 	}
 
-	override suspend fun addTeamId(teamId: TeamId) {
+	override suspend fun addTeamId(
+		teamId: TeamId
+	) {
 		preNaviDao.addTeamId(teamId)
 	}
 

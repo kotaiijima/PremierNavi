@@ -8,7 +8,7 @@ import com.github.kota.premierNavi.data.api.model.statsModel.Stats
 import com.github.kota.premierNavi.data.api.model.teamModel.Team
 import com.github.kota.premierNavi.data.model.TeamId
 import com.github.kota.premierNavi.domain.FootballDataRepository
-import com.github.kota.premierNavi.domain.TeamNumberDomainObject
+import com.github.kota.premierNavi.domain.TeamIdDomainObject
 import com.github.kota.premierNavi.utils.ApiResult
 import com.github.kota.premierNavi.utils.RequestState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -60,19 +60,19 @@ class MyViewModel @Inject constructor(
 	}
 
 	private suspend fun getAllData(teamId: Int) {
-		val latestGame = footballDataRepository.getMatch(TeamNumberDomainObject(teamId), "FINISHED")
+		val latestGame = footballDataRepository.getMatch(TeamIdDomainObject(teamId), "FINISHED")
 		if (latestGame is ApiResult.ApiSuccess)  _latestGame.value = latestGame
-		val nextGame = footballDataRepository.getMatch(TeamNumberDomainObject(teamId), "SCHEDULED")
+		val nextGame = footballDataRepository.getMatch(TeamIdDomainObject(teamId), "SCHEDULED")
 		if (nextGame is ApiResult.ApiSuccess) _nextGame.value = nextGame
-		val stats = footballDataRepository.getStats(teamId)
+		val stats = footballDataRepository.getStats(TeamIdDomainObject(teamId))
 		if (stats is ApiResult.ApiSuccess) _stats.value = stats
-		val team = footballDataRepository.getTeam(teamId)
+		val team = footballDataRepository.getTeam(TeamIdDomainObject(teamId))
 		if (team is ApiResult.ApiSuccess) _team.value = team
 	}
 
 	fun getTeamData(teamId: Int) {
 		viewModelScope.launch {
-			val selectedTeam = footballDataRepository.getTeam(teamId)
+			val selectedTeam = footballDataRepository.getTeam(TeamIdDomainObject(teamId))
 			if (selectedTeam is ApiResult.ApiSuccess) _selectedTeam.value = selectedTeam
 		}
 	}

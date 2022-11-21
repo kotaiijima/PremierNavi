@@ -9,13 +9,13 @@ import com.github.kota.premierNavi.utils.ApiResult
 import kotlinx.coroutines.flow.Flow
 
 interface FootballDataRepository {
-  suspend fun getMatch(teamNumber: TeamNumberDomainObject, matchStatus: String): ApiResult<Match>
+  suspend fun getMatch(teamId: TeamIdDomainObject, matchStatus: String): ApiResult<Match>
 
-  suspend fun getTeam(teamNumber: Int): ApiResult<Team>
+  suspend fun getTeam(teamId: TeamIdDomainObject): ApiResult<Team>
 
   suspend fun getRank(): ApiResult<Rank>
 
-  suspend fun getStats(teamNumber: Int): ApiResult<Stats>
+  suspend fun getStats(teamId: TeamIdDomainObject): ApiResult<Stats>
 
   fun getTeamId(): Flow<List<TeamId>>
 
