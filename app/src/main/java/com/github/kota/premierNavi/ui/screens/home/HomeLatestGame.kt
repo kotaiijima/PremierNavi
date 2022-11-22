@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -79,7 +80,6 @@ fun HomeLatestGame(
 			verticalAlignment = Alignment.CenterVertically
 		) {
 			TeamCrestCard(
-				crest = showCrest(crest = match.matches[0].homeTeam.crest),
 				name = homeTeam,
 				modifier = Modifier
 					.wrapContentWidth(Alignment.Start)
@@ -89,8 +89,8 @@ fun HomeLatestGame(
 				teamCrestCard = {
 					Image(
 						painter = showCrest(crest = match.matches[0].homeTeam.crest),
-						contentDescription = "home team icon",
-						modifier = Modifier,
+						contentDescription = stringResource(id = R.string.club_crest),
+						modifier = Modifier.requiredSize(MEDIUM_IMAGE),
 						contentScale = ContentScale.Fit
 					)
 				}
@@ -103,15 +103,20 @@ fun HomeLatestGame(
 				textAlign = TextAlign.Center
 				)
 			TeamCrestCard(
-				crest = showCrest(crest = match.matches[0].awayTeam.crest),
 				name = awayTeam,
-				modifier_column = Modifier
+				modifier = Modifier
 					.wrapContentWidth(Alignment.End)
 					.weight(1f)
 					.width(MEDIUM_IMAGE + IMAGE_PADDING + IMAGE_PADDING)
 					.clickable { navigateToTeamDetail(match.matches[0].awayTeam.id) },
-				modifier_image = Modifier
-					.requiredSize(MEDIUM_IMAGE)
+				teamCrestCard = {
+					Image(
+						painter = showCrest(crest = match.matches[0].awayTeam.crest),
+						contentDescription = stringResource(id = R.string.club_crest),
+						modifier = Modifier.requiredSize(MEDIUM_IMAGE),
+						contentScale = ContentScale.Fit
+					)
+				}
 			)
 		}
 	}

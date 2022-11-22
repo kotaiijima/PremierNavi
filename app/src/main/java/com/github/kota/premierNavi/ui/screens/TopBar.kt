@@ -18,7 +18,7 @@ fun TopBar(
 		backgroundColor = colorResource(id = R.color.teal_700),
 		contentColor = Color.White,
 		title = {
-			Text(text = "PremierNavi")
+			Text(text = stringResource(id = R.string.app_name))
 		},
 		actions = {
 			SettingMenu(navController = navController)

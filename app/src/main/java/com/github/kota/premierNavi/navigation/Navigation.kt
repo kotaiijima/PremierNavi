@@ -32,6 +32,12 @@ fun SetupNavigation(
 		Screen(navController)
 	}
 	val team by myViewModel.team.collectAsState()
+	val latestGame by myViewModel.latestGame.collectAsState()
+	val nextGame by myViewModel.nextGame.collectAsState()
+	val rank by myViewModel.rank.collectAsState()
+	val stats by myViewModel.stats.collectAsState()
+	val teamId by myViewModel.teamId.collectAsState()
+	val selectedTeam by myViewModel.selectedTeam.collectAsState()
 
 	NavHost(
 		navController = navController,
@@ -42,42 +48,47 @@ fun SetupNavigation(
 				navigateToTeamDetail = screen.team,
 				navController = navController,
 				addTeamId = myViewModel::addTeamId,
+				latestGame = latestGame,
+				nextGame = nextGame,
+				rank = rank,
+				teamId = teamId
 			)
 		}
 		composable(RANK_SCREEN) {
 			RankScreen(
 				navigateToTeamDetail = screen.team,
 				navController = navController,
-				myViewModel = myViewModel
+				rank = rank
 			)
 		}
 		composable(STATS_SCREEN){ StatsScreen(
-			navigateToTeamDetail = screen.team,
 			navController = navController,
-			myViewModel = myViewModel)}
+			navigateToTeamDetail = screen.team,
+			stats = stats
+		) }
 
 		composable(SETTING_SCREEN){ SettingScreen(
 			navController = navController,
-			myViewModel = myViewModel)}
+			rank = rank,
+			updateTeamId = myViewModel::updateTeamId
+		) }
 		composable(TEAM_SCREEN){ PlayerScreen(
-			selectedTeam = team,
 			navController = navController,
-			myViewModel = myViewModel
-		)}
+			selectedTeam = team,
+		) }
 		composable(
 			route = TEAM_DETAIL,
 			arguments = listOf(navArgument(TEAM_DETAIL_ARGUMENT_KEY){
 				type = NavType.IntType
 			})
 		) {
-			val teamId = it.arguments!!.getInt(TEAM_DETAIL_ARGUMENT_KEY)
-			myViewModel.getTeamData(teamId)
-			val selectedTeam by myViewModel.selectedTeam.collectAsState()
+			val selectedTeamId = it.arguments!!.getInt(TEAM_DETAIL_ARGUMENT_KEY)
+			myViewModel.getTeamData(selectedTeamId)
 
 			PlayerScreen(
 				selectedTeam = selectedTeam,
 				navController = navController,
-				myViewModel = myViewModel)
+				)
 		}
 	}
 }

@@ -19,14 +19,13 @@ import com.github.kota.premierNavi.ui.theme.SMALL_IMAGE
 import com.github.kota.premierNavi.utils.showCrest
 import com.github.kota.premierNavi.R
 import com.github.kota.premierNavi.ui.theme.MEDIUM_PADDING
-import com.github.kota.premierNavi.ui.viewmodel.MyViewModel
 import com.github.kota.premierNavi.utils.Constants.HOME_SCREEN
 
 @Composable
 fun SettingContent(
-	rank: Rank,
 	navController: NavController,
-	myViewModel: MyViewModel
+	rank: Rank,
+	updateTeamId: (Int) -> Unit
 ){
 	LazyColumn {
 		items(rank.standings[0].table) {
@@ -35,7 +34,7 @@ fun SettingContent(
 				teamName = it.team.shortName,
 				teamId = it.team.id,
 				navController = navController,
-				myViewModel = myViewModel
+				updateTeamId = updateTeamId
 			)
 		}
 	}
@@ -43,11 +42,11 @@ fun SettingContent(
 
 @Composable
 fun SettingItem(
+	navController: NavController,
 	crest: String,
 	teamName: String,
 	teamId : Int,
-	navController: NavController,
-	myViewModel: MyViewModel
+	updateTeamId:(Int) -> Unit
 ){
 	Row(
 		horizontalArrangement = Arrangement.Center,
@@ -56,7 +55,7 @@ fun SettingItem(
 			.fillMaxWidth()
 			.height(IntrinsicSize.Max)
 			.clickable(onClick = {
-				myViewModel.updateTeamId(teamId)
+				updateTeamId(teamId)
 				navController.navigate(HOME_SCREEN) })
 	) {
 		Image(painter = showCrest(crest = crest),

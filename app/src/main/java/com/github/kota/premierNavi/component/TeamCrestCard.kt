@@ -60,7 +60,7 @@ fun TeamCrestCardPreview(){
 			.requiredSize(MEDIUM_IMAGE),
 		teamCrestCard = {
 			Image(
-				painter = showCrest(crest = match.matches[0].homeTeam.crest),
+				painter = painterResource(id = R.drawable.players),
 				contentDescription = "home team icon",
 				modifier = Modifier,
 				contentScale = ContentScale.Fit

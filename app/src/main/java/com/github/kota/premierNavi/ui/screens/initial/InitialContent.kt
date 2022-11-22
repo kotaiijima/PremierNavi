@@ -1,5 +1,6 @@
 package com.github.kota.premierNavi.ui.screens.initial
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -7,12 +8,14 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import com.github.kota.premierNavi.component.TeamCrestCard
 import com.github.kota.premierNavi.data.api.model.rankingModel.Rank
 import com.github.kota.premierNavi.ui.theme.IMAGE_PADDING
 import com.github.kota.premierNavi.ui.theme.LARGE_IMAGE
-import com.github.kota.premierNavi.ui.viewmodel.MyViewModel
 import com.github.kota.premierNavi.utils.showCrest
+import com.github.kota.premierNavi.R
 
 @Composable
 fun InitialContent(
@@ -43,15 +46,20 @@ fun InitialItem(
 	addTeamId: (Int) -> Unit,
 ){
 	TeamCrestCard(
-		crest = showCrest(crest = crest),
 		name = teamName,
-		modifier_column = Modifier
+		modifier = Modifier
 			.padding(IMAGE_PADDING)
 			.clickable(onClick = {
 				addTeamId(teamId)
-			}
-			),
-		modifier_image = Modifier.requiredSize(LARGE_IMAGE )
+			}),
+		teamCrestCard = {
+			Image(
+				painter = showCrest(crest = crest),
+				contentDescription = stringResource(id = R.string.club_crest),
+				modifier = Modifier.requiredSize(LARGE_IMAGE),
+				contentScale = ContentScale.Fit
+			)
+		}
 	)
 }
 

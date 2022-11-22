@@ -24,6 +24,7 @@ class FootballDataRepositoryImpl @Inject constructor(
 	private val statsApi: StatsApi,
 	private val preNaviDao: PreNaviDao
 ) : FootballDataRepository {
+
 	override suspend fun getMatch(
 		teamId: TeamIdDomainObject,
 		matchStatus: String

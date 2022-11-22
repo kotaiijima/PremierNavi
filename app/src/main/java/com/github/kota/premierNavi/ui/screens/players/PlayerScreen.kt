@@ -13,14 +13,12 @@ import com.github.kota.premierNavi.ui.screens.BottomBar
 import com.github.kota.premierNavi.ui.screens.TopBar
 import com.github.kota.premierNavi.ui.screens.animation.LoadingAnimationView
 import com.github.kota.premierNavi.ui.theme.bottomNavigationHeight
-import com.github.kota.premierNavi.ui.viewmodel.MyViewModel
 import com.github.kota.premierNavi.utils.ApiResult
 
 @Composable
 fun PlayerScreen(
-	selectedTeam: ApiResult<Team>,
 	navController: NavController,
-	myViewModel: MyViewModel
+	selectedTeam: ApiResult<Team>,
 ){
 	val scaffoldState = rememberScaffoldState()
 	Scaffold(
@@ -30,11 +28,11 @@ fun PlayerScreen(
 					if (selectedTeam is ApiResult.ApiSuccess){
 						Column {
 							TeamInformation(
-								crest = (selectedTeam as ApiResult.ApiSuccess<Team>).data.crest,
-								stadium = (selectedTeam as ApiResult.ApiSuccess<Team>).data.venue,
-								teamName = (selectedTeam as ApiResult.ApiSuccess<Team>).data.name
+								crest = selectedTeam.data.crest,
+								stadium = selectedTeam.data.venue,
+								teamName = selectedTeam.data.name
 							)
-							PlayerContent(team = (selectedTeam as ApiResult.ApiSuccess<Team>).data)
+							PlayerContent(team = selectedTeam.data)
 						}
 					}
 					else
