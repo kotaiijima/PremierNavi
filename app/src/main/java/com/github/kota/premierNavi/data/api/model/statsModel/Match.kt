@@ -21,7 +21,7 @@ data class Match(
     @Json(name = "lastUpdated")
     val lastUpdated: String,
     @Json(name = "matchday")
-    val matchday: Int,
+    val matchday: Int?,
     @Json(name = "odds")
     val odds: Odds,
     @Json(name = "referees")

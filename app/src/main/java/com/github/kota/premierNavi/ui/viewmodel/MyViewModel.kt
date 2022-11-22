@@ -1,5 +1,6 @@
 package com.github.kota.premierNavi.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.kota.premierNavi.data.api.model.matchModel.Match
@@ -66,6 +67,7 @@ class MyViewModel @Inject constructor(
 		if (nextGame is ApiResult.ApiSuccess) _nextGame.value = nextGame
 		val stats = footballDataRepository.getStats(TeamIdDomainObject(teamId))
 		if (stats is ApiResult.ApiSuccess) _stats.value = stats
+		Log.d("stats ApiResult:", stats.toString())
 		val team = footballDataRepository.getTeam(TeamIdDomainObject(teamId))
 		if (team is ApiResult.ApiSuccess) _team.value = team
 	}

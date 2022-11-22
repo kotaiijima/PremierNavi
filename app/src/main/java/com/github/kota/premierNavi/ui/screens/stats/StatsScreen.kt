@@ -16,15 +16,18 @@ import com.github.kota.premierNavi.utils.ApiResult
 
 @Composable
 fun StatsScreen(
-	navigateToTeamDetail:(Int) -> Unit,
 	navController: NavController,
+	navigateToTeamDetail:(Int) -> Unit,
 	stats: ApiResult<Stats>
 ){
 	val scaffoldState = rememberScaffoldState()
 	Scaffold(
 		scaffoldState = scaffoldState,
 		content = {
-			Box(modifier = Modifier.padding(bottom = bottomNavigationHeight)){
+			Box(
+				modifier = Modifier.padding(bottom = bottomNavigationHeight
+				)
+			){
 				if (stats is ApiResult.ApiSuccess)
 					StatsContent(
 						stats = stats.data,

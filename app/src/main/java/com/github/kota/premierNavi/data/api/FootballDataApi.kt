@@ -37,7 +37,7 @@ interface RankApi {
 
 interface StatsApi {
 	@Headers("X-Auth-Token: d7c5b36a10114765b9615d549dab8b5c")
-	@GET("/v4/teams/{teamId}/matches")
+	@GET("/v4/teams/{teamId}/matches/")
 	suspend fun getStats(
 		@Path("teamId") teamId: Int
 	): Response<Stats>
