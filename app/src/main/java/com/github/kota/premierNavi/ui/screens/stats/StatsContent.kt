@@ -56,7 +56,20 @@ private fun StatsItem(
 	val jstDate = ZonedDateTime.parse(match.utcDate).plusHours(9)
 	val dateFormat = DateTimeFormatter.ofPattern("MM/dd")
 	val dateToJapan = jstDate.format(dateFormat)
-	val matchday = "第${match.matchday}節"
+	val matchday = when (match.competition.code) {
+		"PL" ->	"プレミアリーグ 第${match.matchday}節"
+		"CL" ->
+			when (match.stage){
+				"LAST_16" -> "チャンピオンズリーグ ラウンド１６"
+				"LAST_8" -> "チャンピオンズリーグ 準々決勝"
+				"LAST_4" -> "チャンピオンズリーグ 準決勝"
+				"LAST_2" -> "チャンピオンズリーグ 決勝"
+				else -> "チャンピオンズリーグ 第${match.matchday}節"
+			}
+		else -> ""
+	}
+
+
 
 	val scoreOrTime = if (match.score.fullTime.home == null || match.score.fullTime.away == null){
 		val timeFormat = DateTimeFormatter.ofPattern("HH:mm")

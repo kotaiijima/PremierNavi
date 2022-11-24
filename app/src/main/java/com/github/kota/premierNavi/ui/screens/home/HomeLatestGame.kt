@@ -1,6 +1,5 @@
 package com.github.kota.premierNavi.ui.screens.home
 
-import androidx.compose.animation.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -10,85 +9,38 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
 import com.github.kota.premierNavi.component.TeamCrestCard
-import com.github.kota.premierNavi.data.api.model.matchModel.Match
 import com.github.kota.premierNavi.R
+import com.github.kota.premierNavi.domain.TeamDomainObject
 import com.github.kota.premierNavi.ui.theme.*
-import com.github.kota.premierNavi.utils.showCrest
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 
 @Composable
 fun HomeLatestGame(
-	match: Match,
+	matchResult: String,
+	homeTeam: TeamDomainObject,
+	awayTeam: TeamDomainObject,
 	navigateToTeamDetail:(Int) -> Unit
 ){
-	val section = "第${match.matches[0].season.currentMatchday}節"
-	val matchResult = "${match.matches[0].score.fullTime?.home} - ${match.matches[0].score.fullTime?.away}"
-
-	val homeTeam = match.matches[0].homeTeam.shortName
-	val awayTeam = match.matches[0].awayTeam.shortName
-
-	val date = ZonedDateTime.parse(match.matches[0].utcDate).plusHours(9)
-	val dtf = DateTimeFormatter.ofPattern("MM/dd HH:mm")
-	val dateToString = date.format(dtf)
-
-	val visible by remember { mutableStateOf(true) }
-	val density = LocalDensity.current
-
-	Column {
-		AnimatedVisibility(
-			visible = visible,
-			enter = slideInVertically {
-				// Slide in from 40 dp from the top.
-				with(density) { -40.dp.roundToPx() }
-			} + expandVertically(
-				// Expand from the top.
-				expandFrom = Alignment.Top
-			) + fadeIn(
-				// Fade in with the initial alpha of 0.3f.
-				initialAlpha = 0.3f
-			),
-			exit = slideOutVertically() + shrinkVertically() + fadeOut()
-		) {
-			Text(
-				modifier = Modifier
-					.padding(LARGE_PADDING),
-				fontWeight = FontWeight.Normal,
-				fontSize = MaterialTheme.typography.h5.fontSize ,
-				text = stringResource(id = R.string.latestGame_text)
-			)
-		}
-		Row(modifier = Modifier
-			.fillMaxWidth()
-			.padding(MEDIUM_PADDING)) {
-			Text(
-				modifier = Modifier.padding(end = SMALL_PADDING),
-				fontWeight = FontWeight.Bold,
-				fontSize = MaterialTheme.typography.h5.fontSize ,
-				text = "$section: $dateToString")
-		}
 		Row(
 			modifier = Modifier
 				.padding(top = LARGE_PADDING),
 			verticalAlignment = Alignment.CenterVertically
 		) {
 			TeamCrestCard(
-				name = homeTeam,
+				name = homeTeam.name,
 				modifier = Modifier
 					.wrapContentWidth(Alignment.Start)
 					.weight(1f)
 					.width(MEDIUM_IMAGE + IMAGE_PADDING + IMAGE_PADDING)
-					.clickable { navigateToTeamDetail(match.matches[0].homeTeam.id) },
+					.clickable { navigateToTeamDetail(homeTeam.id) },
 				teamCrestCard = {
 					Image(
-						painter = showCrest(crest = match.matches[0].homeTeam.crest),
+						painter = homeTeam.crest,
 						contentDescription = stringResource(id = R.string.club_crest),
 						modifier = Modifier.requiredSize(MEDIUM_IMAGE),
 						contentScale = ContentScale.Fit
@@ -103,15 +55,15 @@ fun HomeLatestGame(
 				textAlign = TextAlign.Center
 				)
 			TeamCrestCard(
-				name = awayTeam,
+				name = awayTeam.name,
 				modifier = Modifier
 					.wrapContentWidth(Alignment.End)
 					.weight(1f)
 					.width(MEDIUM_IMAGE + IMAGE_PADDING + IMAGE_PADDING)
-					.clickable { navigateToTeamDetail(match.matches[0].awayTeam.id) },
+					.clickable { navigateToTeamDetail(awayTeam.id) },
 				teamCrestCard = {
 					Image(
-						painter = showCrest(crest = match.matches[0].awayTeam.crest),
+						painter = awayTeam.crest,
 						contentDescription = stringResource(id = R.string.club_crest),
 						modifier = Modifier.requiredSize(MEDIUM_IMAGE),
 						contentScale = ContentScale.Fit
@@ -119,5 +71,24 @@ fun HomeLatestGame(
 				}
 			)
 		}
-	}
+}
+
+
+@Composable
+@Preview
+fun HomeLatestGamePreview() {
+	HomeLatestGame(
+		matchResult = "4 - 2",
+		homeTeam = TeamDomainObject(
+			name = "Arsenal",
+			id = 0,
+			crest = painterResource(id = R.drawable.players)
+		),
+		awayTeam = TeamDomainObject(
+			name = "Man City",
+			id = 0,
+			crest = painterResource(id = R.drawable.players)
+		),
+		navigateToTeamDetail = {}
+	)
 }

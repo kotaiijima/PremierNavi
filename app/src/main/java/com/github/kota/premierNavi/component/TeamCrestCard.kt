@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -40,9 +41,8 @@ fun TeamCrestCard(
 					.fillMaxWidth(),
 				text = translationToJapanese(EngTeamName = it),
 				fontWeight = FontWeight.Normal,
-				fontSize = MaterialTheme.typography.h6.fontSize,
-				maxLines = 1,
-				overflow = TextOverflow.Ellipsis,
+				fontSize = MaterialTheme.typography.h5.fontSize,
+				maxLines = 2,
 				textAlign = TextAlign.Center
 			)
 		}
@@ -53,16 +53,14 @@ fun TeamCrestCard(
 @Preview
 fun TeamCrestCardPreview(){
 	TeamCrestCard(
-		name = "Arsenal",
+		name = "Brentford",
 		modifier = Modifier
-			.wrapContentWidth(Alignment.Start)
-			.width(SMALL_IMAGE + IMAGE_PADDING + IMAGE_PADDING)
-			.requiredSize(MEDIUM_IMAGE),
+			.width(SMALL_IMAGE + IMAGE_PADDING + IMAGE_PADDING),
 		teamCrestCard = {
 			Image(
 				painter = painterResource(id = R.drawable.players),
-				contentDescription = "home team icon",
-				modifier = Modifier,
+				contentDescription = stringResource(id = R.string.club_crest),
+				modifier = Modifier.requiredSize(MEDIUM_IMAGE),
 				contentScale = ContentScale.Fit
 			)
 		}

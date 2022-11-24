@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import com.github.kota.premierNavi.component.TeamCrestCard
 import com.github.kota.premierNavi.data.api.model.rankingModel.Rank
 import com.github.kota.premierNavi.ui.theme.IMAGE_PADDING
@@ -63,3 +64,11 @@ fun InitialItem(
 	)
 }
 
+//@Composable
+//@Preview
+//fun InitialContentPreview() {
+//	InitialContent(
+//		rank = ,
+//		addTeamId =
+//	)
+//}

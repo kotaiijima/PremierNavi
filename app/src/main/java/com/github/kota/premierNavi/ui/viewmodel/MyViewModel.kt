@@ -56,6 +56,7 @@ class MyViewModel @Inject constructor(
 		viewModelScope.launch{
 			val rank = footballDataRepository.getRank()
 			if (rank is ApiResult.ApiSuccess) _rank.value = rank
+			Log.d("[rank]ApiResult:", rank.toString())
 			getTeamId()
 		}
 	}
@@ -63,13 +64,16 @@ class MyViewModel @Inject constructor(
 	private suspend fun getAllData(teamId: Int) {
 		val latestGame = footballDataRepository.getMatch(TeamIdDomainObject(teamId), "FINISHED")
 		if (latestGame is ApiResult.ApiSuccess)  _latestGame.value = latestGame
+		Log.d("[latestGame]ApiResult:", latestGame.toString())
 		val nextGame = footballDataRepository.getMatch(TeamIdDomainObject(teamId), "SCHEDULED")
 		if (nextGame is ApiResult.ApiSuccess) _nextGame.value = nextGame
+		Log.d("[nextGame]ApiResult:", nextGame.toString())
 		val stats = footballDataRepository.getStats(TeamIdDomainObject(teamId))
 		if (stats is ApiResult.ApiSuccess) _stats.value = stats
-		Log.d("stats ApiResult:", stats.toString())
+		Log.d("[stats]ApiResult:", stats.toString())
 		val team = footballDataRepository.getTeam(TeamIdDomainObject(teamId))
 		if (team is ApiResult.ApiSuccess) _team.value = team
+		Log.d("[team]ApiResult:", team.toString())
 	}
 
 	fun getTeamData(teamId: Int) {
