@@ -10,7 +10,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.github.kota.premierNavi.component.TeamCrestCard
 import com.github.kota.premierNavi.data.api.model.rankingModel.Rank
 import com.github.kota.premierNavi.ui.theme.IMAGE_PADDING
@@ -30,9 +29,9 @@ fun InitialContent(
 	) {
 		items(rank.standings[0].table){
 			InitialItem(
-				teamId = it.team.id,
-				crest = it.team.crest,
-				teamName = it.team.shortName,
+				teamId = it.apiTeam.id,
+				crest = it.apiTeam.crest,
+				teamName = it.apiTeam.shortName,
 				addTeamId = addTeamId,
 			)
 		}

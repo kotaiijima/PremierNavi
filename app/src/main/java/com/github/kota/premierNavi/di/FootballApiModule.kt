@@ -4,14 +4,10 @@ import com.github.kota.premierNavi.data.api.MatchApi
 import com.github.kota.premierNavi.data.api.RankApi
 import com.github.kota.premierNavi.data.api.StatsApi
 import com.github.kota.premierNavi.data.api.TeamApi
-import com.github.kota.premierNavi.data.api.model.teamModel.Team
-import com.github.kota.premierNavi.utils.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import retrofit2.HttpException
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton

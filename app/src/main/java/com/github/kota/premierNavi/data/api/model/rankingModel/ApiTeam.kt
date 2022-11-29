@@ -5,7 +5,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class Team(
+data class ApiTeam(
     @Json(name = "crest")
     val crest: String,
     @Json(name = "id")

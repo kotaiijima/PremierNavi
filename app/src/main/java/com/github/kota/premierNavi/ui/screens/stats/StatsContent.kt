@@ -16,7 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import com.github.kota.premierNavi.data.api.model.statsModel.Match
-import com.github.kota.premierNavi.data.api.model.statsModel.Stats
+import com.github.kota.premierNavi.data.api.model.statsModel.ApiStats
 import com.github.kota.premierNavi.ui.theme.MEDIUM_PADDING
 import com.github.kota.premierNavi.ui.theme.SMALL_PADDING
 import com.github.kota.premierNavi.utils.showCrest
@@ -29,14 +29,14 @@ import com.github.kota.premierNavi.utils.translationToJapanese
 
 @Composable
 fun StatsContent(
-	stats: Stats,
+	apiStats: ApiStats,
 	navigateToTeamDetail:(Int) -> Unit
 ){
 	LazyColumn(
 		modifier = Modifier
 			.fillMaxWidth()
 	){
-		items(stats.matches){ match ->
+		items(apiStats.matches){ match ->
 			StatsItem(
 				match = match,
 				navigateToTeamDetail =	navigateToTeamDetail

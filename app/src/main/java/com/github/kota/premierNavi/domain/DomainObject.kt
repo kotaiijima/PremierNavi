@@ -9,3 +9,4 @@ data class TeamDomainObject(
 	val name: String,
 	val crest: Painter
 )
+

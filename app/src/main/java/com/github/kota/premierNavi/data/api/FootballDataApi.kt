@@ -1,10 +1,9 @@
 package com.github.kota.premierNavi.data.api
 
-import com.github.kota.premierNavi.data.api.model.matchModel.Match
+import com.github.kota.premierNavi.data.api.model.matchModel.ApiMatch
 import com.github.kota.premierNavi.data.api.model.rankingModel.Rank
-import com.github.kota.premierNavi.data.api.model.statsModel.Stats
-import com.github.kota.premierNavi.data.api.model.teamModel.Team
-import com.github.kota.premierNavi.domain.TeamIdDomainObject
+import com.github.kota.premierNavi.data.api.model.statsModel.ApiStats
+import com.github.kota.premierNavi.data.api.model.teamModel.ApiTeam
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -17,7 +16,7 @@ interface MatchApi {
 		suspend fun getMatch(
 			@Path("teamId") teamId: Int,
 			@Query("status") status: String
-		): Response<Match>
+		): Response<ApiMatch>
 }
 
 interface TeamApi {
@@ -25,7 +24,7 @@ interface TeamApi {
 	@GET("/v4/teams/{teamId}/")
 	suspend fun getTeam(
 		@Path("teamId") teamId: Int
-	): Response<Team>
+	): Response<ApiTeam>
 }
 
 interface RankApi {
@@ -40,5 +39,5 @@ interface StatsApi {
 	@GET("/v4/teams/{teamId}/matches/")
 	suspend fun getStats(
 		@Path("teamId") teamId: Int
-	): Response<Stats>
+	): Response<ApiStats>
 }

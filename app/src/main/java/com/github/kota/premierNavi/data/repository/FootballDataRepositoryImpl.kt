@@ -5,10 +5,10 @@ import com.github.kota.premierNavi.data.api.MatchApi
 import com.github.kota.premierNavi.data.api.RankApi
 import com.github.kota.premierNavi.data.api.StatsApi
 import com.github.kota.premierNavi.data.api.TeamApi
-import com.github.kota.premierNavi.data.api.model.matchModel.Match
+import com.github.kota.premierNavi.data.api.model.matchModel.ApiMatch
 import com.github.kota.premierNavi.data.api.model.rankingModel.Rank
-import com.github.kota.premierNavi.data.api.model.statsModel.Stats
-import com.github.kota.premierNavi.data.api.model.teamModel.Team
+import com.github.kota.premierNavi.data.api.model.statsModel.ApiStats
+import com.github.kota.premierNavi.data.api.model.teamModel.ApiTeam
 import com.github.kota.premierNavi.data.model.TeamId
 import com.github.kota.premierNavi.domain.FootballDataRepository
 import com.github.kota.premierNavi.domain.TeamIdDomainObject
@@ -28,13 +28,13 @@ class FootballDataRepositoryImpl @Inject constructor(
 	override suspend fun getMatch(
 		teamId: TeamIdDomainObject,
 		matchStatus: String
-	): ApiResult<Match> {
+	): ApiResult<ApiMatch> {
 		return handleApi { matchApi.getMatch(teamId.value, matchStatus) }
 	}
 
 	override suspend fun getTeam(
 		teamId: TeamIdDomainObject
-	): ApiResult<Team> {
+	): ApiResult<ApiTeam> {
 		return handleApi { teamApi.getTeam(teamId.value) }
 	}
 
@@ -44,7 +44,7 @@ class FootballDataRepositoryImpl @Inject constructor(
 
 	override suspend fun getStats(
 		teamId: TeamIdDomainObject
-	): ApiResult<Stats> {
+	): ApiResult<ApiStats> {
 		return handleApi { statsApi.getStats(teamId.value) }
 	}
 

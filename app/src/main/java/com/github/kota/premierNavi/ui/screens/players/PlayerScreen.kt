@@ -8,31 +8,33 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.github.kota.premierNavi.data.api.model.teamModel.Team
+import com.github.kota.premierNavi.data.api.model.teamModel.ApiTeam
+import com.github.kota.premierNavi.domain.model.TeamDomainModel
 import com.github.kota.premierNavi.ui.screens.BottomBar
 import com.github.kota.premierNavi.ui.screens.TopBar
 import com.github.kota.premierNavi.ui.screens.animation.LoadingAnimationView
 import com.github.kota.premierNavi.ui.theme.bottomNavigationHeight
 import com.github.kota.premierNavi.utils.ApiResult
+import com.github.kota.premierNavi.utils.RequestState
 
 @Composable
 fun PlayerScreen(
 	navController: NavController,
-	selectedTeam: ApiResult<Team>,
+	team: RequestState<TeamDomainModel>,
 ){
 	val scaffoldState = rememberScaffoldState()
 	Scaffold(
 		scaffoldState = scaffoldState,
 		content = {
 				Box(modifier = Modifier.padding(bottom = bottomNavigationHeight)){
-					if (selectedTeam is ApiResult.ApiSuccess){
+					if (team is RequestState.Success){
 						Column {
 							TeamInformation(
-								crest = selectedTeam.data.crest,
-								stadium = selectedTeam.data.venue,
-								teamName = selectedTeam.data.name
+								crest = team.data.crest,
+								stadium = team.data.stadium,
+								teamName = team.data.teamName
 							)
-							PlayerContent(team = selectedTeam.data)
+							PlayerContent(team = team.data)
 						}
 					}
 					else

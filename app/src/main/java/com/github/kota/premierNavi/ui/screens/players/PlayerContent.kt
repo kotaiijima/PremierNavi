@@ -18,13 +18,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.kota.premierNavi.data.api.model.teamModel.Team
+import com.github.kota.premierNavi.data.api.model.teamModel.ApiTeam
+import com.github.kota.premierNavi.domain.model.TeamDomainModel
 import com.github.kota.premierNavi.ui.theme.MEDIUM_PADDING
 import com.github.kota.premierNavi.utils.calcAge
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun PlayerContent (team: Team){
+fun PlayerContent (
+	team: TeamDomainModel
+) {
 	val listState = rememberLazyListState()
 	val playersPositionGroup = team.squad.groupBy { it.position }
 
@@ -45,7 +48,7 @@ fun PlayerContent (team: Team){
 			)
 		}
 		item { PlayerItem(
-			name = team.coach.name,
+			name = team.coach.coachName,
 			birthday = team.coach.dateOfBirth,
 			country = team.coach.nationality)
 		}
@@ -62,7 +65,7 @@ fun PlayerContent (team: Team){
 			}
 			items(player){
 				PlayerItem(
-					it.name,
+					it.playerName,
 					it.dateOfBirth,
 					it.nationality
 				)

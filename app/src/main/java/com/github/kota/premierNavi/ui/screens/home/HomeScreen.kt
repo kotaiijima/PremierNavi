@@ -1,17 +1,14 @@
 package com.github.kota.premierNavi.ui.screens.home
 
-import androidx.compose.animation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.github.kota.premierNavi.R
-import com.github.kota.premierNavi.data.api.model.matchModel.Match
+import com.github.kota.premierNavi.data.api.model.matchModel.ApiMatch
 import com.github.kota.premierNavi.data.api.model.rankingModel.Rank
 import com.github.kota.premierNavi.data.model.TeamId
 import com.github.kota.premierNavi.domain.TeamDomainObject
@@ -20,20 +17,18 @@ import com.github.kota.premierNavi.ui.screens.TopBar
 import com.github.kota.premierNavi.ui.screens.animation.SplashAnimationView
 import com.github.kota.premierNavi.ui.screens.initial.InitialScreen
 import com.github.kota.premierNavi.ui.theme.LARGE_PADDING
-import com.github.kota.premierNavi.ui.theme.SMALL_PADDING
 import com.github.kota.premierNavi.ui.theme.bottomNavigationHeight
 import com.github.kota.premierNavi.utils.ApiResult
 import com.github.kota.premierNavi.utils.RequestState
 import com.github.kota.premierNavi.utils.showCrest
-import kotlin.text.Typography.section
 
 @Composable
 fun HomeScreen(
 	navigateToTeamDetail:(Int) -> Unit,
 	navController: NavController,
 	addTeamId: (Int) -> Unit,
-	latestGame: ApiResult<Match>,
-	nextGame: ApiResult<Match>,
+	latestGame: ApiResult<ApiMatch>,
+	nextGame: ApiResult<ApiMatch>,
 	rank: ApiResult<Rank>,
 	teamId: RequestState<List<TeamId>>
 ) {

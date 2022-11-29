@@ -42,8 +42,8 @@ fun RankContent(
 		items(rank.standings[0].table){
 			RankItem(
 				position = it.position.toString(),
-				crest = it.team.crest,
-				teamName = it.team.shortName,
+				crest = it.apiTeam.crest,
+				teamName = it.apiTeam.shortName,
 				points = it.points.toString(),
 				playedGame = it.playedGames.toString(),
 				won = it.won.toString(),
@@ -52,7 +52,7 @@ fun RankContent(
 				goalDifference = it.goalDifference.toString(),
 				modifier = Modifier
 					.height(IntrinsicSize.Min)
-					.clickable { navigateToTeamDetail(it.team.id) }
+					.clickable { navigateToTeamDetail(it.apiTeam.id) }
 			)
 		}
 	}

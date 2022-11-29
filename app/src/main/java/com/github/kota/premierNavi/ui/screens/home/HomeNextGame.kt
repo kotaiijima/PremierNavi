@@ -1,6 +1,5 @@
 package com.github.kota.premierNavi.ui.screens.home
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.Image
@@ -15,15 +14,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import coil.compose.rememberImagePainter
 import com.github.kota.premierNavi.component.TeamCrestCard
-import com.github.kota.premierNavi.data.api.model.matchModel.Match
 import com.github.kota.premierNavi.R
 import com.github.kota.premierNavi.domain.TeamDomainObject
 import com.github.kota.premierNavi.ui.theme.*
-import com.github.kota.premierNavi.utils.showCrest
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 
 @Composable
 fun HomeNextGame(

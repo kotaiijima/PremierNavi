@@ -30,9 +30,9 @@ fun SettingContent(
 	LazyColumn {
 		items(rank.standings[0].table) {
 			SettingItem(
-				crest = it.team.crest,
-				teamName = it.team.shortName,
-				teamId = it.team.id,
+				crest = it.apiTeam.crest,
+				teamName = it.apiTeam.shortName,
+				teamId = it.apiTeam.id,
 				navController = navController,
 				updateTeamId = updateTeamId
 			)

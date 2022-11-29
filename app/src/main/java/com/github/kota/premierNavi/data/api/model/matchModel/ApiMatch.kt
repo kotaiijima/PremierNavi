@@ -5,7 +5,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class Match(
+data class ApiMatch(
     @Json(name = "filters")
     val filters: Filters,
     @Json(name = "matches")
