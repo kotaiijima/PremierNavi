@@ -14,11 +14,11 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun HomeDate(
 	section: String,
-	datetime: String
+	matchDay: String
 ) {
 	lateinit var dateToString:  String
 
-	val date: ZonedDateTime = ZonedDateTime.parse(datetime).plusHours(9)
+	val date: ZonedDateTime = ZonedDateTime.parse(matchDay).plusHours(9)
 	val dtf = DateTimeFormatter.ofPattern("MM/dd HH:mm")
 	dateToString = date.format(dtf)
 
@@ -35,6 +35,6 @@ fun HomeDate(
 fun HomeDatePreview() {
 	HomeDate(
 		section = "次の試合",
-		datetime = "2022-11-10T10:33:07Z"
+		matchDay = "2022-11-10T10:33:07Z"
 	)
 }

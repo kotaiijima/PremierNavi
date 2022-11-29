@@ -17,17 +17,17 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.github.kota.premierNavi.data.api.model.rankingModel.Rank
 import com.github.kota.premierNavi.ui.theme.MEDIUM_PADDING
 import com.github.kota.premierNavi.ui.theme.SMALL_IMAGE
 import com.github.kota.premierNavi.utils.showCrest
 import com.github.kota.premierNavi.R
+import com.github.kota.premierNavi.domain.model.RankDomainModel
 import com.github.kota.premierNavi.utils.translationToJapanese
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun RankContent(
-	rank: Rank,
+	rank: RankDomainModel,
 	navigateToTeamDetail:(Int) -> Unit
 ){
 	LazyColumn {
@@ -39,20 +39,20 @@ fun RankContent(
 			)
 			Divider()
 		}
-		items(rank.standings[0].table){
+		items(rank.teams){
 			RankItem(
-				position = it.position.toString(),
-				crest = it.apiTeam.crest,
-				teamName = it.apiTeam.shortName,
-				points = it.points.toString(),
-				playedGame = it.playedGames.toString(),
-				won = it.won.toString(),
-				draw = it.draw.toString(),
-				lost = it.lost.toString(),
-				goalDifference = it.goalDifference.toString(),
+				position = it.position,
+				crest = it.crest,
+				teamName = it.teamName,
+				points = it.points,
+				playedGame = it.playedGame,
+				won = it.won,
+				draw = it.draw,
+				lost = it.lost,
+				goalDifference = it.goalDifference,
 				modifier = Modifier
 					.height(IntrinsicSize.Min)
-					.clickable { navigateToTeamDetail(it.apiTeam.id) }
+					.clickable { navigateToTeamDetail(it.id) }
 			)
 		}
 	}

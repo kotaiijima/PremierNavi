@@ -7,15 +7,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import com.github.kota.premierNavi.data.api.model.rankingModel.Rank
+import com.github.kota.premierNavi.data.api.model.rankingModel.ApiRank
 import com.github.kota.premierNavi.ui.screens.animation.LoadingAnimationView
 import com.github.kota.premierNavi.utils.ApiResult
 import com.github.kota.premierNavi.R
+import com.github.kota.premierNavi.domain.model.RankDomainModel
 import com.github.kota.premierNavi.ui.theme.LARGE_PADDING
+import com.github.kota.premierNavi.utils.RequestState
 
 @Composable
 fun InitialScreen(
-	rank: ApiResult<Rank>,
+	rank: RequestState<RankDomainModel>,
 	addTeamId: (Int) -> Unit,
 ){
 	Column(
@@ -31,7 +33,7 @@ fun InitialScreen(
 		Box(
 			modifier = Modifier.fillMaxWidth()
 		) {
-			if (rank is ApiResult.ApiSuccess)
+			if (rank is RequestState.Success)
 				InitialContent(
 					rank = rank.data,
 					addTeamId = addTeamId,

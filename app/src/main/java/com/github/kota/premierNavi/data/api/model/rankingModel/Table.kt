@@ -25,7 +25,7 @@ data class Table(
 	@Json(name = "position")
     val position: Int,
 	@Json(name = "team")
-    val apiTeam: ApiTeam,
+    val team: Team,
 	@Json(name = "won")
     val won: Int
 )

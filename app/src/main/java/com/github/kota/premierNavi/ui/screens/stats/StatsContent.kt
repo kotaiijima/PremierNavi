@@ -15,30 +15,30 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import com.github.kota.premierNavi.data.api.model.statsModel.Match
-import com.github.kota.premierNavi.data.api.model.statsModel.ApiStats
 import com.github.kota.premierNavi.ui.theme.MEDIUM_PADDING
 import com.github.kota.premierNavi.ui.theme.SMALL_PADDING
 import com.github.kota.premierNavi.utils.showCrest
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import com.github.kota.premierNavi.R
+import com.github.kota.premierNavi.domain.model.MatchInformation
+import com.github.kota.premierNavi.domain.model.StatsDomainModel
 import com.github.kota.premierNavi.ui.theme.MEDIUM_IMAGE
 import com.github.kota.premierNavi.ui.theme.SMALL_IMAGE
 import com.github.kota.premierNavi.utils.translationToJapanese
 
 @Composable
 fun StatsContent(
-	apiStats: ApiStats,
+	stats: StatsDomainModel,
 	navigateToTeamDetail:(Int) -> Unit
 ){
 	LazyColumn(
 		modifier = Modifier
 			.fillMaxWidth()
 	){
-		items(apiStats.matches){ match ->
+		items(stats.matchInformation){
 			StatsItem(
-				match = match,
+				match = it,
 				navigateToTeamDetail =	navigateToTeamDetail
 			)
 		}
@@ -47,35 +47,35 @@ fun StatsContent(
 
 @Composable
 private fun StatsItem(
-	match: Match,
+	match: MatchInformation,
 	navigateToTeamDetail: (Int) -> Unit
 ){
-	val awayTeam = match.awayTeam.shortName
-	val homeTeam = match.homeTeam.shortName
+	val awayTeam = match.awayTeam.name
+	val homeTeam = match.homeTeam.name
 
-	val jstDate = ZonedDateTime.parse(match.utcDate).plusHours(9)
+	val jstDate = ZonedDateTime.parse(match.matchDay).plusHours(9)
 	val dateFormat = DateTimeFormatter.ofPattern("MM/dd")
 	val dateToJapan = jstDate.format(dateFormat)
-	val matchday = when (match.competition.code) {
-		"PL" ->	"プレミアリーグ 第${match.matchday}節"
+	val matchday = when (match.competition) {
+		"PL" ->	"プレミアリーグ 第${match.section}節"
 		"CL" ->
-			when (match.stage){
+			when (match.competitionRound){
 				"LAST_16" -> "チャンピオンズリーグ ラウンド１６"
 				"LAST_8" -> "チャンピオンズリーグ 準々決勝"
 				"LAST_4" -> "チャンピオンズリーグ 準決勝"
 				"LAST_2" -> "チャンピオンズリーグ 決勝"
-				else -> "チャンピオンズリーグ 第${match.matchday}節"
+				else -> "チャンピオンズリーグ 第${match.section}節"
 			}
 		else -> ""
 	}
 
 
 
-	val scoreOrTime = if (match.score.fullTime.home == null || match.score.fullTime.away == null){
+	val scoreOrTime = if (match.score.homeScore == null || match.score.awayScore == null){
 		val timeFormat = DateTimeFormatter.ofPattern("HH:mm")
 		jstDate.format(timeFormat)
 	}else{
-		"${match.score.fullTime.home} - ${match.score.fullTime.away}"
+		"${match.score.homeScore} - ${match.score.awayScore}"
 	}
 
 	Divider()

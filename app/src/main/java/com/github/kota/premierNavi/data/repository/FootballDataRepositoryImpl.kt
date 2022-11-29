@@ -6,7 +6,7 @@ import com.github.kota.premierNavi.data.api.RankApi
 import com.github.kota.premierNavi.data.api.StatsApi
 import com.github.kota.premierNavi.data.api.TeamApi
 import com.github.kota.premierNavi.data.api.model.matchModel.ApiMatch
-import com.github.kota.premierNavi.data.api.model.rankingModel.Rank
+import com.github.kota.premierNavi.data.api.model.rankingModel.ApiRank
 import com.github.kota.premierNavi.data.api.model.statsModel.ApiStats
 import com.github.kota.premierNavi.data.api.model.teamModel.ApiTeam
 import com.github.kota.premierNavi.data.model.TeamId
@@ -38,7 +38,7 @@ class FootballDataRepositoryImpl @Inject constructor(
 		return handleApi { teamApi.getTeam(teamId.value) }
 	}
 
-	override suspend fun getRank(): ApiResult<Rank> {
+	override suspend fun getRank(): ApiResult<ApiRank> {
 		return handleApi {  rankApi.getRank() }
 	}
 

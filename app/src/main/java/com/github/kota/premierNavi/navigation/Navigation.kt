@@ -35,7 +35,7 @@ fun SetupNavigation(
 	val latestGame by myViewModel.latestGame.collectAsState()
 	val nextGame by myViewModel.nextGame.collectAsState()
 	val rank by myViewModel.rank.collectAsState()
-	val stats by myViewModel.apiStats.collectAsState()
+	val stats by myViewModel.stats.collectAsState()
 	val teamId by myViewModel.teamId.collectAsState()
 	val selectedTeam by myViewModel.selectedApiTeam.collectAsState()
 
@@ -64,7 +64,7 @@ fun SetupNavigation(
 		composable(STATS_SCREEN){ StatsScreen(
 			navController = navController,
 			navigateToTeamDetail = screen.team,
-			apiStats = stats
+			stats = stats
 		) }
 
 		composable(SETTING_SCREEN){ SettingScreen(

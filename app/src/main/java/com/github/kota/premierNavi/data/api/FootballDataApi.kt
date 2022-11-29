@@ -1,7 +1,7 @@
 package com.github.kota.premierNavi.data.api
 
 import com.github.kota.premierNavi.data.api.model.matchModel.ApiMatch
-import com.github.kota.premierNavi.data.api.model.rankingModel.Rank
+import com.github.kota.premierNavi.data.api.model.rankingModel.ApiRank
 import com.github.kota.premierNavi.data.api.model.statsModel.ApiStats
 import com.github.kota.premierNavi.data.api.model.teamModel.ApiTeam
 import retrofit2.Response
@@ -31,7 +31,7 @@ interface RankApi {
 	@Headers("X-Auth-Token: d7c5b36a10114765b9615d549dab8b5c")
 	@GET("/v4/competitions/PL/standings/")
 	suspend fun getRank(
-	): Response<Rank>
+	): Response<ApiRank>
 }
 
 interface StatsApi {

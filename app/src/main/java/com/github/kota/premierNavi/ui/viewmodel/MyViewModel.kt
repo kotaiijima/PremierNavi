@@ -4,13 +4,18 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.kota.premierNavi.data.api.model.matchModel.ApiMatch
-import com.github.kota.premierNavi.data.api.model.rankingModel.Rank
+import com.github.kota.premierNavi.data.api.model.rankingModel.ApiRank
 import com.github.kota.premierNavi.data.api.model.statsModel.ApiStats
-import com.github.kota.premierNavi.data.api.model.teamModel.ApiTeam
 import com.github.kota.premierNavi.data.model.TeamId
 import com.github.kota.premierNavi.domain.FootballDataRepository
 import com.github.kota.premierNavi.domain.TeamIdDomainObject
+import com.github.kota.premierNavi.domain.model.MatchDomainModel
+import com.github.kota.premierNavi.domain.model.RankDomainModel
+import com.github.kota.premierNavi.domain.model.StatsDomainModel
 import com.github.kota.premierNavi.domain.model.TeamDomainModel
+import com.github.kota.premierNavi.domain.service.MatchApiService
+import com.github.kota.premierNavi.domain.service.RankApiService
+import com.github.kota.premierNavi.domain.service.StatsApiService
 import com.github.kota.premierNavi.domain.service.TeamApiService
 import com.github.kota.premierNavi.utils.ApiResult
 import com.github.kota.premierNavi.utils.RequestState
@@ -24,28 +29,31 @@ import javax.inject.Inject
 @HiltViewModel
 class MyViewModel @Inject constructor(
 	private val footballDataRepository: FootballDataRepository,
-	private val teamApiService: TeamApiService
+	private val teamApiService: TeamApiService,
+	private val rankApiService: RankApiService,
+	private val statsApiService: StatsApiService,
+	private val matchApiService: MatchApiService
 ): ViewModel() {
 
-	private val _latestGame = MutableStateFlow<ApiResult<ApiMatch>>(ApiResult.Idle)
-	val latestGame: StateFlow<ApiResult<ApiMatch>>
+	private val _latestGame = MutableStateFlow<RequestState<MatchDomainModel>>(RequestState.Idle)
+	val latestGame: StateFlow<RequestState<MatchDomainModel>>
 		get() = _latestGame.asStateFlow()
 
-	private val _nextGame = MutableStateFlow<ApiResult<ApiMatch>>(ApiResult.Idle)
-	val nextGame: StateFlow<ApiResult<ApiMatch>>
+	private val _nextGame = MutableStateFlow<RequestState<MatchDomainModel>>(RequestState.Idle)
+	val nextGame: StateFlow<RequestState<MatchDomainModel>>
 		get() = _nextGame.asStateFlow()
 
 	private val _team = MutableStateFlow<RequestState<TeamDomainModel>>(RequestState.Idle)
 	val team: StateFlow<RequestState<TeamDomainModel>>
 		get() = _team.asStateFlow()
 
-	private val _rank = MutableStateFlow<ApiResult<Rank>>(ApiResult.Idle)
-	val rank: StateFlow<ApiResult<Rank>>
+	private val _rank = MutableStateFlow<RequestState<RankDomainModel>>(RequestState.Idle)
+	val rank: StateFlow<RequestState<RankDomainModel>>
 		get() = _rank.asStateFlow()
 
-	private val _Api_stats = MutableStateFlow<ApiResult<ApiStats>>(ApiResult.Idle)
-	val apiStats: StateFlow<ApiResult<ApiStats>>
-		get() = _Api_stats.asStateFlow()
+	private val _stats = MutableStateFlow<RequestState<StatsDomainModel>>(RequestState.Idle)
+	val stats: StateFlow<RequestState<StatsDomainModel>>
+		get() = _stats.asStateFlow()
 
 	private val _teamId = MutableStateFlow<RequestState<List<TeamId>>>(RequestState.Idle)
 	val teamId: StateFlow<RequestState<List<TeamId>>>
@@ -58,7 +66,7 @@ class MyViewModel @Inject constructor(
 	init {
 		viewModelScope.launch{
 			val rank = footballDataRepository.getRank()
-			if (rank is ApiResult.ApiSuccess) _rank.value = rank
+			if (rank is ApiResult.ApiSuccess) _rank.value = rankApiService.convertRank(rank)
 			Log.d("[rank]ApiResult:", rank.toString())
 
 			getTeamId()
@@ -67,15 +75,15 @@ class MyViewModel @Inject constructor(
 
 	private suspend fun getApiData(teamId: Int) {
 		val latestGame = footballDataRepository.getMatch(TeamIdDomainObject(teamId), "FINISHED")
-		if (latestGame is ApiResult.ApiSuccess)  _latestGame.value = latestGame
+		if (latestGame is ApiResult.ApiSuccess)  _latestGame.value = matchApiService.convertMatch(latestGame)
 		Log.d("[latestGame]ApiResult:", latestGame.toString())
 
 		val nextGame = footballDataRepository.getMatch(TeamIdDomainObject(teamId), "SCHEDULED")
-		if (nextGame is ApiResult.ApiSuccess) _nextGame.value = nextGame
+		if (nextGame is ApiResult.ApiSuccess) _nextGame.value = matchApiService.convertMatch(nextGame)
 		Log.d("[nextGame]ApiResult:", nextGame.toString())
 
 		val stats = footballDataRepository.getStats(TeamIdDomainObject(teamId))
-		if (stats is ApiResult.ApiSuccess) _Api_stats.value = stats
+		if (stats is ApiResult.ApiSuccess) _stats.value = statsApiService.convertStats(stats)
 		Log.d("[stats]ApiResult:", stats.toString())
 
 		val team = footballDataRepository.getTeam(TeamIdDomainObject(teamId))

@@ -14,25 +14,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavController
-import com.github.kota.premierNavi.data.api.model.rankingModel.Rank
 import com.github.kota.premierNavi.ui.theme.SMALL_IMAGE
 import com.github.kota.premierNavi.utils.showCrest
 import com.github.kota.premierNavi.R
+import com.github.kota.premierNavi.domain.model.RankDomainModel
 import com.github.kota.premierNavi.ui.theme.MEDIUM_PADDING
 import com.github.kota.premierNavi.utils.Constants.HOME_SCREEN
+import com.github.kota.premierNavi.utils.translationToJapanese
 
 @Composable
 fun SettingContent(
 	navController: NavController,
-	rank: Rank,
+	rank: RankDomainModel,
 	updateTeamId: (Int) -> Unit
 ){
 	LazyColumn {
-		items(rank.standings[0].table) {
+		items(rank.teams) {
 			SettingItem(
-				crest = it.apiTeam.crest,
-				teamName = it.apiTeam.shortName,
-				teamId = it.apiTeam.id,
+				crest = it.crest,
+				teamName = it.teamName,
+				teamId = it.id,
 				navController = navController,
 				updateTeamId = updateTeamId
 			)
@@ -56,7 +57,8 @@ fun SettingItem(
 			.height(IntrinsicSize.Max)
 			.clickable(onClick = {
 				updateTeamId(teamId)
-				navController.navigate(HOME_SCREEN) })
+				navController.navigate(HOME_SCREEN)
+			})
 	) {
 		Image(painter = showCrest(crest = crest),
 			contentDescription = stringResource(id = R.string.club_crest),
@@ -67,7 +69,7 @@ fun SettingItem(
 		)
 		Text(
 			modifier = Modifier.fillMaxWidth(),
-			text = teamName,
+			text = translationToJapanese(EngTeamName = teamName),
 			fontSize = MaterialTheme.typography.h6.fontSize,
 			textAlign = TextAlign.Center
 		)

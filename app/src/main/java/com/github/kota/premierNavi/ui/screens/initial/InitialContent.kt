@@ -11,15 +11,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import com.github.kota.premierNavi.component.TeamCrestCard
-import com.github.kota.premierNavi.data.api.model.rankingModel.Rank
+import com.github.kota.premierNavi.data.api.model.rankingModel.ApiRank
 import com.github.kota.premierNavi.ui.theme.IMAGE_PADDING
 import com.github.kota.premierNavi.ui.theme.LARGE_IMAGE
 import com.github.kota.premierNavi.utils.showCrest
 import com.github.kota.premierNavi.R
+import com.github.kota.premierNavi.domain.model.RankDomainModel
 
 @Composable
 fun InitialContent(
-	rank: Rank,
+	rank: RankDomainModel,
 	addTeamId: (Int) -> Unit,
 ) {
 	LazyRow(
@@ -27,11 +28,11 @@ fun InitialContent(
 		verticalAlignment = Alignment.CenterVertically,
 		horizontalArrangement = Arrangement.Center
 	) {
-		items(rank.standings[0].table){
+		items(rank.teams){
 			InitialItem(
-				teamId = it.apiTeam.id,
-				crest = it.apiTeam.crest,
-				teamName = it.apiTeam.shortName,
+				teamId = it.id,
+				crest = it.crest,
+				teamName = it.teamName,
 				addTeamId = addTeamId,
 			)
 		}

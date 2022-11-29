@@ -8,17 +8,17 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.github.kota.premierNavi.data.api.model.rankingModel.Rank
+import com.github.kota.premierNavi.domain.model.RankDomainModel
 import com.github.kota.premierNavi.ui.screens.BottomBar
 import com.github.kota.premierNavi.ui.screens.TopBar
 import com.github.kota.premierNavi.ui.screens.animation.LoadingAnimationView
 import com.github.kota.premierNavi.ui.theme.bottomNavigationHeight
-import com.github.kota.premierNavi.utils.ApiResult
+import com.github.kota.premierNavi.utils.RequestState
 
 @Composable
 fun SettingScreen(
 	navController: NavController,
-	rank: ApiResult<Rank>,
+	rank: RequestState<RankDomainModel>,
 	updateTeamId:(Int) -> Unit
 ){
 
@@ -27,7 +27,7 @@ fun SettingScreen(
 		scaffoldState = scaffoldState,
 		content = {
 			Box(modifier = Modifier.padding(bottom = bottomNavigationHeight)){
-				if (rank is ApiResult.ApiSuccess){
+				if (rank is RequestState.Success){
 					Column {
 						SettingContent(
 							navController = navController,

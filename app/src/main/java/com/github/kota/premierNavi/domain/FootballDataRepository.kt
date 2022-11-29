@@ -1,7 +1,7 @@
 package com.github.kota.premierNavi.domain
 
 import com.github.kota.premierNavi.data.api.model.matchModel.ApiMatch
-import com.github.kota.premierNavi.data.api.model.rankingModel.Rank
+import com.github.kota.premierNavi.data.api.model.rankingModel.ApiRank
 import com.github.kota.premierNavi.data.api.model.statsModel.ApiStats
 import com.github.kota.premierNavi.data.api.model.teamModel.ApiTeam
 import com.github.kota.premierNavi.data.model.TeamId
@@ -13,7 +13,7 @@ interface FootballDataRepository {
 
   suspend fun getTeam(teamId: TeamIdDomainObject): ApiResult<ApiTeam>
 
-  suspend fun getRank(): ApiResult<Rank>
+  suspend fun getRank(): ApiResult<ApiRank>
 
   suspend fun getStats(teamId: TeamIdDomainObject): ApiResult<ApiStats>
 
