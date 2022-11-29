@@ -46,7 +46,7 @@ fun HomeNextGame(
 			}
 		)
 		Text(
-			fontSize = MaterialTheme.typography.h5.fontSize,
+			fontSize = MaterialTheme.typography.h3.fontSize,
 			fontWeight = FontWeight.Bold,
 			textAlign = TextAlign.Center,
 			text = ("-")

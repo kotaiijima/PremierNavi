@@ -11,8 +11,11 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import com.github.kota.premierNavi.ui.theme.SMALL_IMAGE
 import com.github.kota.premierNavi.utils.showCrest
@@ -31,11 +34,15 @@ fun SettingContent(
 	LazyColumn {
 		items(rank.teams) {
 			SettingItem(
-				crest = it.crest,
+				crest = showCrest(crest = it.crest),
 				teamName = it.teamName,
-				teamId = it.id,
-				navController = navController,
-				updateTeamId = updateTeamId
+				modifier = Modifier
+					.fillMaxWidth()
+					.height(IntrinsicSize.Max)
+					.clickable(onClick = {
+						updateTeamId(it.id)
+						navController.navigate(HOME_SCREEN)
+					})
 			)
 		}
 	}
@@ -43,36 +50,38 @@ fun SettingContent(
 
 @Composable
 fun SettingItem(
-	navController: NavController,
-	crest: String,
+	crest: Painter,
 	teamName: String,
-	teamId : Int,
-	updateTeamId:(Int) -> Unit
+	modifier: Modifier
 ){
 	Row(
 		horizontalArrangement = Arrangement.Center,
 		verticalAlignment = Alignment.CenterVertically,
-		modifier = Modifier
-			.fillMaxWidth()
-			.height(IntrinsicSize.Max)
-			.clickable(onClick = {
-				updateTeamId(teamId)
-				navController.navigate(HOME_SCREEN)
-			})
+		modifier = modifier
 	) {
-		Image(painter = showCrest(crest = crest),
+		Image(painter = crest,
 			contentDescription = stringResource(id = R.string.club_crest),
 			modifier = Modifier
-				.requiredSize(SMALL_IMAGE)
 				.padding(MEDIUM_PADDING)
 				.padding(start = MEDIUM_PADDING)
+				.requiredSize(SMALL_IMAGE)
 		)
 		Text(
 			modifier = Modifier.fillMaxWidth(),
 			text = translationToJapanese(EngTeamName = teamName),
-			fontSize = MaterialTheme.typography.h6.fontSize,
+			fontSize = MaterialTheme.typography.h5.fontSize,
 			textAlign = TextAlign.Center
 		)
 	}
 	Divider()
+}
+
+@Composable
+@Preview
+fun SettingItemPreview() {
+	SettingItem(
+		crest = painterResource(id = R.drawable.players),
+		teamName = stringResource(id = R.string.club_name),
+		modifier = Modifier
+	)
 }

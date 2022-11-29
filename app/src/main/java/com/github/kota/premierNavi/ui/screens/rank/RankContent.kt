@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.kota.premierNavi.ui.theme.MEDIUM_PADDING
 import com.github.kota.premierNavi.ui.theme.SMALL_IMAGE
@@ -52,7 +53,9 @@ fun RankContent(
 				goalDifference = it.goalDifference,
 				modifier = Modifier
 					.height(IntrinsicSize.Min)
-					.clickable { navigateToTeamDetail(it.id) }
+					.clickable {
+						navigateToTeamDetail(it.id)
+					}
 			)
 		}
 	}
@@ -126,5 +129,13 @@ fun RankItemImage(
 		contentDescription = stringResource(id = R.string.club_crest),
 		modifier = modifier,
 		contentScale = ContentScale.Fit
+	)
+}
+
+@Composable
+@Preview
+fun RankItemPreview(){
+	RankItem(
+		modifier = Modifier
 	)
 }

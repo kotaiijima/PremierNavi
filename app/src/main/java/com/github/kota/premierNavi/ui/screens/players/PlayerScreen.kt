@@ -16,6 +16,7 @@ import com.github.kota.premierNavi.ui.screens.animation.LoadingAnimationView
 import com.github.kota.premierNavi.ui.theme.bottomNavigationHeight
 import com.github.kota.premierNavi.utils.ApiResult
 import com.github.kota.premierNavi.utils.RequestState
+import com.github.kota.premierNavi.utils.showCrest
 
 @Composable
 fun PlayerScreen(
@@ -30,7 +31,7 @@ fun PlayerScreen(
 					if (team is RequestState.Success){
 						Column {
 							TeamInformation(
-								crest = team.data.crest,
+								crest = showCrest(crest = team.data.crest),
 								stadium = team.data.stadium,
 								teamName = team.data.teamName
 							)

@@ -11,10 +11,14 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import com.github.kota.premierNavi.ui.theme.MEDIUM_PADDING
 import com.github.kota.premierNavi.ui.theme.SMALL_PADDING
 import com.github.kota.premierNavi.utils.showCrest
@@ -22,7 +26,9 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import com.github.kota.premierNavi.R
 import com.github.kota.premierNavi.domain.model.MatchInformation
+import com.github.kota.premierNavi.domain.model.Score
 import com.github.kota.premierNavi.domain.model.StatsDomainModel
+import com.github.kota.premierNavi.domain.model.TeamInformation
 import com.github.kota.premierNavi.ui.theme.MEDIUM_IMAGE
 import com.github.kota.premierNavi.ui.theme.SMALL_IMAGE
 import com.github.kota.premierNavi.utils.translationToJapanese
@@ -39,6 +45,8 @@ fun StatsContent(
 		items(stats.matchInformation){
 			StatsItem(
 				match = it,
+				homeCrest = showCrest(crest = it.homeTeam.crest),
+				awayCrest = showCrest(crest = it.awayTeam.crest),
 				navigateToTeamDetail =	navigateToTeamDetail
 			)
 		}
@@ -48,11 +56,10 @@ fun StatsContent(
 @Composable
 private fun StatsItem(
 	match: MatchInformation,
+	homeCrest: Painter,
+	awayCrest: Painter,
 	navigateToTeamDetail: (Int) -> Unit
 ){
-	val awayTeam = match.awayTeam.name
-	val homeTeam = match.homeTeam.name
-
 	val jstDate = ZonedDateTime.parse(match.matchDay).plusHours(9)
 	val dateFormat = DateTimeFormatter.ofPattern("MM/dd")
 	val dateToJapan = jstDate.format(dateFormat)
@@ -111,7 +118,7 @@ private fun StatsItem(
 				verticalAlignment = Alignment.CenterVertically
 			) {
 				Image(
-					painter = showCrest(crest = match.homeTeam.crest),
+					painter = homeCrest,
 					contentDescription = stringResource(id = R.string.homeTeam_crest),
 					modifier = Modifier
 						.requiredSize(SMALL_IMAGE)
@@ -122,14 +129,18 @@ private fun StatsItem(
 					modifier = Modifier
 						.padding(start = SMALL_PADDING)
 						.width(MEDIUM_IMAGE),
-					text = translationToJapanese(EngTeamName = homeTeam),
+					text = translationToJapanese(EngTeamName = match.homeTeam.name),
 					fontWeight = FontWeight.Normal,
 					fontSize = MaterialTheme.typography.subtitle2.fontSize,
 					maxLines = 2,
-					overflow = TextOverflow.Ellipsis
+					overflow = TextOverflow.Ellipsis,
+					textAlign = TextAlign.Start
 				)
 			}
-			Text(text = scoreOrTime)
+			Text(
+				text = scoreOrTime,
+				fontSize = MaterialTheme.typography.h5.fontSize
+			)
 			Row(
 				modifier = Modifier
 					.wrapContentWidth(Alignment.End)
@@ -142,14 +153,15 @@ private fun StatsItem(
 					modifier = Modifier
 						.padding(end = SMALL_PADDING)
 						.width(MEDIUM_IMAGE),
-					text = translationToJapanese(EngTeamName = awayTeam),
+					text = translationToJapanese(EngTeamName = match.awayTeam.name),
 					fontWeight = FontWeight.Normal,
 					fontSize = MaterialTheme.typography.subtitle2.fontSize,
 					maxLines = 2,
-					overflow = TextOverflow.Ellipsis
+					overflow = TextOverflow.Ellipsis,
+					textAlign = TextAlign.End
 				)
 				Image(
-					painter = showCrest(crest = match.awayTeam.crest),
+					painter = awayCrest,
 					contentDescription = stringResource(id = R.string.awayTeam_crest),
 					modifier = Modifier
 						.requiredSize(SMALL_IMAGE)
@@ -159,4 +171,34 @@ private fun StatsItem(
 			}
 		}
 	}
+}
+
+@Composable
+@Preview
+fun StatsItemPreview() {
+	StatsItem(
+		match = MatchInformation(
+			matchDay = "2022-06-16T15:49:25Z",
+			section = 1,
+			competition = "PL",
+			competitionRound = "REGULAR_SEASON",
+			score = Score(
+				homeScore = 1,
+				awayScore = 1
+			),
+			homeTeam = TeamInformation(
+				id = 1,
+				name = stringResource(id = R.string.club_name),
+				crest = ""
+			),
+			awayTeam = TeamInformation(
+				id = 1,
+				name = stringResource(id = R.string.club_name),
+				crest = ""
+			),
+		),
+		homeCrest = painterResource(id = R.drawable.players),
+		awayCrest = painterResource(id = R.drawable.players),
+		navigateToTeamDetail = {}
+	)
 }

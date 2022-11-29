@@ -1,5 +1,6 @@
 package com.github.kota.premierNavi.domain.model
 
+import androidx.compose.ui.graphics.painter.Painter
 import com.github.kota.premierNavi.domain.TeamDomainObject
 
 

@@ -8,8 +8,11 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import com.github.kota.premierNavi.component.TeamCrestCard
 import com.github.kota.premierNavi.data.api.model.rankingModel.ApiRank
 import com.github.kota.premierNavi.ui.theme.IMAGE_PADDING
@@ -31,7 +34,7 @@ fun InitialContent(
 		items(rank.teams){
 			InitialItem(
 				teamId = it.id,
-				crest = it.crest,
+				crest = showCrest(crest = it.crest),
 				teamName = it.teamName,
 				addTeamId = addTeamId,
 			)
@@ -42,7 +45,7 @@ fun InitialContent(
 @Composable
 fun InitialItem(
 	teamId: Int,
-	crest: String,
+	crest: Painter,
 	teamName: String,
 	addTeamId: (Int) -> Unit,
 ){
@@ -55,7 +58,7 @@ fun InitialItem(
 			}),
 		teamCrestCard = {
 			Image(
-				painter = showCrest(crest = crest),
+				painter = crest,
 				contentDescription = stringResource(id = R.string.club_crest),
 				modifier = Modifier.requiredSize(LARGE_IMAGE),
 				contentScale = ContentScale.Fit
@@ -64,11 +67,13 @@ fun InitialItem(
 	)
 }
 
-//@Composable
-//@Preview
-//fun InitialContentPreview() {
-//	InitialContent(
-//		rank = ,
-//		addTeamId =
-//	)
-//}
+@Composable
+@Preview
+fun InitialContentPreview() {
+	InitialItem(
+		teamId = 0,
+		crest = painterResource(id = R.drawable.players),
+		teamName = "Arsenal",
+		addTeamId = {}
+	)
+}
