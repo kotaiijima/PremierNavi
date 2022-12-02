@@ -3,9 +3,6 @@ package com.github.kota.premierNavi.ui.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.kota.premierNavi.data.api.model.matchModel.ApiMatch
-import com.github.kota.premierNavi.data.api.model.rankingModel.ApiRank
-import com.github.kota.premierNavi.data.api.model.statsModel.ApiStats
 import com.github.kota.premierNavi.data.model.TeamId
 import com.github.kota.premierNavi.domain.FootballDataRepository
 import com.github.kota.premierNavi.domain.TeamIdDomainObject
@@ -17,6 +14,7 @@ import com.github.kota.premierNavi.domain.service.MatchApiService
 import com.github.kota.premierNavi.domain.service.RankApiService
 import com.github.kota.premierNavi.domain.service.StatsApiService
 import com.github.kota.premierNavi.domain.service.TeamApiService
+import com.github.kota.premierNavi.usecase.TeamUseCase
 import com.github.kota.premierNavi.utils.ApiResult
 import com.github.kota.premierNavi.utils.RequestState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,7 +27,6 @@ import javax.inject.Inject
 @HiltViewModel
 class MyViewModel @Inject constructor(
 	private val footballDataRepository: FootballDataRepository,
-	private val teamApiService: TeamApiService,
 	private val rankApiService: RankApiService,
 	private val statsApiService: StatsApiService,
 	private val matchApiService: MatchApiService
@@ -87,7 +84,7 @@ class MyViewModel @Inject constructor(
 		Log.d("[stats]ApiResult:", stats.toString())
 
 		val team = footballDataRepository.getTeam(TeamIdDomainObject(teamId))
-		if (team is ApiResult.ApiSuccess) _team.value = teamApiService.convertTeam(team)
+		if (team is ApiResult.ApiSuccess) _team.value = TeamUseCase(team)
 		Log.d("[team]ApiResult:", team.toString())
 	}
 
@@ -124,7 +121,6 @@ class MyViewModel @Inject constructor(
 		viewModelScope.launch {
 			val teamId = TeamId(id = 1, teamId = newTeamId)
 			footballDataRepository.updateTeamId(teamId)
-			getApiData(newTeamId)
 		}
 	}
 }

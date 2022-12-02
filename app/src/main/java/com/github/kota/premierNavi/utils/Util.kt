@@ -1,6 +1,5 @@
 package com.github.kota.premierNavi.utils
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
