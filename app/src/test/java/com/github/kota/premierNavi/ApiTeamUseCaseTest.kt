@@ -5,6 +5,7 @@ import com.github.kota.premierNavi.domain.TeamIdDomainObject
 import com.github.kota.premierNavi.usecase.TeamUseCase
 import com.github.kota.premierNavi.utils.ApiResult
 import com.github.kota.premierNavi.utils.RequestState
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -20,9 +21,9 @@ class ApiTeamUseCaseTest {
   }
 
   @Test
-  suspend fun getTeamTest() {
+  fun getTeamTest() = runTest {
     val expected = ApiResult.Idle
-    val actual = useCase.invoke(TeamIdDomainObject(1))
+	val actual = useCase.invoke(TeamIdDomainObject(57))
     Assert.assertEquals(expected, actual)
   }
 }

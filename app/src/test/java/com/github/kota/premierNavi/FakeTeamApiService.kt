@@ -9,11 +9,11 @@ import com.github.kota.premierNavi.utils.RequestState
 
 class FakeTeamApiService : TeamApiService {
 
-  var getConvertTeamImpl: () -> ApiResult<TeamDomainModel> = {
+  var getTeamImpl: () -> ApiResult<TeamDomainModel> = {
     ApiResult.Idle
   }
 
   override suspend fun getTeam(teamId: TeamIdDomainObject): ApiResult<TeamDomainModel> {
-    return getConvertTeamImpl()
+    return getTeamImpl()
   }
 }
