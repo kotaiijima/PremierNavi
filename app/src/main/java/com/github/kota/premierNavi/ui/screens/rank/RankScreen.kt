@@ -12,13 +12,14 @@ import com.github.kota.premierNavi.ui.screens.BottomBar
 import com.github.kota.premierNavi.ui.screens.TopBar
 import com.github.kota.premierNavi.ui.screens.animation.LoadingAnimationView
 import com.github.kota.premierNavi.ui.theme.bottomNavigationHeight
+import com.github.kota.premierNavi.utils.ApiResult
 import com.github.kota.premierNavi.utils.RequestState
 
 @Composable
 fun RankScreen(
 	navController: NavController,
 	navigateToTeamDetail:(Int) -> Unit,
-	rank: RequestState<RankDomainModel>
+	rank: ApiResult<RankDomainModel>
 ){
 	val scaffoldState = rememberScaffoldState()
 	Scaffold(
@@ -27,7 +28,7 @@ fun RankScreen(
 			Column(
 				modifier = Modifier.padding(bottom = bottomNavigationHeight)
 				) {
-				if (rank is RequestState.Success)
+				if (rank is ApiResult.ApiSuccess)
 					RankContent(
 						rank = (rank.data),
 						navigateToTeamDetail

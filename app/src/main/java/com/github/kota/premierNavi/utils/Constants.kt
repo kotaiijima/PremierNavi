@@ -12,4 +12,6 @@ object Constants {
 
 	const val DATABASE_NAME = "PreNavi-database"
 	const val DATABASE_TABLE = "PreNavi-table"
+
+	const val TEAM_ID = 1
 }

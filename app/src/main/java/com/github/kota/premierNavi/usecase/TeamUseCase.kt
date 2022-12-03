@@ -15,41 +15,7 @@ import javax.inject.Inject
 class TeamUseCase @Inject constructor(
   private val teamApiService: TeamApiService
   ) {
-  suspend operator fun invoke(teamId: TeamIdDomainObject):  RequestState<TeamDomainModel>{
-	  val apiTeam =  teamApiService.convertTeam(teamId)
-
-	  if (apiTeam is ApiResult.ApiSuccess){
-		  return RequestState.Success(
-			  TeamDomainModel(
-				  crest = apiTeam.data.crest,
-				  teamName = apiTeam.data.name,
-				  stadium = apiTeam.data.venue,
-				  squad = listPlayers(apiTeam.data.squad),
-				  coach = Coach(
-					  dateOfBirth = apiTeam.data.coach.dateOfBirth,
-					  coachName = apiTeam.data.coach.name,
-					  nationality = apiTeam.data.coach.nationality
-				  )
-			  ))
-	  }else {
-		  return RequestState.Empty
-	  }
+  suspend operator fun invoke(teamId: TeamIdDomainObject):  ApiResult<TeamDomainModel>{
+	  return teamApiService.getTeam(teamId)
   }
-}
-
-private fun listPlayers(
-	squad: List<Squad>
-) : List<Player> {
-	val players = mutableListOf<Player>()
-	for (player in squad) {
-		players.add(
-			Player(
-				dateOfBirth = player.dateOfBirth,
-				playerName = player.name,
-				nationality = player.nationality,
-				position = player.position
-			)
-		)
-	}
-	return players
 }

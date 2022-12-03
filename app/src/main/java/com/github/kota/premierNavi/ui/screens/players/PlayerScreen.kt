@@ -13,20 +13,21 @@ import com.github.kota.premierNavi.ui.screens.BottomBar
 import com.github.kota.premierNavi.ui.screens.TopBar
 import com.github.kota.premierNavi.ui.screens.animation.LoadingAnimationView
 import com.github.kota.premierNavi.ui.theme.bottomNavigationHeight
+import com.github.kota.premierNavi.utils.ApiResult
 import com.github.kota.premierNavi.utils.RequestState
 import com.github.kota.premierNavi.utils.showCrest
 
 @Composable
 fun PlayerScreen(
 	navController: NavController,
-	team: RequestState<TeamDomainModel>,
+	team: ApiResult<TeamDomainModel>,
 ){
 	val scaffoldState = rememberScaffoldState()
 	Scaffold(
 		scaffoldState = scaffoldState,
 		content = {
 				Box(modifier = Modifier.padding(bottom = bottomNavigationHeight)){
-					if (team is RequestState.Success){
+					if (team is ApiResult.ApiSuccess){
 						Column {
 							TeamInformation(
 								crest = showCrest(crest = team.data.crest),

@@ -11,11 +11,12 @@ import com.github.kota.premierNavi.ui.screens.animation.LoadingAnimationView
 import com.github.kota.premierNavi.R
 import com.github.kota.premierNavi.domain.model.RankDomainModel
 import com.github.kota.premierNavi.ui.theme.LARGE_PADDING
+import com.github.kota.premierNavi.utils.ApiResult
 import com.github.kota.premierNavi.utils.RequestState
 
 @Composable
 fun InitialScreen(
-	rank: RequestState<RankDomainModel>,
+	rank: ApiResult<RankDomainModel>,
 	addTeamId: (Int) -> Unit,
 ){
 	Column(
@@ -31,7 +32,7 @@ fun InitialScreen(
 		Box(
 			modifier = Modifier.fillMaxWidth()
 		) {
-			if (rank is RequestState.Success)
+			if (rank is ApiResult.ApiSuccess)
 				InitialContent(
 					rank = rank.data,
 					addTeamId = addTeamId,

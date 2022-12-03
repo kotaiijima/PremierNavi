@@ -18,6 +18,7 @@ import com.github.kota.premierNavi.ui.screens.animation.SplashAnimationView
 import com.github.kota.premierNavi.ui.screens.initial.InitialScreen
 import com.github.kota.premierNavi.ui.theme.LARGE_PADDING
 import com.github.kota.premierNavi.ui.theme.bottomNavigationHeight
+import com.github.kota.premierNavi.utils.ApiResult
 import com.github.kota.premierNavi.utils.RequestState
 import com.github.kota.premierNavi.utils.showCrest
 
@@ -26,9 +27,9 @@ fun HomeScreen(
 	navigateToTeamDetail:(Int) -> Unit,
 	navController: NavController,
 	addTeamId: (Int) -> Unit,
-	latestGame: RequestState<MatchDomainModel>,
-	nextGame: RequestState<MatchDomainModel>,
-	rank: RequestState<RankDomainModel>,
+	latestGame: ApiResult<MatchDomainModel>,
+	nextGame: ApiResult<MatchDomainModel>,
+	rank: ApiResult<RankDomainModel>,
 	teamId: RequestState<List<TeamId>>
 ) {
 	val scaffoldState = rememberScaffoldState()
@@ -38,13 +39,13 @@ fun HomeScreen(
 			Column (
 				modifier = Modifier.padding(bottom = bottomNavigationHeight)
 			) {
-					if (teamId is RequestState.Empty) {
+					if (teamId is RequestState.Failure.EmptyError) {
 						InitialScreen(
 							rank = rank,
 							addTeamId = addTeamId
 						)
 					} else {
-						if (latestGame is RequestState.Success && nextGame is RequestState.Success) {
+						if (latestGame is ApiResult.ApiSuccess && nextGame is ApiResult.ApiSuccess) {
 							Column {
 								Text(
 									modifier = Modifier

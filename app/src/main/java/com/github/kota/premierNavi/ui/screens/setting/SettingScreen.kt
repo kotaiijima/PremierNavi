@@ -13,12 +13,13 @@ import com.github.kota.premierNavi.ui.screens.BottomBar
 import com.github.kota.premierNavi.ui.screens.TopBar
 import com.github.kota.premierNavi.ui.screens.animation.LoadingAnimationView
 import com.github.kota.premierNavi.ui.theme.bottomNavigationHeight
+import com.github.kota.premierNavi.utils.ApiResult
 import com.github.kota.premierNavi.utils.RequestState
 
 @Composable
 fun SettingScreen(
 	navController: NavController,
-	rank: RequestState<RankDomainModel>,
+	rank: ApiResult<RankDomainModel>,
 	updateTeamId:(Int) -> Unit
 ){
 
@@ -27,7 +28,7 @@ fun SettingScreen(
 		scaffoldState = scaffoldState,
 		content = {
 			Box(modifier = Modifier.padding(bottom = bottomNavigationHeight)){
-				if (rank is RequestState.Success){
+				if (rank is ApiResult.ApiSuccess){
 					Column {
 						SettingContent(
 							navController = navController,

@@ -12,13 +12,14 @@ import com.github.kota.premierNavi.ui.screens.BottomBar
 import com.github.kota.premierNavi.ui.screens.TopBar
 import com.github.kota.premierNavi.ui.screens.animation.LoadingAnimationView
 import com.github.kota.premierNavi.ui.theme.bottomNavigationHeight
+import com.github.kota.premierNavi.utils.ApiResult
 import com.github.kota.premierNavi.utils.RequestState
 
 @Composable
 fun StatsScreen(
 	navController: NavController,
 	navigateToTeamDetail:(Int) -> Unit,
-	stats: RequestState<StatsDomainModel>
+	stats: ApiResult<StatsDomainModel>
 ){
 	val scaffoldState = rememberScaffoldState()
 	Scaffold(
@@ -28,7 +29,7 @@ fun StatsScreen(
 				modifier = Modifier.padding(bottom = bottomNavigationHeight
 				)
 			){
-				if (stats is RequestState.Success)
+				if (stats is ApiResult.ApiSuccess)
 					StatsContent(
 						stats = stats.data,
 						navigateToTeamDetail = navigateToTeamDetail
