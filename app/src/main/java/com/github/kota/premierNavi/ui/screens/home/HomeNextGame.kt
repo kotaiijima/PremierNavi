@@ -26,6 +26,9 @@ fun HomeNextGame(
 	navigateToTeamDetail:(Int) -> Unit
 ){
 	Row(
+		modifier = Modifier
+			.padding(LARGE_PADDING)
+			.padding(top = LARGE_PADDING),
 		verticalAlignment = Alignment.CenterVertically
 	) {
 		TeamCrestCard(

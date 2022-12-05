@@ -39,7 +39,7 @@ fun TeamCrestCard(
 					.fillMaxWidth(),
 				text = translationToJapanese(EngTeamName = it),
 				fontWeight = FontWeight.Normal,
-				fontSize = MaterialTheme.typography.h5.fontSize,
+				fontSize = MaterialTheme.typography.h6.fontSize,
 				maxLines = 2,
 				textAlign = TextAlign.Center
 			)

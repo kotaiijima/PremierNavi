@@ -5,6 +5,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavController
 import com.github.kota.premierNavi.R
@@ -52,12 +53,15 @@ fun HomeScreen(
 										.padding(LARGE_PADDING),
 									fontWeight = FontWeight.Normal,
 									fontSize = MaterialTheme.typography.h5.fontSize,
-									text = stringResource(id = R.string.latestGame_text)
+									text = stringResource(id = R.string.latestGame_text),
+									fontFamily = FontFamily.SansSerif
 								)
+								Divider()
 								HomeDate(
 									section = "第${latestGame.data.section}節",
 									matchDay = latestGame.data.matchDay
 								)
+								Divider()
 								HomeLatestGame(
 									matchResult = "${latestGame.data.score.homeScore} - ${latestGame.data.score.awayScore}",
 									homeTeam = TeamDomainObject(
@@ -74,10 +78,12 @@ fun HomeScreen(
 									),
 									navigateToTeamDetail = navigateToTeamDetail
 								)
+								Divider()
 								HomeDate(
 									section = stringResource(id = R.string.nextGame_text),
 									matchDay = nextGame.data.matchDay
 								)
+								Divider()
 								HomeNextGame(
 									homeTeam = TeamDomainObject(
 										id = nextGame.data.homeTeam.id,

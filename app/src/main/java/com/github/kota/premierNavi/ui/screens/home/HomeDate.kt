@@ -5,8 +5,11 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import com.github.kota.premierNavi.ui.theme.LARGE_PADDING
 import com.github.kota.premierNavi.ui.theme.SMALL_PADDING
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -23,10 +26,13 @@ fun HomeDate(
 	dateToString = date.format(dtf)
 
 	Text(
-		modifier = Modifier.padding(start = SMALL_PADDING),
+		modifier = Modifier
+			.padding(LARGE_PADDING)
+			.padding(start = SMALL_PADDING),
 		fontWeight = FontWeight.Bold,
 		fontSize = MaterialTheme.typography.h5.fontSize ,
-		text = "$section: $dateToString"
+		text = "$section: $dateToString",
+		fontFamily = FontFamily.SansSerif
 	)
 }
 
