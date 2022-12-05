@@ -39,7 +39,7 @@ fun HomeScreen(
 			Column (
 				modifier = Modifier.padding(bottom = bottomNavigationHeight)
 			) {
-					if (teamId is RequestState.Failure.EmptyError) {
+					if (teamId is RequestState.Failure.Error) {
 						InitialScreen(
 							rank = rank,
 							addTeamId = addTeamId

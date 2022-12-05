@@ -9,4 +9,4 @@ data class TeamDomainObject(
 	val name: String,
 	val crest: Painter
 )
-
+data class MatchStatus(val value: String)

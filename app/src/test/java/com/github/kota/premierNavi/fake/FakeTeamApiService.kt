@@ -1,4 +1,4 @@
-package com.github.kota.premierNavi
+package com.github.kota.premierNavi.fake
 
 import com.github.kota.premierNavi.data.api.model.teamModel.ApiTeam
 import com.github.kota.premierNavi.domain.TeamIdDomainObject

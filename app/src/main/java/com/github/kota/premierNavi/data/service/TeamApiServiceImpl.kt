@@ -19,12 +19,12 @@ class TeamApiServiceImpl @Inject constructor(
 			if (response.isSuccessful && body != null) {
 				ApiResult.ApiSuccess(body.mapToDomainObject())
 			} else {
-				ApiResult.ApiError(code = response.code(), message = response.message())
+				ApiResult.Failure.ApiError(code = response.code(), message = response.message())
 			}
 		} catch (e: HttpException) {
-			ApiResult.ApiError(code = e.code(), message = e.message())
+			ApiResult.Failure.ApiError(code = e.code(), message = e.message())
 		} catch (e: Throwable) {
-			ApiResult.ApiException(e)
+			ApiResult.Failure.ApiException(e)
 		}
 	}
 }

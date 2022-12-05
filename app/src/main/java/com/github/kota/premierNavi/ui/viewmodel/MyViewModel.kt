@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.kota.premierNavi.data.model.TeamId
 import com.github.kota.premierNavi.domain.FootballDataRepository
+import com.github.kota.premierNavi.domain.MatchStatus
 import com.github.kota.premierNavi.domain.TeamIdDomainObject
 import com.github.kota.premierNavi.domain.model.MatchDomainModel
 import com.github.kota.premierNavi.domain.model.RankDomainModel
@@ -73,11 +74,16 @@ class MyViewModel @Inject constructor(
 	}
 
 	private suspend fun getApiData(teamId: Int) {
-		val latestGame = matchApiService.getMatch(TeamIdDomainObject(teamId), "FINISHED")
+		_latestGame.value = ApiResult.Loading
+		_nextGame.value = ApiResult.Loading
+		_stats.value = ApiResult.Loading
+		_team.value = ApiResult.Loading
+
+		val latestGame = matchApiService.getMatch(TeamIdDomainObject(teamId), MatchStatus("FINISHED"))
 		if (latestGame is ApiResult.ApiSuccess)  _latestGame.value = latestGame
 		Log.d("[latestGame]ApiResult:", latestGame.toString())
 
-		val nextGame = matchApiService.getMatch(TeamIdDomainObject(teamId), "SCHEDULED")
+		val nextGame = matchApiService.getMatch(TeamIdDomainObject(teamId), MatchStatus("SCHEDULED"))
 		if (nextGame is ApiResult.ApiSuccess) _nextGame.value = nextGame
 		Log.d("[nextGame]ApiResult:", nextGame.toString())
 
@@ -106,7 +112,7 @@ class MyViewModel @Inject constructor(
 						getApiData(it[0].teamId)
 				}
 			}catch(e: Exception) {
-				_teamId.value = RequestState.Failure.EmptyError(e)
+				_teamId.value = RequestState.Failure.Error(e)
 			}
 		}
 	}
