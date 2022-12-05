@@ -7,8 +7,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.kota.premierNavi.data.AppDatabase
 import com.github.kota.premierNavi.data.PreNaviDao
 import com.github.kota.premierNavi.data.model.TeamId
-import com.github.kota.premierNavi.domain.model.Team
-import com.squareup.moshi.ToJson
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
 import org.junit.After
