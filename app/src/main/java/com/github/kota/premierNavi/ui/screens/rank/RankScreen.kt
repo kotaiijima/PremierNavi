@@ -10,10 +10,8 @@ import androidx.navigation.NavController
 import com.github.kota.premierNavi.domain.model.RankDomainModel
 import com.github.kota.premierNavi.ui.screens.BottomBar
 import com.github.kota.premierNavi.ui.screens.TopBar
-import com.github.kota.premierNavi.ui.screens.animation.LoadingAnimationView
 import com.github.kota.premierNavi.ui.theme.bottomNavigationHeight
 import com.github.kota.premierNavi.utils.ApiResult
-import com.github.kota.premierNavi.utils.RequestState
 
 @Composable
 fun RankScreen(
@@ -33,8 +31,6 @@ fun RankScreen(
 						rank = (rank.data),
 						navigateToTeamDetail
 					)
-				else
-					LoadingAnimationView()
 			}
 		},
 		topBar = { TopBar(navController = navController) },

@@ -14,7 +14,8 @@ import com.github.kota.premierNavi.utils.Constants.SETTING_SCREEN
 
 @Composable
 fun TopBar(
-	navController: NavController) {
+	navController: NavController
+) {
 	TopAppBar(
 		backgroundColor = colorResource(id = R.color.teal_700),
 		contentColor = Color.White,

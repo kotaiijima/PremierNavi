@@ -51,7 +51,8 @@ fun SetupNavigation(
 				latestGame = latestGame,
 				nextGame = nextGame,
 				rank = rank,
-				teamId = teamId
+				teamId = teamId,
+				getMatchData = myViewModel::getMatchData
 			)
 		}
 		composable(RANK_SCREEN) {
@@ -64,7 +65,9 @@ fun SetupNavigation(
 		composable(STATS_SCREEN){ StatsScreen(
 			navController = navController,
 			navigateToTeamDetail = screen.team,
-			stats = stats
+			stats = stats,
+			teamId = teamId,
+			getStatsData = myViewModel::getStatsData
 		) }
 
 		composable(SETTING_SCREEN){ SettingScreen(
@@ -75,6 +78,8 @@ fun SetupNavigation(
 		composable(TEAM_SCREEN){ PlayerScreen(
 			navController = navController,
 			team = team,
+			teamId = teamId,
+			getTeamData = myViewModel::getTeamData
 		) }
 		composable(
 			route = TEAM_DETAIL,
@@ -83,11 +88,13 @@ fun SetupNavigation(
 			})
 		) {
 			val selectedTeamId = it.arguments!!.getInt(TEAM_DETAIL_ARGUMENT_KEY)
-			myViewModel.getTeamData(selectedTeamId)
+			myViewModel.getSelectedTeamData(selectedTeamId)
 
 			PlayerScreen(
 				team = selectedTeam,
 				navController = navController,
+				teamId = teamId,
+				getTeamData = myViewModel::getSelectedTeamData
 				)
 		}
 	}

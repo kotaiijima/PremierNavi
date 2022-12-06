@@ -37,7 +37,6 @@ fun InitialScreen(
 					rank = rank.data,
 					addTeamId = addTeamId,
 				)
-			else LoadingAnimationView()
 		}
 	}
 }

@@ -37,8 +37,6 @@ fun SettingScreen(
 						)
 					}
 				}
-				else
-					LoadingAnimationView()
 			}
 		},
 		topBar = { TopBar(navController = navController) },

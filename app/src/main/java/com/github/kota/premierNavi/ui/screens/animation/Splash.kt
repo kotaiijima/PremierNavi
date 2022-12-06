@@ -9,6 +9,7 @@ import com.github.kota.premierNavi.R
 
 @Composable
 fun SplashAnimationView(
+	getApiData:(Int) -> Unit
 ){
 	val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.splash))
 	LottieAnimation(

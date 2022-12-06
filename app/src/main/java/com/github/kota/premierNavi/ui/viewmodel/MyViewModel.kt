@@ -73,30 +73,42 @@ class MyViewModel @Inject constructor(
 		}
 	}
 
-	private suspend fun getApiData(teamId: Int) {
-		_latestGame.value = ApiResult.Loading
-		_nextGame.value = ApiResult.Loading
+	fun getStatsData(teamId: Int) {
 		_stats.value = ApiResult.Loading
-		_team.value = ApiResult.Loading
 
-		val latestGame = matchApiService.getMatch(TeamIdDomainObject(teamId), MatchStatus("FINISHED"))
-		if (latestGame is ApiResult.ApiSuccess)  _latestGame.value = latestGame
-		Log.d("[latestGame]ApiResult:", latestGame.toString())
-
-		val nextGame = matchApiService.getMatch(TeamIdDomainObject(teamId), MatchStatus("SCHEDULED"))
-		if (nextGame is ApiResult.ApiSuccess) _nextGame.value = nextGame
-		Log.d("[nextGame]ApiResult:", nextGame.toString())
-
-		val stats = statsApiService.getStats(TeamIdDomainObject(teamId))
-		if (stats is ApiResult.ApiSuccess) _stats.value = stats
-		Log.d("[stats]ApiResult:", stats.toString())
-
-		val team = teamApiService.getTeam(TeamIdDomainObject(teamId))
-		if (team is ApiResult.ApiSuccess) _team.value = team
-		Log.d("[team]ApiResult:", team.toString())
+		viewModelScope.launch {
+			val stats = statsApiService.getStats(TeamIdDomainObject(teamId))
+			if (stats is ApiResult.ApiSuccess) _stats.value = stats
+			Log.d("[stats]ApiResult:", stats.toString())
+		}
 	}
 
 	fun getTeamData(teamId: Int) {
+		_team.value = ApiResult.Loading
+
+		viewModelScope.launch {
+			val team = teamApiService.getTeam(TeamIdDomainObject(teamId))
+			if (team is ApiResult.ApiSuccess) _team.value = team
+			Log.d("[team]ApiResult:", team.toString())
+		}
+	}
+
+	fun getMatchData(teamId: Int) {
+		_latestGame.value = ApiResult.Loading
+		_nextGame.value = ApiResult.Loading
+
+		viewModelScope.launch {
+			val latestGame = matchApiService.getMatch(TeamIdDomainObject(teamId), MatchStatus("FINISHED"))
+			if (latestGame is ApiResult.ApiSuccess)  _latestGame.value = latestGame
+			Log.d("[latestGame]ApiResult:", latestGame.toString())
+
+			val nextGame = matchApiService.getMatch(TeamIdDomainObject(teamId), MatchStatus("SCHEDULED"))
+			if (nextGame is ApiResult.ApiSuccess) _nextGame.value = nextGame
+			Log.d("[nextGame]ApiResult:", nextGame.toString())
+		}
+	}
+
+	fun getSelectedTeamData(teamId: Int) {
 		viewModelScope.launch {
 			val selectedTeam = teamApiService.getTeam(TeamIdDomainObject(teamId))
 			if (selectedTeam is ApiResult.ApiSuccess) _selectedApiTeam.value = selectedTeam
@@ -109,7 +121,9 @@ class MyViewModel @Inject constructor(
 			try {
 				footballDataRepository.getTeamId().collect {
 					_teamId.value = RequestState.Success(it)
-						getApiData(it[0].teamId)
+					getMatchData(it[0].teamId)
+					getStatsData(it[0].teamId)
+					getTeamData(it[0].teamId)
 				}
 			}catch(e: Exception) {
 				_teamId.value = RequestState.Failure.Error(e)

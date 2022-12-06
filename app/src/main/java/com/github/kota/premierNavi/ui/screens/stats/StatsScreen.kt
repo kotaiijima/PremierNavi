@@ -7,6 +7,7 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import com.github.kota.premierNavi.data.model.TeamId
 import com.github.kota.premierNavi.domain.model.StatsDomainModel
 import com.github.kota.premierNavi.ui.screens.BottomBar
 import com.github.kota.premierNavi.ui.screens.TopBar
@@ -19,7 +20,9 @@ import com.github.kota.premierNavi.utils.RequestState
 fun StatsScreen(
 	navController: NavController,
 	navigateToTeamDetail:(Int) -> Unit,
-	stats: ApiResult<StatsDomainModel>
+	stats: ApiResult<StatsDomainModel>,
+	teamId: RequestState<List<TeamId>>,
+	getStatsData: (Int) -> Unit
 ){
 	val scaffoldState = rememberScaffoldState()
 	Scaffold(
@@ -34,8 +37,14 @@ fun StatsScreen(
 						stats = stats.data,
 						navigateToTeamDetail = navigateToTeamDetail
 					)
-				else
-					LoadingAnimationView()
+				else{
+					if (teamId is RequestState.Success) {
+						LoadingAnimationView(
+							getApiData = getStatsData,
+							teamId = teamId.data[0].teamId
+						)
+					}
+				}
 			}
 		},
 		topBar = { TopBar(navController = navController) },

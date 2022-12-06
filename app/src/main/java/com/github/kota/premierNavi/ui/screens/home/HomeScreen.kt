@@ -13,6 +13,7 @@ import com.github.kota.premierNavi.domain.model.MatchDomainModel
 import com.github.kota.premierNavi.domain.model.RankDomainModel
 import com.github.kota.premierNavi.ui.screens.BottomBar
 import com.github.kota.premierNavi.ui.screens.TopBar
+import com.github.kota.premierNavi.ui.screens.animation.LoadingAnimationView
 import com.github.kota.premierNavi.ui.screens.animation.SplashAnimationView
 import com.github.kota.premierNavi.ui.screens.initial.InitialScreen
 import com.github.kota.premierNavi.ui.theme.bottomNavigationHeight
@@ -28,7 +29,8 @@ fun HomeScreen(
 	latestGame: ApiResult<MatchDomainModel>,
 	nextGame: ApiResult<MatchDomainModel>,
 	rank: ApiResult<RankDomainModel>,
-	teamId: RequestState<List<TeamId>>
+	teamId: RequestState<List<TeamId>>,
+	getMatchData: (Int) -> Unit
 ) {
 	val scaffoldState = rememberScaffoldState()
 	Scaffold(
@@ -93,7 +95,12 @@ fun HomeScreen(
 								)
 							}
 						} else {
-							SplashAnimationView()
+							if (teamId is RequestState.Success){
+								LoadingAnimationView(
+									getApiData = getMatchData,
+									teamId = teamId.data[0].teamId
+								)
+							}
 						}
 					}
 				}
