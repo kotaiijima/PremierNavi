@@ -5,8 +5,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavController
 import com.github.kota.premierNavi.R
 import com.github.kota.premierNavi.data.model.TeamId
@@ -17,7 +15,6 @@ import com.github.kota.premierNavi.ui.screens.BottomBar
 import com.github.kota.premierNavi.ui.screens.TopBar
 import com.github.kota.premierNavi.ui.screens.animation.SplashAnimationView
 import com.github.kota.premierNavi.ui.screens.initial.InitialScreen
-import com.github.kota.premierNavi.ui.theme.LARGE_PADDING
 import com.github.kota.premierNavi.ui.theme.bottomNavigationHeight
 import com.github.kota.premierNavi.utils.ApiResult
 import com.github.kota.premierNavi.utils.RequestState
@@ -48,17 +45,11 @@ fun HomeScreen(
 					} else {
 						if (latestGame is ApiResult.ApiSuccess && nextGame is ApiResult.ApiSuccess) {
 							Column {
-								Text(
-									modifier = Modifier
-										.padding(LARGE_PADDING),
-									fontWeight = FontWeight.Normal,
-									fontSize = MaterialTheme.typography.h5.fontSize,
-									text = stringResource(id = R.string.latestGame_text),
-									fontFamily = FontFamily.SansSerif
-								)
-								Divider()
 								HomeDate(
-									section = "第${latestGame.data.section}節",
+									matchStatus = stringResource(id = R.string.latestGame_text),
+									competition = latestGame.data.competition,
+									section = latestGame.data.section,
+									round = latestGame.data.round,
 									matchDay = latestGame.data.matchDay
 								)
 								Divider()
@@ -80,7 +71,10 @@ fun HomeScreen(
 								)
 								Divider()
 								HomeDate(
-									section = stringResource(id = R.string.nextGame_text),
+									matchStatus = stringResource(id = R.string.nextGame_text),
+									competition = nextGame.data.competition,
+									section = nextGame.data.section,
+									round = nextGame.data.round,
 									matchDay = nextGame.data.matchDay
 								)
 								Divider()

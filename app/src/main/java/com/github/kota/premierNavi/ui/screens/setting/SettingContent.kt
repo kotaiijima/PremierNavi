@@ -1,5 +1,6 @@
 package com.github.kota.premierNavi.ui.screens.setting
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -8,7 +9,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
@@ -20,6 +21,7 @@ import androidx.navigation.NavController
 import com.github.kota.premierNavi.ui.theme.SMALL_IMAGE
 import com.github.kota.premierNavi.utils.showCrest
 import com.github.kota.premierNavi.R
+import com.github.kota.premierNavi.component.DisplayUploadDialog
 import com.github.kota.premierNavi.domain.model.RankDomainModel
 import com.github.kota.premierNavi.ui.theme.MEDIUM_PADDING
 import com.github.kota.premierNavi.utils.Constants.HOME_SCREEN
@@ -31,6 +33,28 @@ fun SettingContent(
 	rank: RankDomainModel,
 	updateTeamId: (Int) -> Unit
 ){
+	var teamName by remember {
+		mutableStateOf("")
+	}
+	var openDialog by remember {
+		mutableStateOf(false)
+	}
+	var teamId by remember {
+		mutableStateOf(0)
+	}
+
+	DisplayUploadDialog(
+		message = stringResource(id = R.string.confirm_upload_message, translationToJapanese(
+			EngTeamName = teamName
+		)),
+		openDialog = openDialog,
+		closeDialog = { openDialog = false },
+		onYesClicked = {
+			Log.d("teamId", teamId.toString())
+			updateTeamId(teamId)
+			navController.navigate(HOME_SCREEN)
+		}
+	)
 	LazyColumn {
 		items(rank.teams) {
 			SettingItem(
@@ -39,10 +63,11 @@ fun SettingContent(
 				modifier = Modifier
 					.fillMaxWidth()
 					.height(IntrinsicSize.Max)
-					.clickable(onClick = {
-						updateTeamId(it.id)
-						navController.navigate(HOME_SCREEN)
-					})
+					.clickable {
+						teamName = it.teamName
+						teamId = it.id
+						openDialog = true
+					}
 			)
 		}
 	}

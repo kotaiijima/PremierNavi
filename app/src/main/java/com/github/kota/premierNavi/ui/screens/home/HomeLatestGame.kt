@@ -28,8 +28,7 @@ fun HomeLatestGame(
 ){
 		Row(
 			modifier = Modifier
-				.padding(LARGE_PADDING)
-				.padding(top = LARGE_PADDING),
+				.padding(LARGE_PADDING),
 			verticalAlignment = Alignment.CenterVertically
 		) {
 			TeamCrestCard(

@@ -8,6 +8,8 @@ data class MatchDomainModel(
 	val section: Int,
 	val matchDay: String,
 	val score: Score,
+	val competition: String,
+	val round: String
 )
 
 data class TeamInformation(

@@ -53,3 +53,23 @@ fun translationToJapanese(EngTeamName: String): String{
 		else -> EngTeamName
 	}
 }
+
+@Composable
+fun convertCompetition(
+	competition: String,
+	round: String,
+	section: Int? = 1
+):String {
+	return when(competition) {
+		"PL" ->	"プレミアリーグ 第${section}節"
+		"CL" ->
+		when (round){
+			"LAST_16" -> "チャンピオンズリーグ ラウンド１６"
+			"LAST_8" -> "チャンピオンズリーグ 準々決勝"
+			"LAST_4" -> "チャンピオンズリーグ 準決勝"
+			"LAST_2" -> "チャンピオンズリーグ 決勝"
+			else -> "チャンピオンズリーグ 第${section}節"
+		}
+		else -> ""
+	}
+}

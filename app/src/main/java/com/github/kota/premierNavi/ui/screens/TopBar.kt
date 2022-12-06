@@ -9,11 +9,12 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.github.kota.premierNavi.R
+import com.github.kota.premierNavi.component.DisplayUploadDialog
 import com.github.kota.premierNavi.utils.Constants.SETTING_SCREEN
 
 @Composable
 fun TopBar(
-	navController: NavController){
+	navController: NavController) {
 	TopAppBar(
 		backgroundColor = colorResource(id = R.color.teal_700),
 		contentColor = Color.White,
@@ -30,7 +31,10 @@ fun TopBar(
 fun SettingMenu(
 	navController: NavController
 ){
-	var expanded by remember { mutableStateOf(false) }
+	var expanded by remember {
+		mutableStateOf(false)
+	}
+
 	IconButton(onClick = { expanded = true }) {
 		Icon(imageVector = Icons.Filled.Menu, contentDescription = stringResource(id = R.string.menu_description))
 		DropdownMenu(

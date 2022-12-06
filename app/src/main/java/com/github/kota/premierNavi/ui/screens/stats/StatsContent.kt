@@ -31,6 +31,7 @@ import com.github.kota.premierNavi.domain.model.StatsDomainModel
 import com.github.kota.premierNavi.domain.model.TeamInformation
 import com.github.kota.premierNavi.ui.theme.MEDIUM_IMAGE
 import com.github.kota.premierNavi.ui.theme.SMALL_IMAGE
+import com.github.kota.premierNavi.utils.convertCompetition
 import com.github.kota.premierNavi.utils.translationToJapanese
 
 @Composable
@@ -63,20 +64,11 @@ private fun StatsItem(
 	val jstDate = ZonedDateTime.parse(match.matchDay).plusHours(9)
 	val dateFormat = DateTimeFormatter.ofPattern("MM/dd")
 	val dateToJapan = jstDate.format(dateFormat)
-	val matchday = when (match.competition) {
-		"PL" ->	"プレミアリーグ 第${match.section}節"
-		"CL" ->
-			when (match.competitionRound){
-				"LAST_16" -> "チャンピオンズリーグ ラウンド１６"
-				"LAST_8" -> "チャンピオンズリーグ 準々決勝"
-				"LAST_4" -> "チャンピオンズリーグ 準決勝"
-				"LAST_2" -> "チャンピオンズリーグ 決勝"
-				else -> "チャンピオンズリーグ 第${match.section}節"
-			}
-		else -> ""
-	}
-
-
+	val matchday = convertCompetition(
+		competition = match.competition,
+		round = match.competitionRound,
+		section = match.section
+	)
 
 	val scoreOrTime = if (match.score.homeScore == null || match.score.awayScore == null){
 		val timeFormat = DateTimeFormatter.ofPattern("HH:mm")
