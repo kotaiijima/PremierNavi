@@ -31,10 +31,8 @@ fun TopBar(
 @Composable
 fun SettingMenu(
 	navController: NavController
-){
-	var expanded by remember {
-		mutableStateOf(false)
-	}
+) {
+	var expanded by remember { mutableStateOf(false) }
 
 	IconButton(onClick = { expanded = true }) {
 		Icon(imageVector = Icons.Filled.Menu, contentDescription = stringResource(id = R.string.menu_description))
@@ -45,15 +43,9 @@ fun SettingMenu(
 			DropdownMenuItem(onClick = {
 				expanded = false
 				navController.navigate(SETTING_SCREEN)
-			}){
+			}) {
 				Text(text = stringResource(id = R.string.setting_dropdown))
 			}
 		}
 	}
 }
-
-//@Composable
-//@Preview
-//fun TopBarPreview(){
-//	TopBar(navController = rememberNavController())
-//}

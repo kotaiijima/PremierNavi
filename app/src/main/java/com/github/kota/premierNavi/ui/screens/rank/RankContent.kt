@@ -30,7 +30,7 @@ import com.github.kota.premierNavi.utils.translationToJapanese
 fun RankContent(
 	rank: RankDomainModel,
 	navigateToTeamDetail:(Int) -> Unit
-){
+) {
 	LazyColumn {
 		stickyHeader {
 			RankItem(
@@ -40,7 +40,7 @@ fun RankContent(
 			)
 			Divider()
 		}
-		items(rank.teams){
+		items(rank.teams) {
 			RankItem(
 				position = it.position,
 				crest = it.crest,

@@ -35,7 +35,8 @@ fun PlayerContent (
 			start = MEDIUM_PADDING,
 			end = MEDIUM_PADDING,
 			top = MEDIUM_PADDING),
-		state = listState){
+		state = listState
+	) {
 		stickyHeader {
 			Text(
 				text = "Coach",

@@ -1,5 +1,6 @@
 package com.github.kota.premierNavi.ui.screens.animation
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.rememberScrollState
@@ -18,7 +19,7 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 fun LoadingAnimationView(
 	getApiData:(Int) -> Unit,
 	teamId: Int
-){
+) {
 
 	var refreshing by remember {
 		mutableStateOf(false)
@@ -39,7 +40,10 @@ fun LoadingAnimationView(
 			onRefresh = { refreshing = true }
 		) {
 			Column(
-				modifier = Modifier.verticalScroll(rememberScrollState())
+				verticalArrangement = Arrangement.Center,
+				modifier = Modifier
+					.fillMaxSize()
+					.verticalScroll(rememberScrollState())
 			) {
 				LottieAnimation(
 					composition =  composition,

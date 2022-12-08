@@ -31,6 +31,7 @@ fun SetupNavigation(
 	val screen = remember(navController) {
 		Screen(navController)
 	}
+
 	val team by myViewModel.team.collectAsState()
 	val latestGame by myViewModel.latestGame.collectAsState()
 	val nextGame by myViewModel.nextGame.collectAsState()
@@ -55,6 +56,7 @@ fun SetupNavigation(
 				getMatchData = myViewModel::getMatchData
 			)
 		}
+
 		composable(RANK_SCREEN) {
 			RankScreen(
 				navigateToTeamDetail = screen.team,
@@ -62,6 +64,7 @@ fun SetupNavigation(
 				rank = rank
 			)
 		}
+
 		composable(STATS_SCREEN){ StatsScreen(
 			navController = navController,
 			navigateToTeamDetail = screen.team,
@@ -75,12 +78,14 @@ fun SetupNavigation(
 			rank = rank,
 			updateTeamId = myViewModel::updateTeamId
 		) }
+
 		composable(TEAM_SCREEN){ PlayerScreen(
 			navController = navController,
 			team = team,
 			teamId = teamId,
 			getTeamData = myViewModel::getTeamData
 		) }
+
 		composable(
 			route = TEAM_DETAIL,
 			arguments = listOf(navArgument(TEAM_DETAIL_ARGUMENT_KEY){

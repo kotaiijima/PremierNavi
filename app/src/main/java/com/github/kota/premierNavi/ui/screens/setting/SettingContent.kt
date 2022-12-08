@@ -32,16 +32,10 @@ fun SettingContent(
 	navController: NavController,
 	rank: RankDomainModel,
 	updateTeamId: (Int) -> Unit
-){
-	var teamName by remember {
-		mutableStateOf("")
-	}
-	var openDialog by remember {
-		mutableStateOf(false)
-	}
-	var teamId by remember {
-		mutableStateOf(0)
-	}
+) {
+	var teamName by remember { mutableStateOf("") }
+	var openDialog by remember { mutableStateOf(false) }
+	var teamId by remember { mutableStateOf(0) }
 
 	DisplayUploadDialog(
 		message = stringResource(id = R.string.confirm_upload_message, translationToJapanese(

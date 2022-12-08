@@ -60,7 +60,7 @@ private fun StatsItem(
 	homeCrest: Painter,
 	awayCrest: Painter,
 	navigateToTeamDetail: (Int) -> Unit
-){
+) {
 	val jstDate = ZonedDateTime.parse(match.matchDay).plusHours(9)
 	val dateFormat = DateTimeFormatter.ofPattern("MM/dd")
 	val dateToJapan = jstDate.format(dateFormat)
@@ -70,10 +70,10 @@ private fun StatsItem(
 		section = match.section
 	)
 
-	val scoreOrTime = if (match.score.homeScore == null || match.score.awayScore == null){
+	val scoreOrTime = if (match.score.homeScore == null || match.score.awayScore == null) {
 		val timeFormat = DateTimeFormatter.ofPattern("HH:mm")
 		jstDate.format(timeFormat)
-	}else{
+	} else {
 		"${match.score.homeScore} - ${match.score.awayScore}"
 	}
 
@@ -99,7 +99,7 @@ private fun StatsItem(
 			modifier = Modifier
 				.height(IntrinsicSize.Max)
 				.padding(top = SMALL_PADDING)
-		){
+		) {
 			Row(
 				modifier = Modifier
 					.wrapContentWidth(Alignment.Start)

@@ -25,7 +25,7 @@ fun PlayerScreen(
 	team: ApiResult<TeamDomainModel>,
 	teamId: RequestState<List<TeamId>>,
 	getTeamData: (Int) -> Unit
-){
+) {
 	val scaffoldState = rememberScaffoldState()
 	Scaffold(
 		scaffoldState = scaffoldState,

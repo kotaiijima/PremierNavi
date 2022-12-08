@@ -1,10 +1,7 @@
 package com.github.kota.premierNavi.data.ext
 
-import com.github.kota.premierNavi.data.api.model.matchModel.ApiMatch
 import com.github.kota.premierNavi.data.api.model.rankingModel.ApiRank
 import com.github.kota.premierNavi.data.api.model.rankingModel.Table
-import com.github.kota.premierNavi.data.api.model.teamModel.ApiTeam
-import com.github.kota.premierNavi.data.api.model.teamModel.Squad
 import com.github.kota.premierNavi.domain.model.*
 
 fun ApiRank.mapToDomainObject(): RankDomainModel {

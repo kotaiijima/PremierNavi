@@ -20,7 +20,7 @@ import com.github.kota.premierNavi.utils.Constants.STATS_SCREEN
 fun BottomBar(
 	navController: NavController,
 
-){
+) {
 	val navBackStackEntry by navController.currentBackStackEntryAsState()
 	val currentDestination = navBackStackEntry?.destination
 	val bottomMenuItemList = prepareBottomMenu()
@@ -28,7 +28,7 @@ fun BottomBar(
 	BottomNavigation (
 		backgroundColor = colorResource(id = R.color.teal_700),
 		contentColor = Color.White,
-			){
+			) {
 		bottomMenuItemList.forEach { menuItem ->
 			BottomNavigationItem(
 				icon = {

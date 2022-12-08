@@ -18,7 +18,7 @@ fun RankScreen(
 	navController: NavController,
 	navigateToTeamDetail:(Int) -> Unit,
 	rank: ApiResult<RankDomainModel>
-){
+) {
 	val scaffoldState = rememberScaffoldState()
 	Scaffold(
 		scaffoldState = scaffoldState,

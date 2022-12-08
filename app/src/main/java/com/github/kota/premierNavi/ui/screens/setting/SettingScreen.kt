@@ -21,7 +21,7 @@ fun SettingScreen(
 	navController: NavController,
 	rank: ApiResult<RankDomainModel>,
 	updateTeamId:(Int) -> Unit
-){
+) {
 
 	val scaffoldState = rememberScaffoldState()
 	Scaffold(

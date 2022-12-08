@@ -33,6 +33,7 @@ fun HomeScreen(
 	getMatchData: (Int) -> Unit
 ) {
 	val scaffoldState = rememberScaffoldState()
+
 	Scaffold(
 		scaffoldState = scaffoldState,
 		content = {

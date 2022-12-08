@@ -18,7 +18,7 @@ import com.github.kota.premierNavi.utils.RequestState
 fun InitialScreen(
 	rank: ApiResult<RankDomainModel>,
 	addTeamId: (Int) -> Unit,
-){
+) {
 	Column(
 		modifier = Modifier.fillMaxSize()
 	) {

@@ -49,7 +49,7 @@ fun TeamCrestCard(
 
 @Composable
 @Preview
-fun TeamCrestCardPreview(){
+fun TeamCrestCardPreview() {
 	TeamCrestCard(
 		name = "Brentford",
 		modifier = Modifier

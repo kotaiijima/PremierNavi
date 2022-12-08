@@ -12,8 +12,8 @@ fun DisplayUploadDialog(
 	openDialog: Boolean,
 	closeDialog: () -> Unit,
 	onYesClicked: () -> Unit
-){
-	if (openDialog){
+) {
+	if (openDialog) {
 		AlertDialog(
 			title = {
 				Text(
@@ -25,7 +25,7 @@ fun DisplayUploadDialog(
 			text = {
 				Text(
 					text = message,
-					fontSize = MaterialTheme.typography.subtitle1.fontSize,
+					fontSize = MaterialTheme.typography.subtitle2.fontSize,
 					fontWeight = FontWeight.Normal
 				)
 			},

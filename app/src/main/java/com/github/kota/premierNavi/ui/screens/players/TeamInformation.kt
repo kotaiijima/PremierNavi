@@ -23,7 +23,7 @@ fun TeamInformation(
 	crest: Painter,
 	stadium: String,
 	teamName: String
-){
+) {
 	Row (
 		modifier = Modifier.fillMaxWidth(),
 		horizontalArrangement = Arrangement.Center,
@@ -66,7 +66,7 @@ fun TeamInformation(
 
 @Composable
 @Preview
-fun TeamInformationPreview(){
+fun TeamInformationPreview() {
 	TeamInformation(crest = painterResource(id = R.drawable.players),
 		stadium = "Emirate Stadium",
 		teamName = "Arsenal")
