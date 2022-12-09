@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.github.kota.premierNavi.data.model.TeamId
-import com.github.kota.premierNavi.domain.TeamIdDomainObject
 import com.github.kota.premierNavi.domain.model.TeamDomainModel
 import com.github.kota.premierNavi.ui.screens.BottomBar
 import com.github.kota.premierNavi.ui.screens.TopBar
@@ -24,7 +23,7 @@ fun PlayerScreen(
 	navController: NavController,
 	team: ApiResult<TeamDomainModel>,
 	teamId: RequestState<List<TeamId>>,
-	getTeamData: (Int) -> Unit
+	getTeamData: suspend (Int) -> Unit
 ) {
 	val scaffoldState = rememberScaffoldState()
 	Scaffold(

@@ -9,7 +9,6 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.github.kota.premierNavi.R
-import com.github.kota.premierNavi.component.DisplayUploadDialog
 import com.github.kota.premierNavi.utils.Constants.SETTING_SCREEN
 
 @Composable

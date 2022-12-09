@@ -13,3 +13,5 @@ val MEDIUM_IMAGE = 100.dp
 val SMALL_IMAGE = 50.dp
 
 val IMAGE_PADDING = 25.dp
+
+val INITIAL_SCREEN_IMAGE = 70.dp

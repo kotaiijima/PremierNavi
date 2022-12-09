@@ -19,7 +19,6 @@ import com.github.kota.premierNavi.utils.Constants.STATS_SCREEN
 @Composable
 fun BottomBar(
 	navController: NavController,
-
 ) {
 	val navBackStackEntry by navController.currentBackStackEntryAsState()
 	val currentDestination = navBackStackEntry?.destination

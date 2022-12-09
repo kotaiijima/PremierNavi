@@ -22,7 +22,7 @@ fun StatsScreen(
 	navigateToTeamDetail:(Int) -> Unit,
 	stats: ApiResult<StatsDomainModel>,
 	teamId: RequestState<List<TeamId>>,
-	getStatsData: (Int) -> Unit
+	getStatsData: suspend (Int) -> Unit
 ) {
 	val scaffoldState = rememberScaffoldState()
 	Scaffold(

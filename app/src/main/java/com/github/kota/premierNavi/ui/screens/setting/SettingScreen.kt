@@ -20,7 +20,7 @@ import com.github.kota.premierNavi.utils.RequestState
 fun SettingScreen(
 	navController: NavController,
 	rank: ApiResult<RankDomainModel>,
-	updateTeamId:(Int) -> Unit
+	updateTeamId: suspend (Int) -> Unit
 ) {
 
 	val scaffoldState = rememberScaffoldState()

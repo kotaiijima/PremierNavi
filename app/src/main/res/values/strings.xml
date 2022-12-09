@@ -10,6 +10,7 @@
 	<string name="setting_dropdown">チームを変更</string>
 	<string name="club_name">Arsenal</string>
 	<string name="confirm_upload">チームを変更しますか？</string>
-	<string name="confirm_upload_message">チームが \'%1$s\' に変更されます</string>
-
+	<string name="confirm_upload_message">チームが %1$s に変更されます</string>
+	<string name="team_select_button">決定</string>
+	<string name="confirm_add">%1$s でよろしいですか？</string>
 </resources>

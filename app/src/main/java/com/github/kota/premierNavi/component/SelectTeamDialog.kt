@@ -2,13 +2,13 @@ package com.github.kota.premierNavi.component
 
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import com.github.kota.premierNavi.R
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun DisplayUploadDialog(
-	message: String,
+fun SelectTeamDialog(
+	title: String,
+	message: String = "",
 	openDialog: Boolean,
 	closeDialog: () -> Unit,
 	onYesClicked: () -> Unit
@@ -17,7 +17,7 @@ fun DisplayUploadDialog(
 		AlertDialog(
 			title = {
 				Text(
-					text = stringResource(id = R.string.confirm_upload),
+					text = title,
 					fontSize = MaterialTheme.typography.h5.fontSize,
 					fontWeight = FontWeight.Bold
 				)
@@ -50,5 +50,16 @@ fun DisplayUploadDialog(
 			},
 			onDismissRequest = { closeDialog() }
 		)
+	}
+}
+
+@Composable
+@Preview
+fun SelectTeamDialogPreview() {
+	SelectTeamDialog(
+		title = "Title",
+		message = "Message",
+		openDialog = true,
+		closeDialog = { /*TODO*/ }) {
 	}
 }

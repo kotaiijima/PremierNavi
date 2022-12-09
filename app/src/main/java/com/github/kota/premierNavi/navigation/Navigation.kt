@@ -9,19 +9,23 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.github.kota.premierNavi.data.model.TeamId
 import com.github.kota.premierNavi.ui.screens.home.HomeScreen
+import com.github.kota.premierNavi.ui.screens.initial.InitialScreen
 import com.github.kota.premierNavi.ui.screens.players.PlayerScreen
 import com.github.kota.premierNavi.ui.screens.rank.RankScreen
 import com.github.kota.premierNavi.ui.screens.setting.SettingScreen
 import com.github.kota.premierNavi.ui.screens.stats.StatsScreen
 import com.github.kota.premierNavi.ui.viewmodel.MyViewModel
 import com.github.kota.premierNavi.utils.Constants.HOME_SCREEN
+import com.github.kota.premierNavi.utils.Constants.INITIAL_SCREEN
 import com.github.kota.premierNavi.utils.Constants.RANK_SCREEN
 import com.github.kota.premierNavi.utils.Constants.SETTING_SCREEN
 import com.github.kota.premierNavi.utils.Constants.STATS_SCREEN
 import com.github.kota.premierNavi.utils.Constants.TEAM_DETAIL
 import com.github.kota.premierNavi.utils.Constants.TEAM_DETAIL_ARGUMENT_KEY
 import com.github.kota.premierNavi.utils.Constants.TEAM_SCREEN
+import com.github.kota.premierNavi.utils.RequestState
 
 @Composable
 fun SetupNavigation(
@@ -42,18 +46,24 @@ fun SetupNavigation(
 
 	NavHost(
 		navController = navController,
-		startDestination = HOME_SCREEN
+		startDestination = INITIAL_SCREEN
 	) {
+		composable(INITIAL_SCREEN) {
+			InitialScreen(
+				navController = navController,
+				rank = rank,
+				addTeamId = myViewModel::addTeamId,
+				teamId = teamId
+			)
+		}
 		composable(HOME_SCREEN) {
 			HomeScreen(
 				navigateToTeamDetail = screen.team,
 				navController = navController,
-				addTeamId = myViewModel::addTeamId,
 				latestGame = latestGame,
 				nextGame = nextGame,
-				rank = rank,
 				teamId = teamId,
-				getMatchData = myViewModel::getMatchData
+				getMatchData = myViewModel::getApiData
 			)
 		}
 
@@ -70,7 +80,7 @@ fun SetupNavigation(
 			navigateToTeamDetail = screen.team,
 			stats = stats,
 			teamId = teamId,
-			getStatsData = myViewModel::getStatsData
+			getStatsData = myViewModel::getApiData
 		) }
 
 		composable(SETTING_SCREEN){ SettingScreen(
@@ -83,7 +93,7 @@ fun SetupNavigation(
 			navController = navController,
 			team = team,
 			teamId = teamId,
-			getTeamData = myViewModel::getTeamData
+			getTeamData = myViewModel::getApiData
 		) }
 
 		composable(

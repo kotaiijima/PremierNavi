@@ -17,19 +17,18 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
 @Composable
 fun LoadingAnimationView(
-	getApiData:(Int) -> Unit,
+	getApiData: suspend (Int) -> Unit,
 	teamId: Int
 ) {
 
-	var refreshing by remember {
-		mutableStateOf(false)
-	}
+	var refreshing by remember { mutableStateOf(false) }
 
 	LaunchedEffect(refreshing) {
 		if (refreshing) run {
 			getApiData(teamId)
 		}
 	}
+
 	val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loading))
 
 	Column(
