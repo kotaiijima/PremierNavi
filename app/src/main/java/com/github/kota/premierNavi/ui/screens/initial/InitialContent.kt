@@ -23,16 +23,13 @@ import com.github.kota.premierNavi.domain.model.Team
 import com.github.kota.premierNavi.ui.theme.*
 import com.github.kota.premierNavi.utils.Constants.HOME_SCREEN
 import com.github.kota.premierNavi.utils.translationToJapanese
-import kotlinx.coroutines.launch
 
 @Composable
 fun InitialContent(
-	navController: NavController,
 	rank: RankDomainModel,
-	addTeamId: suspend (Int) -> Unit,
+	addTeamId: (Int) -> Unit,
+	navController: NavController
 ) {
-	val composableScope = rememberCoroutineScope()
-
 	var selectedTeamId by rememberSaveable { mutableStateOf(0) }
 	var openDialog by remember { mutableStateOf(false) }
 	var selectedTeamName by remember { mutableStateOf("") }
@@ -43,9 +40,8 @@ fun InitialContent(
 		closeDialog = { openDialog = false },
 		onYesClicked = {
 			Log.d("teamId", selectedTeamId.toString())
-			composableScope.launch {
-				addTeamId(selectedTeamId)
-			}
+			addTeamId(selectedTeamId)
+//			getTeamId()
 			navController.navigate(HOME_SCREEN)
 		}
 	)

@@ -8,24 +8,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavController
-import com.github.kota.premierNavi.ui.screens.animation.LoadingAnimationView
 import com.github.kota.premierNavi.R
 import com.github.kota.premierNavi.data.model.TeamId
 import com.github.kota.premierNavi.domain.model.RankDomainModel
 import com.github.kota.premierNavi.ui.theme.IMAGE_PADDING
 import com.github.kota.premierNavi.ui.theme.LARGE_PADDING
 import com.github.kota.premierNavi.utils.ApiResult
-import com.github.kota.premierNavi.utils.Constants.HOME_SCREEN
 import com.github.kota.premierNavi.utils.RequestState
 
 @Composable
 fun InitialScreen(
-	navController: NavController,
 	rank: ApiResult<RankDomainModel>,
-	addTeamId: suspend (Int) -> Unit,
+	addTeamId: (Int) -> Unit,
+	navController: NavController,
 	teamId: RequestState<List<TeamId>>
 ) {
-	if (teamId is RequestState.Failure.Error) {
+	if (teamId is RequestState.Failure.Empty) {
 		Column(
 			modifier = Modifier.fillMaxSize()
 		) {
@@ -43,13 +41,11 @@ fun InitialScreen(
 			) {
 				if (rank is ApiResult.ApiSuccess)
 					InitialContent(
-						navController = navController,
 						rank = rank.data,
 						addTeamId = addTeamId,
+						navController = navController
 					)
 			}
 		}
-	} else if (teamId is RequestState.Success) {
-		navController.navigate(HOME_SCREEN)
 	}
 }

@@ -2,7 +2,7 @@ package com.github.kota.premierNavi.ui.screens.home
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
@@ -10,16 +10,11 @@ import com.github.kota.premierNavi.R
 import com.github.kota.premierNavi.data.model.TeamId
 import com.github.kota.premierNavi.domain.TeamDomainObject
 import com.github.kota.premierNavi.domain.model.MatchDomainModel
-import com.github.kota.premierNavi.domain.model.RankDomainModel
 import com.github.kota.premierNavi.ui.screens.BottomBar
 import com.github.kota.premierNavi.ui.screens.TopBar
 import com.github.kota.premierNavi.ui.screens.animation.LoadingAnimationView
-import com.github.kota.premierNavi.ui.screens.animation.SplashAnimationView
-import com.github.kota.premierNavi.ui.screens.initial.InitialScreen
-import com.github.kota.premierNavi.ui.theme.INITIAL_SCREEN_IMAGE
 import com.github.kota.premierNavi.ui.theme.bottomNavigationHeight
 import com.github.kota.premierNavi.utils.ApiResult
-import com.github.kota.premierNavi.utils.Constants.INITIAL_SCREEN
 import com.github.kota.premierNavi.utils.RequestState
 import com.github.kota.premierNavi.utils.showCrest
 
@@ -37,10 +32,10 @@ fun HomeScreen(
 	Scaffold(
 		scaffoldState = scaffoldState,
 		content = {
-			Column (
-				modifier = Modifier.padding(bottom = bottomNavigationHeight)
-			) {
-				if (latestGame is ApiResult.ApiSuccess && nextGame is ApiResult.ApiSuccess) {
+			if (latestGame is ApiResult.ApiSuccess && nextGame is ApiResult.ApiSuccess) {
+				Column(
+					modifier = Modifier.padding(bottom = bottomNavigationHeight)
+				) {
 					Column {
 						HomeDate(
 							matchStatus = stringResource(id = R.string.latestGame_text),
@@ -55,13 +50,15 @@ fun HomeScreen(
 							homeTeam = TeamDomainObject(
 								id = latestGame.data.homeTeam.id,
 								name = latestGame.data.homeTeam.name,
-								crest = showCrest(crest = latestGame.data.homeTeam.crest
+								crest = showCrest(
+									crest = latestGame.data.homeTeam.crest
 								)
 							),
 							awayTeam = TeamDomainObject(
 								id = latestGame.data.awayTeam.id,
 								name = latestGame.data.awayTeam.name,
-								crest = showCrest(crest = latestGame.data.awayTeam.crest
+								crest = showCrest(
+									crest = latestGame.data.awayTeam.crest
 								)
 							),
 							navigateToTeamDetail = navigateToTeamDetail
@@ -89,17 +86,17 @@ fun HomeScreen(
 							navigateToTeamDetail = navigateToTeamDetail
 						)
 					}
-				} else {
-					if (teamId is RequestState.Success){
-						LoadingAnimationView(
-							getApiData = getMatchData,
-							teamId = teamId.data[0].teamId
-						)
-					}
+				}
+			}else {
+				if (teamId is RequestState.Success) {
+					LoadingAnimationView(
+						getApiData = getMatchData,
+						teamId = teamId.data[0].teamId
+					)
 				}
 			}
 		},
-		topBar = {TopBar(navController = navController) },
+		topBar = { TopBar(navController = navController) },
 		bottomBar = { BottomBar(navController = navController) }
 	)
 }

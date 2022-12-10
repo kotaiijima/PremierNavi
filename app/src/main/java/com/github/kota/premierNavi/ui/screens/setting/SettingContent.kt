@@ -5,8 +5,6 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -24,60 +22,59 @@ import com.github.kota.premierNavi.ui.theme.SMALL_IMAGE
 import com.github.kota.premierNavi.utils.showCrest
 import com.github.kota.premierNavi.R
 import com.github.kota.premierNavi.component.SelectTeamDialog
+import com.github.kota.premierNavi.data.model.TeamId
 import com.github.kota.premierNavi.domain.model.RankDomainModel
 import com.github.kota.premierNavi.ui.theme.MEDIUM_PADDING
 import com.github.kota.premierNavi.utils.Constants.HOME_SCREEN
+import com.github.kota.premierNavi.utils.RequestState
 import com.github.kota.premierNavi.utils.translationToJapanese
-import kotlinx.coroutines.launch
 
 @Composable
 fun SettingContent(
 	navController: NavController,
 	rank: RankDomainModel,
-	updateTeamId: suspend (Int) -> Unit
+	teamId: RequestState<List<TeamId>>,
+	updateTeamId: (Int) -> Unit
 ) {
-	val composableScope = rememberCoroutineScope()
+	val context = LocalContext.current
 
 	var teamName by remember { mutableStateOf("") }
 	var openDialog by remember { mutableStateOf(false) }
-	var teamId by remember { mutableStateOf(0) }
+	var selectedTeamId by remember { mutableStateOf(0) }
 
 	SelectTeamDialog(
 		title = stringResource(id = R.string.confirm_upload),
-		message = stringResource(id = R.string.confirm_upload_message,
-			translationToJapanese(EngTeamName = teamName)
+		message = stringResource(
+			id = R.string.confirm_upload_message, translationToJapanese(EngTeamName = teamName)
 		),
 		openDialog = openDialog,
 		closeDialog = { openDialog = false },
 		onYesClicked = {
-			Log.d("teamId", teamId.toString())
-			composableScope.launch {
-				updateTeamId(teamId)
-			}
+			Log.d("selectedTeamId", selectedTeamId.toString())
+			updateTeamId(selectedTeamId)
 			navController.navigate(HOME_SCREEN)
 		}
 	)
-		val context = LocalContext.current
-	LazyColumn {
-
-		items(rank.teams) {
-			SettingItem(
-				crest = showCrest(crest = it.crest),
-				teamName = it.teamName,
-				modifier = Modifier
-					.fillMaxWidth()
-					.height(IntrinsicSize.Max)
-					.clickable {
-						if (teamId != it.id) {
-							teamName = it.teamName
-							teamId = it.id
-							openDialog = true
-						} else
-							Toast
-								.makeText(context, "既に設定されています.", Toast.LENGTH_SHORT)
-								.show()
-					}
-			)
+	if (teamId is RequestState.Success) {
+		Column {
+			rank.teams.forEach {
+				SettingItem(
+					crest = showCrest(crest = it.crest),
+					teamName = it.teamName,
+					modifier = Modifier
+						.fillMaxWidth()
+						.height(IntrinsicSize.Max)
+						.clickable {
+							Log.d("selectedTeamId", selectedTeamId.toString())
+							if (teamId.data[0].teamId != it.id) {
+								teamName = it.teamName
+								selectedTeamId = it.id
+								openDialog = true
+							} else
+								Toast.makeText(context, "既に設定されています.", Toast.LENGTH_SHORT).show()
+						}
+				)
+			}
 		}
 	}
 }

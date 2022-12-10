@@ -9,7 +9,6 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.github.kota.premierNavi.data.model.TeamId
 import com.github.kota.premierNavi.ui.screens.home.HomeScreen
 import com.github.kota.premierNavi.ui.screens.initial.InitialScreen
 import com.github.kota.premierNavi.ui.screens.players.PlayerScreen
@@ -44,9 +43,10 @@ fun SetupNavigation(
 	val teamId by myViewModel.teamId.collectAsState()
 	val selectedTeam by myViewModel.selectedApiTeam.collectAsState()
 
+	val initialization = teamId is RequestState.Success
 	NavHost(
 		navController = navController,
-		startDestination = INITIAL_SCREEN
+		startDestination = if (initialization) HOME_SCREEN else INITIAL_SCREEN
 	) {
 		composable(INITIAL_SCREEN) {
 			InitialScreen(
@@ -56,6 +56,7 @@ fun SetupNavigation(
 				teamId = teamId
 			)
 		}
+
 		composable(HOME_SCREEN) {
 			HomeScreen(
 				navigateToTeamDetail = screen.team,
@@ -63,7 +64,7 @@ fun SetupNavigation(
 				latestGame = latestGame,
 				nextGame = nextGame,
 				teamId = teamId,
-				getMatchData = myViewModel::getApiData
+				getMatchData = myViewModel::getMatchData
 			)
 		}
 
@@ -80,12 +81,13 @@ fun SetupNavigation(
 			navigateToTeamDetail = screen.team,
 			stats = stats,
 			teamId = teamId,
-			getStatsData = myViewModel::getApiData
+			getStatsData = myViewModel::getStatsData
 		) }
 
 		composable(SETTING_SCREEN){ SettingScreen(
 			navController = navController,
 			rank = rank,
+			teamId = teamId,
 			updateTeamId = myViewModel::updateTeamId
 		) }
 
@@ -93,7 +95,7 @@ fun SetupNavigation(
 			navController = navController,
 			team = team,
 			teamId = teamId,
-			getTeamData = myViewModel::getApiData
+			getTeamData = myViewModel::getTeamData
 		) }
 
 		composable(
