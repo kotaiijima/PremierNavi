@@ -1,4 +1,4 @@
-package com.github.kota.premierNavi.data.model
+package com.github.kota.premierNavi.data.databaseModel
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

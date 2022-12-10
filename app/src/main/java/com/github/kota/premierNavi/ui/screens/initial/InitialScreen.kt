@@ -9,7 +9,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavController
 import com.github.kota.premierNavi.R
-import com.github.kota.premierNavi.data.model.TeamId
+import com.github.kota.premierNavi.data.databaseModel.TeamId
 import com.github.kota.premierNavi.domain.model.RankDomainModel
 import com.github.kota.premierNavi.ui.theme.IMAGE_PADDING
 import com.github.kota.premierNavi.ui.theme.LARGE_PADDING

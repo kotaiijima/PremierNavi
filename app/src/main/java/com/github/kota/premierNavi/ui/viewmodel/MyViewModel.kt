@@ -3,7 +3,7 @@ package com.github.kota.premierNavi.ui.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.kota.premierNavi.data.model.TeamId
+import com.github.kota.premierNavi.data.databaseModel.TeamId
 import com.github.kota.premierNavi.domain.FootballDataRepository
 import com.github.kota.premierNavi.domain.MatchStatus
 import com.github.kota.premierNavi.domain.TeamIdDomainObject

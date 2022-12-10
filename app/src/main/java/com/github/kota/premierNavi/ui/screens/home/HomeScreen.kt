@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.github.kota.premierNavi.R
-import com.github.kota.premierNavi.data.model.TeamId
+import com.github.kota.premierNavi.data.databaseModel.TeamId
 import com.github.kota.premierNavi.domain.TeamDomainObject
 import com.github.kota.premierNavi.domain.model.MatchDomainModel
 import com.github.kota.premierNavi.ui.screens.BottomBar

@@ -5,6 +5,8 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -22,7 +24,7 @@ import com.github.kota.premierNavi.ui.theme.SMALL_IMAGE
 import com.github.kota.premierNavi.utils.showCrest
 import com.github.kota.premierNavi.R
 import com.github.kota.premierNavi.component.SelectTeamDialog
-import com.github.kota.premierNavi.data.model.TeamId
+import com.github.kota.premierNavi.data.databaseModel.TeamId
 import com.github.kota.premierNavi.domain.model.RankDomainModel
 import com.github.kota.premierNavi.ui.theme.MEDIUM_PADDING
 import com.github.kota.premierNavi.utils.Constants.HOME_SCREEN
@@ -56,8 +58,8 @@ fun SettingContent(
 		}
 	)
 	if (teamId is RequestState.Success) {
-		Column {
-			rank.teams.forEach {
+		LazyColumn{
+			items(rank.teams) {
 				SettingItem(
 					crest = showCrest(crest = it.crest),
 					teamName = it.teamName,
@@ -71,7 +73,9 @@ fun SettingContent(
 								selectedTeamId = it.id
 								openDialog = true
 							} else
-								Toast.makeText(context, "既に設定されています.", Toast.LENGTH_SHORT).show()
+								Toast
+									.makeText(context, "既に設定されています.", Toast.LENGTH_SHORT)
+									.show()
 						}
 				)
 			}

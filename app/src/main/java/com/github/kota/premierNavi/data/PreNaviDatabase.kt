@@ -2,7 +2,7 @@ package com.github.kota.premierNavi.data
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.github.kota.premierNavi.data.model.TeamId
+import com.github.kota.premierNavi.data.databaseModel.TeamId
 
 @Database(
 	entities = [TeamId::class],
