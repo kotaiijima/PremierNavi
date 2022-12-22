@@ -3,7 +3,6 @@ package com.github.kota.premierNavi.ui.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.kota.premierNavi.data.api.model.statsModel.ApiStats
 import com.github.kota.premierNavi.data.databaseModel.TeamId
 import com.github.kota.premierNavi.domain.repository.FootballDataRepository
 import com.github.kota.premierNavi.domain.MatchStatus
@@ -26,7 +25,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.lang.Exception
-import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
@@ -96,7 +94,7 @@ class MyViewModel @Inject constructor(
 					val apiTeam = teamApiService.getTeam(TeamIdDomainObject(teamId))
 					if (apiTeam is ApiResult.ApiSuccess) {
 						_team.value = apiTeam
-						teamRepository.addTeam(apiTeam.data)
+//						teamRepository.addTeam(apiTeam.data)
 					}
 					Log.d("[team]ApiResult:", team.toString())
 				} else if (databaseTeam is RequestState.Success){

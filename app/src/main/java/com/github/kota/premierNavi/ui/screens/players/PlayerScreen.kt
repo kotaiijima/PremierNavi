@@ -1,5 +1,6 @@
 package com.github.kota.premierNavi.ui.screens.players
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -18,6 +19,7 @@ import com.github.kota.premierNavi.utils.ApiResult
 import com.github.kota.premierNavi.utils.RequestState
 import com.github.kota.premierNavi.utils.showCrest
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun PlayerScreen(
 	navController: NavController,

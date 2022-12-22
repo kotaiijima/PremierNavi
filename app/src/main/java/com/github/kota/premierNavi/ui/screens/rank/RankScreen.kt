@@ -1,5 +1,6 @@
 package com.github.kota.premierNavi.ui.screens.rank
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
@@ -13,6 +14,7 @@ import com.github.kota.premierNavi.ui.screens.TopBar
 import com.github.kota.premierNavi.ui.theme.bottomNavigationHeight
 import com.github.kota.premierNavi.utils.ApiResult
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun RankScreen(
 	navController: NavController,

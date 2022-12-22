@@ -1,5 +1,6 @@
 package com.github.kota.premierNavi.ui.screens.home
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -18,6 +19,7 @@ import com.github.kota.premierNavi.utils.ApiResult
 import com.github.kota.premierNavi.utils.RequestState
 import com.github.kota.premierNavi.utils.showCrest
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(
 	navigateToTeamDetail:(Int) -> Unit,

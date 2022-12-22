@@ -1,5 +1,6 @@
 package com.github.kota.premierNavi.ui.screens.setting
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -16,6 +17,7 @@ import com.github.kota.premierNavi.ui.theme.bottomNavigationHeight
 import com.github.kota.premierNavi.utils.ApiResult
 import com.github.kota.premierNavi.utils.RequestState
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun SettingScreen(
 	navController: NavController,
