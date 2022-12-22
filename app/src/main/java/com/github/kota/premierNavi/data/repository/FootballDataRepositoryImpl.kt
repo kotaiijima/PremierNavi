@@ -1,8 +1,8 @@
 package com.github.kota.premierNavi.data.repository
 
-import com.github.kota.premierNavi.data.PreNaviDao
+import com.github.kota.premierNavi.data.dao.PreNaviDao
 import com.github.kota.premierNavi.data.databaseModel.TeamId
-import com.github.kota.premierNavi.domain.FootballDataRepository
+import com.github.kota.premierNavi.domain.repository.FootballDataRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

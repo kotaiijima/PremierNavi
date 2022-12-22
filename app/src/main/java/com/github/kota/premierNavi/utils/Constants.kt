@@ -13,6 +13,12 @@ object Constants {
 
 	const val DATABASE_NAME = "PreNavi-database"
 	const val DATABASE_TABLE = "PreNavi-table"
+	const val DATABASE_TEAM = "team-main-table"
+	const val DATABASE_TEAM_PLAYERS = "team-player-table"
+	const val DATABASE_TEAM_COACH = "team-coach-table"
+	const val DATABASE_RANK = "rank-table"
+	const val DATABASE_STATS = "stats-table"
+	const val DATABASE_MATCH = "match-table"
 
 	const val TEAM_ID = 1
 }

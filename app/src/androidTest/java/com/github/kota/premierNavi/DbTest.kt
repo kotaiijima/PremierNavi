@@ -5,7 +5,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.kota.premierNavi.data.AppDatabase
-import com.github.kota.premierNavi.data.PreNaviDao
+import com.github.kota.premierNavi.data.dao.PreNaviDao
 import com.github.kota.premierNavi.data.databaseModel.TeamId
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*

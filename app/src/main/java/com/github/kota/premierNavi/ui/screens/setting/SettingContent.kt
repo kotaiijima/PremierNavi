@@ -25,6 +25,7 @@ import com.github.kota.premierNavi.utils.showCrest
 import com.github.kota.premierNavi.R
 import com.github.kota.premierNavi.component.SelectTeamDialog
 import com.github.kota.premierNavi.data.databaseModel.TeamId
+import com.github.kota.premierNavi.data.ext.sortTeam
 import com.github.kota.premierNavi.domain.model.RankDomainModel
 import com.github.kota.premierNavi.ui.theme.MEDIUM_PADDING
 import com.github.kota.premierNavi.utils.Constants.HOME_SCREEN
@@ -57,9 +58,10 @@ fun SettingContent(
 			navController.navigate(HOME_SCREEN)
 		}
 	)
+
 	if (teamId is RequestState.Success) {
 		LazyColumn{
-			items(rank.teams) {
+			items(rank.sortTeam()) {
 				SettingItem(
 					crest = showCrest(crest = it.crest),
 					teamName = it.teamName,

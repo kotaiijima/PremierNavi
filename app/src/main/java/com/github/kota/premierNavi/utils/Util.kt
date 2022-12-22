@@ -73,3 +73,4 @@ fun convertCompetition(
 		else -> ""
 	}
 }
+

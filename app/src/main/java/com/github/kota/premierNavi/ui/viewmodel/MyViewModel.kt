@@ -3,14 +3,16 @@ package com.github.kota.premierNavi.ui.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.kota.premierNavi.data.api.model.statsModel.ApiStats
 import com.github.kota.premierNavi.data.databaseModel.TeamId
-import com.github.kota.premierNavi.domain.FootballDataRepository
+import com.github.kota.premierNavi.domain.repository.FootballDataRepository
 import com.github.kota.premierNavi.domain.MatchStatus
 import com.github.kota.premierNavi.domain.TeamIdDomainObject
 import com.github.kota.premierNavi.domain.model.MatchDomainModel
 import com.github.kota.premierNavi.domain.model.RankDomainModel
 import com.github.kota.premierNavi.domain.model.StatsDomainModel
 import com.github.kota.premierNavi.domain.model.TeamDomainModel
+import com.github.kota.premierNavi.domain.repository.TeamRepository
 import com.github.kota.premierNavi.domain.service.MatchApiService
 import com.github.kota.premierNavi.domain.service.RankApiService
 import com.github.kota.premierNavi.domain.service.StatsApiService
@@ -24,11 +26,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
 class MyViewModel @Inject constructor(
 	private val footballDataRepository: FootballDataRepository,
+	private val teamRepository: TeamRepository,
 	private val rankApiService: RankApiService,
 	private val statsApiService: StatsApiService,
 	private val matchApiService: MatchApiService,
@@ -85,11 +89,19 @@ class MyViewModel @Inject constructor(
 
 	fun getTeamData(teamId: Int) {
 		_team.value = ApiResult.Loading
-
 		viewModelScope.launch {
-			val team = teamApiService.getTeam(TeamIdDomainObject(teamId))
-			if (team is ApiResult.ApiSuccess) _team.value = team
-			Log.d("[team]ApiResult:", team.toString())
+			val databaseTeam = teamRepository.getTeam(TeamIdDomainObject(teamId))
+				Log.d("[team]RequestState:", databaseTeam.toString())
+				if (databaseTeam is RequestState.Failure) {
+					val apiTeam = teamApiService.getTeam(TeamIdDomainObject(teamId))
+					if (apiTeam is ApiResult.ApiSuccess) {
+						_team.value = apiTeam
+						teamRepository.addTeam(apiTeam.data)
+					}
+					Log.d("[team]ApiResult:", team.toString())
+				} else if (databaseTeam is RequestState.Success){
+					_team.value = ApiResult.ApiSuccess(databaseTeam.data)
+			}
 		}
 	}
 
@@ -116,7 +128,7 @@ class MyViewModel @Inject constructor(
 		}
 	}
 
-	fun getTeamId() {
+	private fun getTeamId() {
 		try {
 			viewModelScope.launch {
 					footballDataRepository.getTeamId().collect {

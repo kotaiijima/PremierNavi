@@ -1,7 +1,9 @@
 package com.github.kota.premierNavi.di
 
 import com.github.kota.premierNavi.data.repository.FootballDataRepositoryImpl
-import com.github.kota.premierNavi.domain.FootballDataRepository
+import com.github.kota.premierNavi.data.repository.TeamRepositoryImpl
+import com.github.kota.premierNavi.domain.repository.FootballDataRepository
+import com.github.kota.premierNavi.domain.repository.TeamRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -16,4 +18,10 @@ interface RepositoryModule {
   fun bindsFootballDataRepository(
     footballDataRepositoryImpl: FootballDataRepositoryImpl
   ): FootballDataRepository
+
+  @Binds
+  @Singleton
+  fun bindsTeamRepository(
+    teamRepositoryImpl: TeamRepositoryImpl
+  ): TeamRepository
 }

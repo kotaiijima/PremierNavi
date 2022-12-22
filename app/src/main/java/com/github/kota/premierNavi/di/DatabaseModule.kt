@@ -24,5 +24,9 @@ object DatabaseModule {
 
 	@Singleton
 	@Provides
-	fun provideDao(database: AppDatabase) = database.preNaviDao()
+	fun providePreNaviDao(database: AppDatabase) = database.preNaviDao()
+
+	@Singleton
+	@Provides
+	fun provideTeamDao(database: AppDatabase) = database.teamDao()
 }

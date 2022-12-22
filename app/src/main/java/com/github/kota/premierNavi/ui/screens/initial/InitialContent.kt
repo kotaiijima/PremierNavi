@@ -18,6 +18,7 @@ import com.github.kota.premierNavi.component.TeamCrestCard
 import com.github.kota.premierNavi.utils.showCrest
 import com.github.kota.premierNavi.R
 import com.github.kota.premierNavi.component.SelectTeamDialog
+import com.github.kota.premierNavi.data.ext.sortTeam
 import com.github.kota.premierNavi.domain.model.RankDomainModel
 import com.github.kota.premierNavi.domain.model.Team
 import com.github.kota.premierNavi.ui.theme.*
@@ -33,6 +34,8 @@ fun InitialContent(
 	var selectedTeamId by rememberSaveable { mutableStateOf(0) }
 	var openDialog by remember { mutableStateOf(false) }
 	var selectedTeamName by remember { mutableStateOf("") }
+
+	val sortedTeam = rank.sortTeam()
 
 	SelectTeamDialog(
 		title = stringResource(id = R.string.confirm_add, translationToJapanese(EngTeamName = selectedTeamName)),
@@ -51,7 +54,7 @@ fun InitialContent(
 			verticalArrangement = Arrangement.Center
 		) {
 			TeamCardRow(
-				teams = rank.teams,
+				teams = sortedTeam,
 				start = 0,
 				selectedTeamId = {
 					selectedTeamId = it.first
@@ -60,7 +63,7 @@ fun InitialContent(
 				}
 			)
 			TeamCardRow(
-				teams = rank.teams,
+				teams = sortedTeam,
 				start = 4,
 				selectedTeamId = {
 					selectedTeamId = it.first
@@ -68,7 +71,7 @@ fun InitialContent(
 					openDialog = true
 				}			)
 			TeamCardRow(
-				teams = rank.teams,
+				teams = sortedTeam,
 				start = 8,
 				selectedTeamId = {
 					selectedTeamId = it.first
@@ -77,7 +80,7 @@ fun InitialContent(
 				}
 			)
 			TeamCardRow(
-				teams = rank.teams,
+				teams = sortedTeam,
 				start = 12,
 				selectedTeamId = {
 					selectedTeamId = it.first
@@ -86,7 +89,7 @@ fun InitialContent(
 				}
 			)
 			TeamCardRow(
-				teams = rank.teams,
+				teams = sortedTeam,
 				start = 16,
 				selectedTeamId = {
 					selectedTeamId = it.first

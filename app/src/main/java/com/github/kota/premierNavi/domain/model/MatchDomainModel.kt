@@ -1,7 +1,6 @@
 package com.github.kota.premierNavi.domain.model
 
 
-
 data class MatchDomainModel(
 	val homeTeam: TeamInformation,
 	val awayTeam: TeamInformation,

@@ -7,5 +7,6 @@ sealed class RequestState<out T> {
 	sealed class Failure: RequestState<Nothing>(){
 		data class Error(val error: Throwable) : Failure()
 		object Empty : Failure()
+		object Expired : Failure()
 	}
 }

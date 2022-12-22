@@ -34,7 +34,8 @@ fun PlayerContent (
 		modifier = Modifier.padding(
 			start = MEDIUM_PADDING,
 			end = MEDIUM_PADDING,
-			top = MEDIUM_PADDING),
+			top = MEDIUM_PADDING
+		),
 		state = listState
 	) {
 		stickyHeader {
